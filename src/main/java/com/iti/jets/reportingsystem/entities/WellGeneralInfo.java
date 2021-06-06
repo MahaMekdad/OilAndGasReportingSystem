@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="well_general_info"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class WellGeneralInfo  implements java.io.Serializable {
 

@@ -28,7 +28,7 @@ public class FluidLevelMeasurementsController {
 
     @GetMapping("{wellId}/fluidLevelMeasurements")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<FluidLevelMeasurementsModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId, @RequestBody final FluidLevelMeasurementsModel fluidLevelMeasurementsModel){
+    public List<FluidLevelMeasurementsModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId){
         List<FluidLevelMeasurements> flmRecords = flmService.getAllFLMSForAWell(wellId);
         List<FluidLevelMeasurementsModel> resultList =
                 flmRecords

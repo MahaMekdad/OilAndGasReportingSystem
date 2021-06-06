@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="drilling_info"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class DrillingInfo  implements java.io.Serializable {
 

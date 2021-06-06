@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="userdata"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class Userdata  implements java.io.Serializable {
 

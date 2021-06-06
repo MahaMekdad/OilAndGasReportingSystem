@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="production_general_info"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class ProductionGeneralInfo  implements java.io.Serializable {
 

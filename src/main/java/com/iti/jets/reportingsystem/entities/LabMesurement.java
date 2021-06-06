@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="lab_mesurement"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class LabMesurement  implements java.io.Serializable {
 

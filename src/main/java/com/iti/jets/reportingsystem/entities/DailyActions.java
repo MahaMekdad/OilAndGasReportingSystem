@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="daily_actions"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class DailyActions  implements java.io.Serializable {
 

@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="field"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
     , uniqueConstraints = {@UniqueConstraint(columnNames="field_code"), @UniqueConstraint(columnNames="field_name")} 
 )
 public class Field  implements java.io.Serializable {

@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="shutin_type_level3"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class ShutinTypeLevel3  implements java.io.Serializable {
 
