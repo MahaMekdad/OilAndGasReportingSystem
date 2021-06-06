@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="well_test_data"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class WellTestData  implements java.io.Serializable {
 

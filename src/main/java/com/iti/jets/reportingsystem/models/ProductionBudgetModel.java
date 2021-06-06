@@ -17,7 +17,7 @@ public class ProductionBudgetModel implements Serializable {
     private Double agibaOil;
     private Double salesGas;
     private Double agibaBoe;
-
+    public ProductionBudgetModel(){}
     public ProductionBudgetModel(Date productionDate, Double meleiha, Double aghar, Double eastKanays, Double zarif, Double faras, Double raml, Double westernDesert, Double ashrafi, Double agibaOil, Double salesGas, Double agibaBoe) {
         this.productionDate = productionDate;
         this.meleiha = meleiha;
@@ -151,5 +151,24 @@ public class ProductionBudgetModel implements Serializable {
 
     public void setAgibaBoe(Double agibaBoe) {
         this.agibaBoe = agibaBoe;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductionBudgetModel{" +
+                "id=" + id +
+                ", productionDate=" + productionDate +
+                ", meleiha=" + meleiha +
+                ", aghar=" + aghar +
+                ", eastKanays=" + eastKanays +
+                ", zarif=" + zarif +
+                ", faras=" + faras +
+                ", raml=" + raml +
+                ", westernDesert=" + westernDesert +
+                ", ashrafi=" + ashrafi +
+                ", agibaOil=" + agibaOil +
+                ", salesGas=" + salesGas +
+                ", agibaBoe=" + agibaBoe +
+                '}';
     }
 }

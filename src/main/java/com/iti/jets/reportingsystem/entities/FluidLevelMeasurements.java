@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="fluid_level_measurments"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class FluidLevelMeasurements implements java.io.Serializable {
 

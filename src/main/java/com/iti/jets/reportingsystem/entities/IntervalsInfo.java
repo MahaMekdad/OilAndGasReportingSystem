@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="intervals_info"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class IntervalsInfo  implements java.io.Serializable {
 

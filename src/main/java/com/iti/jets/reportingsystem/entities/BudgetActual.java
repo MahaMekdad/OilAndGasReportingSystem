@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="budget_actual"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class BudgetActual  implements java.io.Serializable {
 
