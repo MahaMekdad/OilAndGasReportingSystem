@@ -4,7 +4,7 @@ import com.iti.jets.reportingsystem.entities.Well;
 
 import java.util.Date;
 
-public class DrillingInfoDto {
+public class DrillingInfoModel {
     private int id;
     private com.iti.jets.reportingsystem.entities.Well well;
     private Date releaseDate;
@@ -16,7 +16,7 @@ public class DrillingInfoDto {
     private Integer bbtp;
     private String productionGeneralInfo;
 
-    public DrillingInfoDto(Well well, Date releaseDate, String wellDescription, String wellType, String boreType, Integer measuredDepth, Integer tvdDepth, Integer bbtp, String productionGeneralInfo) {
+    public DrillingInfoModel(Well well, Date releaseDate, String wellDescription, String wellType, String boreType, Integer measuredDepth, Integer tvdDepth, Integer bbtp, String productionGeneralInfo) {
         this.well = well;
         this.releaseDate = releaseDate;
         this.wellDescription = wellDescription;
@@ -28,7 +28,7 @@ public class DrillingInfoDto {
         this.productionGeneralInfo = productionGeneralInfo;
     }
 
-    public DrillingInfoDto(int id, Well well, Date releaseDate, String wellDescription, String wellType, String boreType, Integer measuredDepth, Integer tvdDepth, Integer bbtp, String productionGeneralInfo) {
+    public DrillingInfoModel(int id, Well well, Date releaseDate, String wellDescription, String wellType, String boreType, Integer measuredDepth, Integer tvdDepth, Integer bbtp, String productionGeneralInfo) {
         this.id = id;
         this.well = well;
         this.releaseDate = releaseDate;

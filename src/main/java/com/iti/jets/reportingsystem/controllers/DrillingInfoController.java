@@ -1,10 +1,9 @@
 package com.iti.jets.reportingsystem.controllers;
 
-import com.iti.jets.reportingsystem.models.DrillingInfoDto;
+import com.iti.jets.reportingsystem.models.DrillingInfoModel;
 import com.iti.jets.reportingsystem.services.DrillingInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,11 +17,11 @@ public class DrillingInfoController {
     private DrillingInfoService drillingInfoService;
 
     @GetMapping("/drillingInfo")
-    public List<DrillingInfoDto> getAllDrillingInfo()
+    public List<DrillingInfoModel> getAllDrillingInfo()
     {
-        List<DrillingInfoDto> drillingInfoDtoList = new ArrayList<>();
-        drillingInfoDtoList = drillingInfoService.getAllDrillingInfo();
-        return drillingInfoDtoList;
+        List<DrillingInfoModel> drillingInfoModelList = new ArrayList<>();
+        drillingInfoModelList = drillingInfoService.getAllDrillingInfo();
+        return drillingInfoModelList;
     }
 
 }

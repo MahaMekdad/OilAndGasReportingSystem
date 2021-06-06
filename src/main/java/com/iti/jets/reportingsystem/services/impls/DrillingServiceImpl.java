@@ -1,7 +1,6 @@
 package com.iti.jets.reportingsystem.services.impls;
 
-import com.iti.jets.reportingsystem.entities.DrillingInfo;
-import com.iti.jets.reportingsystem.models.DrillingInfoDto;
+import com.iti.jets.reportingsystem.models.DrillingInfoModel;
 import com.iti.jets.reportingsystem.repos.DrillingInfoRepository;
 import com.iti.jets.reportingsystem.services.DrillingInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,11 @@ public class DrillingServiceImpl implements DrillingInfoService {
     @Autowired
     private DrillingInfoRepository drillingInfoRepository;
     @Override
-    public List<DrillingInfoDto> getAllDrillingInfo() {
+    public List<DrillingInfoModel> getAllDrillingInfo() {
 
-        List<DrillingInfoDto> drillingInfoDtoList = new ArrayList<>();
-        drillingInfoDtoList = drillingInfoRepository.findAll();
-        return drillingInfoDtoList;
+        List<DrillingInfoModel> drillingInfoModelList = new ArrayList<>();
+        drillingInfoModelList = drillingInfoRepository.findAll();
+        return drillingInfoModelList;
     }
 
 }
