@@ -18,22 +18,22 @@ public class Field  implements java.io.Serializable {
 
 
      private int fieldId;
-     private com.iti.jets.reportingSystem.entity.Concession concession;
+     private Concession concession;
      private String fieldName;
      private String fieldCode;
-     private Set<com.iti.jets.reportingSystem.entity.Well> wells = new HashSet<com.iti.jets.reportingSystem.entity.Well>(0);
+     private Set<Well> wells = new HashSet<Well>(0);
 
     public Field() {
     }
 
 	
-    public Field(int fieldId, com.iti.jets.reportingSystem.entity.Concession concession, String fieldName, String fieldCode) {
+    public Field(int fieldId, Concession concession, String fieldName, String fieldCode) {
         this.fieldId = fieldId;
         this.concession = concession;
         this.fieldName = fieldName;
         this.fieldCode = fieldCode;
     }
-    public Field(int fieldId, com.iti.jets.reportingSystem.entity.Concession concession, String fieldName, String fieldCode, Set<com.iti.jets.reportingSystem.entity.Well> wells) {
+    public Field(int fieldId, Concession concession, String fieldName, String fieldCode, Set<Well> wells) {
        this.fieldId = fieldId;
        this.concession = concession;
        this.fieldName = fieldName;
@@ -55,11 +55,11 @@ public class Field  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="concession_id", nullable=false)
-    public com.iti.jets.reportingSystem.entity.Concession getConcession() {
+    public Concession getConcession() {
         return this.concession;
     }
     
-    public void setConcession(com.iti.jets.reportingSystem.entity.Concession concession) {
+    public void setConcession(Concession concession) {
         this.concession = concession;
     }
 
@@ -84,11 +84,11 @@ public class Field  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="field")
-    public Set<com.iti.jets.reportingSystem.entity.Well> getWells() {
+    public Set<Well> getWells() {
         return this.wells;
     }
     
-    public void setWells(Set<com.iti.jets.reportingSystem.entity.Well> wells) {
+    public void setWells(Set<Well> wells) {
         this.wells = wells;
     }
 

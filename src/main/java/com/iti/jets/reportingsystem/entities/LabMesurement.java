@@ -16,7 +16,7 @@ public class LabMesurement  implements java.io.Serializable {
 
 
      private int id;
-     private com.iti.jets.reportingSystem.entity.Well well;
+     private Well well;
      private Date date;
      private Long s1;
      private Long s2;
@@ -29,11 +29,11 @@ public class LabMesurement  implements java.io.Serializable {
     }
 
 	
-    public LabMesurement(int id, com.iti.jets.reportingSystem.entity.Well well) {
+    public LabMesurement(int id, Well well) {
         this.id = id;
         this.well = well;
     }
-    public LabMesurement(int id, com.iti.jets.reportingSystem.entity.Well well, Date date, Long s1, Long s2, Long s3, Long s4, Long s5, String remarks) {
+    public LabMesurement(int id, Well well, Date date, Long s1, Long s2, Long s3, Long s4, Long s5, String remarks) {
        this.id = id;
        this.well = well;
        this.date = date;
@@ -59,11 +59,11 @@ public class LabMesurement  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="wellId", nullable=false)
-    public com.iti.jets.reportingSystem.entity.Well getWell() {
+    public Well getWell() {
         return this.well;
     }
     
-    public void setWell(com.iti.jets.reportingSystem.entity.Well well) {
+    public void setWell(Well well) {
         this.well = well;
     }
 

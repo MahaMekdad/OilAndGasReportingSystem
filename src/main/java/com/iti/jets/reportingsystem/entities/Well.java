@@ -21,12 +21,12 @@ public class Well implements java.io.Serializable {
     private Field field;
     private String wellName;
     private String wellCode;
-    private Set<com.iti.jets.reportingSystem.entity.WellTestData> wellTestDatas = new HashSet<com.iti.jets.reportingSystem.entity.WellTestData>(0);
-    private Set<com.iti.jets.reportingSystem.entity.ProductionGeneralInfo> productionGeneralInfos = new HashSet<com.iti.jets.reportingSystem.entity.ProductionGeneralInfo>(0);
+    private Set<WellTestData> wellTestDatas = new HashSet<WellTestData>(0);
+    private Set<ProductionGeneralInfo> productionGeneralInfos = new HashSet<ProductionGeneralInfo>(0);
     private Set<DrillingInfo> drillingInfos = new HashSet<DrillingInfo>(0);
-    private Set<com.iti.jets.reportingSystem.entity.IntervalsInfo> intervalsInfos = new HashSet<com.iti.jets.reportingSystem.entity.IntervalsInfo>(0);
-    private Set<com.iti.jets.reportingSystem.entity.FluidLevelMeasurments> fluidLevelMeasurmentses = new HashSet<com.iti.jets.reportingSystem.entity.FluidLevelMeasurments>(0);
-    private Set<com.iti.jets.reportingSystem.entity.WellGeneralInfo> wellGeneralInfos = new HashSet<com.iti.jets.reportingSystem.entity.WellGeneralInfo>(0);
+    private Set<IntervalsInfo> intervalsInfos = new HashSet<IntervalsInfo>(0);
+    private Set<FluidLevelMeasurements> fluidLevelMeasurements = new HashSet<FluidLevelMeasurements>(0);
+    private Set<WellGeneralInfo> wellGeneralInfos = new HashSet<WellGeneralInfo>(0);
     private Set<DailyActions> dailyActionses = new HashSet<DailyActions>(0);
     private Set<LabMesurement> labMesurements = new HashSet<LabMesurement>(0);
 
@@ -41,7 +41,7 @@ public class Well implements java.io.Serializable {
         this.wellCode = wellCode;
     }
 
-    public Well(int wellId, Field field, String wellName, String wellCode, Set<com.iti.jets.reportingSystem.entity.WellTestData> wellTestDatas, Set<com.iti.jets.reportingSystem.entity.ProductionGeneralInfo> productionGeneralInfos, Set<DrillingInfo> drillingInfos, Set<com.iti.jets.reportingSystem.entity.IntervalsInfo> intervalsInfos, Set<com.iti.jets.reportingSystem.entity.FluidLevelMeasurments> fluidLevelMeasurmentses, Set<com.iti.jets.reportingSystem.entity.WellGeneralInfo> wellGeneralInfos, Set<DailyActions> dailyActionses, Set<LabMesurement> labMesurements) {
+    public Well(int wellId, Field field, String wellName, String wellCode, Set<WellTestData> wellTestDatas, Set<ProductionGeneralInfo> productionGeneralInfos, Set<DrillingInfo> drillingInfos, Set<IntervalsInfo> intervalsInfos, Set<FluidLevelMeasurements> fluidLevelMeasurements, Set<WellGeneralInfo> wellGeneralInfos, Set<DailyActions> dailyActionses, Set<LabMesurement> labMesurements) {
         this.wellId = wellId;
         this.field = field;
         this.wellName = wellName;
@@ -50,7 +50,7 @@ public class Well implements java.io.Serializable {
         this.productionGeneralInfos = productionGeneralInfos;
         this.drillingInfos = drillingInfos;
         this.intervalsInfos = intervalsInfos;
-        this.fluidLevelMeasurmentses = fluidLevelMeasurmentses;
+        this.fluidLevelMeasurements = fluidLevelMeasurements;
         this.wellGeneralInfos = wellGeneralInfos;
         this.dailyActionses = dailyActionses;
         this.labMesurements = labMesurements;
@@ -99,20 +99,20 @@ public class Well implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "well")
-    public Set<com.iti.jets.reportingSystem.entity.WellTestData> getWellTestDatas() {
+    public Set<WellTestData> getWellTestDatas() {
         return this.wellTestDatas;
     }
 
-    public void setWellTestDatas(Set<com.iti.jets.reportingSystem.entity.WellTestData> wellTestDatas) {
+    public void setWellTestDatas(Set<WellTestData> wellTestDatas) {
         this.wellTestDatas = wellTestDatas;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "well")
-    public Set<com.iti.jets.reportingSystem.entity.ProductionGeneralInfo> getProductionGeneralInfos() {
+    public Set<ProductionGeneralInfo> getProductionGeneralInfos() {
         return this.productionGeneralInfos;
     }
 
-    public void setProductionGeneralInfos(Set<com.iti.jets.reportingSystem.entity.ProductionGeneralInfo> productionGeneralInfos) {
+    public void setProductionGeneralInfos(Set<ProductionGeneralInfo> productionGeneralInfos) {
         this.productionGeneralInfos = productionGeneralInfos;
     }
 
@@ -126,29 +126,29 @@ public class Well implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "well")
-    public Set<com.iti.jets.reportingSystem.entity.IntervalsInfo> getIntervalsInfos() {
+    public Set<IntervalsInfo> getIntervalsInfos() {
         return this.intervalsInfos;
     }
 
-    public void setIntervalsInfos(Set<com.iti.jets.reportingSystem.entity.IntervalsInfo> intervalsInfos) {
+    public void setIntervalsInfos(Set<IntervalsInfo> intervalsInfos) {
         this.intervalsInfos = intervalsInfos;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "well")
-    public Set<com.iti.jets.reportingSystem.entity.FluidLevelMeasurments> getFluidLevelMeasurmentses() {
-        return this.fluidLevelMeasurmentses;
+    public Set<FluidLevelMeasurements> getFluidLevelMeasurmentses() {
+        return this.fluidLevelMeasurements;
     }
 
-    public void setFluidLevelMeasurmentses(Set<com.iti.jets.reportingSystem.entity.FluidLevelMeasurments> fluidLevelMeasurmentses) {
-        this.fluidLevelMeasurmentses = fluidLevelMeasurmentses;
+    public void setFluidLevelMeasurmentses(Set<FluidLevelMeasurements> fluidLevelMeasurements) {
+        this.fluidLevelMeasurements = fluidLevelMeasurements;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "well")
-    public Set<com.iti.jets.reportingSystem.entity.WellGeneralInfo> getWellGeneralInfos() {
+    public Set<WellGeneralInfo> getWellGeneralInfos() {
         return this.wellGeneralInfos;
     }
 
-    public void setWellGeneralInfos(Set<com.iti.jets.reportingSystem.entity.WellGeneralInfo> wellGeneralInfos) {
+    public void setWellGeneralInfos(Set<WellGeneralInfo> wellGeneralInfos) {
         this.wellGeneralInfos = wellGeneralInfos;
     }
 

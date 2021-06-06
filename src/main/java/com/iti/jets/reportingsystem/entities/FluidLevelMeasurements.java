@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name="fluid_level_measurments"
     ,catalog="reportingsysschema"
 )
-public class FluidLevelMeasurments  implements java.io.Serializable {
+public class FluidLevelMeasurements implements java.io.Serializable {
 
 
      private int id;
@@ -28,15 +28,15 @@ public class FluidLevelMeasurments  implements java.io.Serializable {
      private Character card;
      private String remarks;
 
-    public FluidLevelMeasurments() {
+    public FluidLevelMeasurements() {
     }
 
 	
-    public FluidLevelMeasurments(int id, Well well) {
+    public FluidLevelMeasurements(int id, Well well) {
         this.id = id;
         this.well = well;
     }
-    public FluidLevelMeasurments(int id, Well well, Date date, String intervals, String fltype, Double fluidlLevel, Double pumpDepth, Long liqPercentage, Long pumpFillage, Double pumpSubmerge, Character card, String remarks) {
+    public FluidLevelMeasurements(int id, Well well, Date date, String intervals, String fltype, Double fluidlLevel, Double pumpDepth, Long liqPercentage, Long pumpFillage, Double pumpSubmerge, Character card, String remarks) {
        this.id = id;
        this.well = well;
        this.date = date;

@@ -17,9 +17,9 @@ public class ShutinTypeLevel3  implements java.io.Serializable {
 
 
      private int id;
-     private com.iti.jets.reportingSystem.entity.ShutinTypeLevel2 shutinTypeLevel2;
+     private ShutinTypeLevel2 shutinTypeLevel2;
      private String description;
-     private Set<com.iti.jets.reportingSystem.entity.ShutinTypeLevel4> shutinTypeLevel4s = new HashSet<com.iti.jets.reportingSystem.entity.ShutinTypeLevel4>(0);
+     private Set<ShutinTypeLevel4> shutinTypeLevel4s = new HashSet<ShutinTypeLevel4>(0);
 
     public ShutinTypeLevel3() {
     }
@@ -29,7 +29,7 @@ public class ShutinTypeLevel3  implements java.io.Serializable {
         this.id = id;
         this.description = description;
     }
-    public ShutinTypeLevel3(int id, com.iti.jets.reportingSystem.entity.ShutinTypeLevel2 shutinTypeLevel2, String description, Set<com.iti.jets.reportingSystem.entity.ShutinTypeLevel4> shutinTypeLevel4s) {
+    public ShutinTypeLevel3(int id, ShutinTypeLevel2 shutinTypeLevel2, String description, Set<ShutinTypeLevel4> shutinTypeLevel4s) {
        this.id = id;
        this.shutinTypeLevel2 = shutinTypeLevel2;
        this.description = description;
@@ -50,11 +50,11 @@ public class ShutinTypeLevel3  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="sh_id_level2")
-    public com.iti.jets.reportingSystem.entity.ShutinTypeLevel2 getShutinTypeLevel2() {
+    public ShutinTypeLevel2 getShutinTypeLevel2() {
         return this.shutinTypeLevel2;
     }
     
-    public void setShutinTypeLevel2(com.iti.jets.reportingSystem.entity.ShutinTypeLevel2 shutinTypeLevel2) {
+    public void setShutinTypeLevel2(ShutinTypeLevel2 shutinTypeLevel2) {
         this.shutinTypeLevel2 = shutinTypeLevel2;
     }
 
@@ -69,11 +69,11 @@ public class ShutinTypeLevel3  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="shutinTypeLevel3")
-    public Set<com.iti.jets.reportingSystem.entity.ShutinTypeLevel4> getShutinTypeLevel4s() {
+    public Set<ShutinTypeLevel4> getShutinTypeLevel4s() {
         return this.shutinTypeLevel4s;
     }
     
-    public void setShutinTypeLevel4s(Set<com.iti.jets.reportingSystem.entity.ShutinTypeLevel4> shutinTypeLevel4s) {
+    public void setShutinTypeLevel4s(Set<ShutinTypeLevel4> shutinTypeLevel4s) {
         this.shutinTypeLevel4s = shutinTypeLevel4s;
     }
 

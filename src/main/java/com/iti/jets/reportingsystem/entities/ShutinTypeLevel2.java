@@ -17,7 +17,7 @@ public class ShutinTypeLevel2  implements java.io.Serializable {
 
 
      private int id;
-     private com.iti.jets.reportingSystem.entity.ShutinType shutinType;
+     private ShutinType shutinType;
      private String description;
      private Set<ShutinTypeLevel3> shutinTypeLevel3s = new HashSet<ShutinTypeLevel3>(0);
 
@@ -29,7 +29,7 @@ public class ShutinTypeLevel2  implements java.io.Serializable {
         this.id = id;
         this.description = description;
     }
-    public ShutinTypeLevel2(int id, com.iti.jets.reportingSystem.entity.ShutinType shutinType, String description, Set<ShutinTypeLevel3> shutinTypeLevel3s) {
+    public ShutinTypeLevel2(int id, ShutinType shutinType, String description, Set<ShutinTypeLevel3> shutinTypeLevel3s) {
        this.id = id;
        this.shutinType = shutinType;
        this.description = description;
@@ -50,11 +50,11 @@ public class ShutinTypeLevel2  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="sh_id")
-    public com.iti.jets.reportingSystem.entity.ShutinType getShutinType() {
+    public ShutinType getShutinType() {
         return this.shutinType;
     }
     
-    public void setShutinType(com.iti.jets.reportingSystem.entity.ShutinType shutinType) {
+    public void setShutinType(ShutinType shutinType) {
         this.shutinType = shutinType;
     }
 

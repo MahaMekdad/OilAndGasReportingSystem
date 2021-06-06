@@ -16,7 +16,7 @@ public class DrillingInfo  implements java.io.Serializable {
 
 
      private int id;
-     private com.iti.jets.reportingSystem.entity.Well well;
+     private Well well;
      private Date releaseDate;
      private String wellDescription;
      private String wellType;
@@ -30,11 +30,11 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
 	
-    public DrillingInfo(int id, com.iti.jets.reportingSystem.entity.Well well) {
+    public DrillingInfo(int id, Well well) {
         this.id = id;
         this.well = well;
     }
-    public DrillingInfo(int id, com.iti.jets.reportingSystem.entity.Well well, Date releaseDate, String wellDescription, String wellType, String boreType, Integer measuredDepth, Integer tvdDepth, Integer bbtp, String productionGeneralInfo) {
+    public DrillingInfo(int id, Well well, Date releaseDate, String wellDescription, String wellType, String boreType, Integer measuredDepth, Integer tvdDepth, Integer bbtp, String productionGeneralInfo) {
        this.id = id;
        this.well = well;
        this.releaseDate = releaseDate;
@@ -61,11 +61,11 @@ public class DrillingInfo  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="wellId", nullable=false)
-    public com.iti.jets.reportingSystem.entity.Well getWell() {
+    public Well getWell() {
         return this.well;
     }
     
-    public void setWell(com.iti.jets.reportingSystem.entity.Well well) {
+    public void setWell(Well well) {
         this.well = well;
     }
 
