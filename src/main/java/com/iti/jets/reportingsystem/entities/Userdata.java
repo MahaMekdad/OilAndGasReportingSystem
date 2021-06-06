@@ -15,7 +15,7 @@ public class Userdata  implements java.io.Serializable {
 
 
      private int id;
-     private Userroles userroles;
+     private UserRoles userroles;
      private String firstName;
      private String lastName;
      private String email;
@@ -26,11 +26,11 @@ public class Userdata  implements java.io.Serializable {
     }
 
 	
-    public Userdata(int id, Userroles userroles) {
+    public Userdata(int id, UserRoles userroles) {
         this.id = id;
         this.userroles = userroles;
     }
-    public Userdata(int id, Userroles userroles, String firstName, String lastName, String email, String phoneNumber, String jobLocation) {
+    public Userdata(int id, UserRoles userroles, String firstName, String lastName, String email, String phoneNumber, String jobLocation) {
        this.id = id;
        this.userroles = userroles;
        this.firstName = firstName;
@@ -54,11 +54,11 @@ public class Userdata  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="jobTitle", nullable=false)
-    public Userroles getUserroles() {
+    public UserRoles getUserroles() {
         return this.userroles;
     }
     
-    public void setUserroles(Userroles userroles) {
+    public void setUserroles(UserRoles userroles) {
         this.userroles = userroles;
     }
 

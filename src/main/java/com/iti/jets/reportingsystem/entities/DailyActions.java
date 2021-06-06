@@ -16,8 +16,8 @@ public class DailyActions  implements java.io.Serializable {
 
 
      private int id;
-     private com.iti.jets.reportingSystem.entity.Well well;
-     private com.iti.jets.reportingSystem.entity.ShutinTypeLevel4 shutinTypeLevel4;
+     private Well well;
+     private ShutinTypeLevel4 shutinTypeLevel4;
      private Date date;
      private String actionDescription;
      private Double netProduction;
@@ -28,14 +28,14 @@ public class DailyActions  implements java.io.Serializable {
     }
 
 	
-    public DailyActions(int id, com.iti.jets.reportingSystem.entity.Well well, com.iti.jets.reportingSystem.entity.ShutinTypeLevel4 shutinTypeLevel4, Date date, String actionDescription) {
+    public DailyActions(int id, Well well, ShutinTypeLevel4 shutinTypeLevel4, Date date, String actionDescription) {
         this.id = id;
         this.well = well;
         this.shutinTypeLevel4 = shutinTypeLevel4;
         this.date = date;
         this.actionDescription = actionDescription;
     }
-    public DailyActions(int id, com.iti.jets.reportingSystem.entity.Well well, com.iti.jets.reportingSystem.entity.ShutinTypeLevel4 shutinTypeLevel4, Date date, String actionDescription, Double netProduction, Float downTime, Double losses) {
+    public DailyActions(int id, Well well, ShutinTypeLevel4 shutinTypeLevel4, Date date, String actionDescription, Double netProduction, Float downTime, Double losses) {
        this.id = id;
        this.well = well;
        this.shutinTypeLevel4 = shutinTypeLevel4;
@@ -60,21 +60,21 @@ public class DailyActions  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="well_id", nullable=false)
-    public com.iti.jets.reportingSystem.entity.Well getWell() {
+    public Well getWell() {
         return this.well;
     }
     
-    public void setWell(com.iti.jets.reportingSystem.entity.Well well) {
+    public void setWell(Well well) {
         this.well = well;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="si_type_level4", nullable=false)
-    public com.iti.jets.reportingSystem.entity.ShutinTypeLevel4 getShutinTypeLevel4() {
+    public ShutinTypeLevel4 getShutinTypeLevel4() {
         return this.shutinTypeLevel4;
     }
     
-    public void setShutinTypeLevel4(com.iti.jets.reportingSystem.entity.ShutinTypeLevel4 shutinTypeLevel4) {
+    public void setShutinTypeLevel4(ShutinTypeLevel4 shutinTypeLevel4) {
         this.shutinTypeLevel4 = shutinTypeLevel4;
     }
 
