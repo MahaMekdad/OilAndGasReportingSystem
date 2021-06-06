@@ -13,21 +13,21 @@ import java.util.Set;
 @Table(name="userroles"
     ,catalog="reportingsysschema"
 )
-public class Userroles  implements java.io.Serializable {
+public class UserRoles implements java.io.Serializable {
 
 
      private int id;
      private String role;
-     private Set<com.iti.jets.reportingSystem.entity.Userdata> userdatas = new HashSet<com.iti.jets.reportingSystem.entity.Userdata>(0);
+     private Set<Userdata> userdatas = new HashSet<Userdata>(0);
 
-    public Userroles() {
+    public UserRoles() {
     }
 
 	
-    public Userroles(int id) {
+    public UserRoles(int id) {
         this.id = id;
     }
-    public Userroles(int id, String role, Set<com.iti.jets.reportingSystem.entity.Userdata> userdatas) {
+    public UserRoles(int id, String role, Set<Userdata> userdatas) {
        this.id = id;
        this.role = role;
        this.userdatas = userdatas;
@@ -56,11 +56,11 @@ public class Userroles  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="userroles")
-    public Set<com.iti.jets.reportingSystem.entity.Userdata> getUserdatas() {
+    public Set<Userdata> getUserdatas() {
         return this.userdatas;
     }
     
-    public void setUserdatas(Set<com.iti.jets.reportingSystem.entity.Userdata> userdatas) {
+    public void setUserdatas(Set<Userdata> userdatas) {
         this.userdatas = userdatas;
     }
 
