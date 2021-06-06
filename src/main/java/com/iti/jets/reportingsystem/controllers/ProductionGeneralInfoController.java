@@ -13,7 +13,7 @@ public class ProductionGeneralInfoController {
     @Autowired
     private ProductionGeneralInfoService pgiService;
 
-    @PostMapping("/fluidLevelMeasurements")
+    @PostMapping("/productionGeneralInfo")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody final ProductionGeneralInfoModel productionGeneralInfoModel){
 //        pgiService.create(productionGeneralInfoModel);
