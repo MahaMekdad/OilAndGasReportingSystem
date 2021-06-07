@@ -53,7 +53,7 @@ public class Field  implements java.io.Serializable {
         this.fieldId = fieldId;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="concession_id", nullable=false)
     public Concession getConcession() {
         return this.concession;
@@ -83,7 +83,7 @@ public class Field  implements java.io.Serializable {
         this.fieldCode = fieldCode;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="field")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="field")
     public Set<Well> getWells() {
         return this.wells;
     }

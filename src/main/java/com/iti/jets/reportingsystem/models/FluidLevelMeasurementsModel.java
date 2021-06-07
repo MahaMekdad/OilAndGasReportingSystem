@@ -130,4 +130,22 @@ public class FluidLevelMeasurementsModel {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
+    @Override
+    public String toString() {
+        return "FluidLevelMeasurementsModel{" +
+                "id=" + id +
+                ", well=" + well +
+                ", date=" + date +
+                ", intervals='" + intervals + '\'' +
+                ", fltype='" + fltype + '\'' +
+                ", fluidlLevel=" + fluidlLevel +
+                ", pumpDepth=" + pumpDepth +
+                ", liqPercentage=" + liqPercentage +
+                ", pumpFillage=" + pumpFillage +
+                ", pumpSubmerge=" + pumpSubmerge +
+                ", card=" + card +
+                ", remarks='" + remarks + '\'' +
+                '}';
+    }
 }

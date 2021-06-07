@@ -2,6 +2,8 @@ package com.iti.jets.reportingsystem.entities;
 // Generated Jun 2, 2021, 9:20:41 PM by Hibernate Tools 6.0.0.Alpha2
 
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -63,7 +65,7 @@ public class FluidLevelMeasurements implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="well_id", nullable=false)
     public Well getWell() {
         return this.well;

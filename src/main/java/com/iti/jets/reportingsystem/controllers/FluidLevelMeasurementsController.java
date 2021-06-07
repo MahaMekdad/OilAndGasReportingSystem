@@ -4,10 +4,13 @@ import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
 import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
 import com.iti.jets.reportingsystem.services.FluidLevelMeasurementsService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,11 +33,16 @@ public class FluidLevelMeasurementsController {
     @ResponseStatus(HttpStatus.CREATED)
     public List<FluidLevelMeasurementsModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId){
         List<FluidLevelMeasurements> flmRecords = flmService.getAllFLMSForAWell(wellId);
-        List<FluidLevelMeasurementsModel> resultList =
-                flmRecords
-                        .stream()
-                        .map(flm -> modelMapper.map(flm, FluidLevelMeasurementsModel.class))
-                        .collect(Collectors.toList());
+        Type listType = new TypeToken<List<FluidLevelMeasurementsModel>>(){}.getType();
+        List<FluidLevelMeasurementsModel> resultList = new ArrayList<>();
+        resultList = modelMapper.map(flmRecords ,listType );
+        System.out.println("----------------- "+resultList);
+
+//        List<FluidLevelMeasurementsModel> resultList =
+//                flmRecords
+//                        .stream()
+//                        .map(flm -> modelMapper.map(flm, FluidLevelMeasurementsModel.class))
+//                        .collect(Collectors.toList());
         return  resultList;
     }
 

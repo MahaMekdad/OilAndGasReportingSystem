@@ -28,7 +28,8 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
 
     @Override
     public List<FluidLevelMeasurements> getAllFLMSForAWell(int wellId) {
-        return flmRepo.findAllByWell_WellIdEquals(wellId);
+        return flmRepo.findAll();
+//        return flmRepo.findAllByWell_WellIdEquals(wellId);
     }
 
 //    @Override
