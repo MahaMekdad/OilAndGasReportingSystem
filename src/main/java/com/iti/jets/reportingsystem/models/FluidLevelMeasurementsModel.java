@@ -1,5 +1,7 @@
 package com.iti.jets.reportingsystem.models;
 
+import com.iti.jets.reportingsystem.entities.Well;
+
 import java.util.Date;
 
 public class FluidLevelMeasurementsModel {
@@ -20,8 +22,8 @@ public class FluidLevelMeasurementsModel {
     public FluidLevelMeasurementsModel() {}
 
     public FluidLevelMeasurementsModel(Well well, Date date, String intervals, String fltype, Double fluidlLevel,
-                                      Double pumpDepth, Long liqPercentage, Long pumpFillage, Double pumpSubmerge,
-                                      Character card, String remarks) {
+                                       Double pumpDepth, Long liqPercentage, Long pumpFillage, Double pumpSubmerge,
+                                       Character card, String remarks) {
         this.well = well;
         this.date = date;
         this.intervals = intervals;
