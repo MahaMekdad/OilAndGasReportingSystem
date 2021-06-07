@@ -1,7 +1,5 @@
 package com.iti.jets.reportingsystem.models;
 
-import com.iti.jets.reportingsystem.entities.Well;
-
 import java.util.Date;
 
 public class FluidLevelMeasurementsModel {

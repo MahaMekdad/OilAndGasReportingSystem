@@ -1,16 +1,9 @@
 package com.iti.jets.reportingsystem.controllers;
 
-import com.iti.jets.reportingsystem.entities.ProductionGeneralInfo;
-import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
-import com.iti.jets.reportingsystem.models.ProductionGeneralInfoModel;
 import com.iti.jets.reportingsystem.services.ProductionGeneralInfoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
     @RequestMapping("/wells")
