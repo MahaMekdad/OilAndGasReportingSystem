@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="well_general_info"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class WellGeneralInfo  implements java.io.Serializable {
 
@@ -61,7 +61,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="wellId", nullable=false)
+    @JoinColumn(name="well_id", nullable=false)
     public Well getWell() {
         return this.well;
     }
@@ -71,7 +71,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="subCompanyName", length=100)
+    @Column(name="sub_company_name", length=100)
     public String getSubCompanyName() {
         return this.subCompanyName;
     }
@@ -81,7 +81,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="locationName", length=8)
+    @Column(name="location_name", length=8)
     public String getLocationName() {
         return this.locationName;
     }
@@ -91,7 +91,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="areaName", length=100)
+    @Column(name="area_name", length=100)
     public String getAreaName() {
         return this.areaName;
     }
@@ -101,7 +101,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="leaseName", length=100)
+    @Column(name="lease_name", length=100)
     public String getLeaseName() {
         return this.leaseName;
     }
@@ -111,7 +111,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="boreName", length=100)
+    @Column(name="bore_name", length=100)
     public String getBoreName() {
         return this.boreName;
     }
@@ -121,7 +121,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="xCord", precision=22, scale=0)
+    @Column(name="x_cord", precision=22, scale=0)
     public Double getXcord() {
         return this.xcord;
     }
@@ -131,7 +131,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="yCord", precision=22, scale=0)
+    @Column(name="y_cord", precision=22, scale=0)
     public Double getYcord() {
         return this.ycord;
     }

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="drilling_info"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class DrillingInfo  implements java.io.Serializable {
 
@@ -60,7 +60,7 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="wellId", nullable=false)
+    @JoinColumn(name="well_id", nullable=false)
     public Well getWell() {
         return this.well;
     }
@@ -70,7 +70,7 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="releaseDate", length=10)
+    @Column(name="release_date", length=10)
     public Date getReleaseDate() {
         return this.releaseDate;
     }
@@ -80,7 +80,7 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="wellDescription", length=100)
+    @Column(name="well_description", length=100)
     public String getWellDescription() {
         return this.wellDescription;
     }
@@ -90,7 +90,7 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="wellType", length=5000)
+    @Column(name="well_type", length=5000)
     public String getWellType() {
         return this.wellType;
     }
@@ -100,7 +100,7 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="boreType", length=100)
+    @Column(name="bore_type", length=100)
     public String getBoreType() {
         return this.boreType;
     }
@@ -110,7 +110,7 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="measuredDepth")
+    @Column(name="measured_depth")
     public Integer getMeasuredDepth() {
         return this.measuredDepth;
     }
@@ -120,7 +120,7 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="tvdDepth")
+    @Column(name="tvd_depth")
     public Integer getTvdDepth() {
         return this.tvdDepth;
     }
@@ -140,7 +140,7 @@ public class DrillingInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="productionGeneralInfo", length=5000)
+    @Column(name="production_general_info", length=5000)
     public String getProductionGeneralInfo() {
         return this.productionGeneralInfo;
     }

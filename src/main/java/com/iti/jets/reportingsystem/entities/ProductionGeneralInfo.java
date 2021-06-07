@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="production_general_info"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class ProductionGeneralInfo  implements java.io.Serializable {
 
@@ -75,8 +75,8 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="wellID", nullable=false)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="well_id", nullable=false)
     public Well getWell() {
         return this.well;
     }
@@ -86,7 +86,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="initialProdDate", length=10)
+    @Column(name="initial_prod_date", length=10)
     public Date getInitialProdDate() {
         return this.initialProdDate;
     }
@@ -96,7 +96,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="initialType", length=19)
+    @Column(name="initial_type", length=19)
     public String getInitialType() {
         return this.initialType;
     }
@@ -106,7 +106,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="initialProduct", length=14)
+    @Column(name="initial_product", length=14)
     public String getInitialProduct() {
         return this.initialProduct;
     }
@@ -116,7 +116,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="initialLiftType", length=11)
+    @Column(name="initial_lift_type", length=11)
     public String getInitialLiftType() {
         return this.initialLiftType;
     }
@@ -126,7 +126,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="initStatus", length=9)
+    @Column(name="init_status", length=9)
     public String getInitStatus() {
         return this.initStatus;
     }
@@ -136,7 +136,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="monitoringSystem", length=5)
+    @Column(name="monitoring_system", length=5)
     public String getMonitoringSystem() {
         return this.monitoringSystem;
     }
@@ -146,7 +146,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="currentWellTypeDate", length=10)
+    @Column(name="current_well_type_date", length=10)
     public Date getCurrentWellTypeDate() {
         return this.currentWellTypeDate;
     }
@@ -156,7 +156,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="currentWellType", length=19)
+    @Column(name="current_well_type", length=19)
     public String getCurrentWellType() {
         return this.currentWellType;
     }
@@ -166,7 +166,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="currentProduct", length=14)
+    @Column(name="current_product", length=14)
     public String getCurrentProduct() {
         return this.currentProduct;
     }
@@ -176,7 +176,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="currentStatus", length=9)
+    @Column(name="current_status", length=9)
     public String getCurrentStatus() {
         return this.currentStatus;
     }
@@ -186,7 +186,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="runTime")
+    @Column(name="runtime")
     public Integer getRunTime() {
         return this.runTime;
     }
@@ -196,7 +196,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="currentLiftType", length=11)
+    @Column(name="current_lift_type", length=11)
     public String getCurrentLiftType() {
         return this.currentLiftType;
     }
@@ -206,7 +206,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="currentLiftTypeDate", length=10)
+    @Column(name="current_lift_type_date", length=10)
     public Date getCurrentLiftTypeDate() {
         return this.currentLiftTypeDate;
     }
@@ -216,7 +216,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="powerSourceType", length=16)
+    @Column(name="power_source_type", length=16)
     public String getPowerSourceType() {
         return this.powerSourceType;
     }
@@ -226,7 +226,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="powerSource", length=45)
+    @Column(name="power_source", length=45)
     public String getPowerSource() {
         return this.powerSource;
     }
@@ -236,7 +236,7 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="processionPlant", length=9)
+    @Column(name="procession_plant", length=9)
     public String getProcessionPlant() {
         return this.processionPlant;
     }

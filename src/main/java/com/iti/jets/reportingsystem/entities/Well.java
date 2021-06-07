@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "well"
-        , catalog = "reportingsysschema"
+        , catalog = "reportingsystem"
         , uniqueConstraints = {@UniqueConstraint(columnNames = "well_code"), @UniqueConstraint(columnNames = "well_name")}
 )
 public class Well implements java.io.Serializable {

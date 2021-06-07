@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="userroles"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class UserRoles implements java.io.Serializable {
 

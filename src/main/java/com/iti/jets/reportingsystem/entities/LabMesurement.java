@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="lab_mesurement"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class LabMesurement  implements java.io.Serializable {
 
@@ -58,7 +58,7 @@ public class LabMesurement  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="wellId", nullable=false)
+    @JoinColumn(name="well_id", nullable=false)
     public Well getWell() {
         return this.well;
     }

@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="userdata"
-    ,catalog="reportingsysschema"
+    ,catalog="reportingsystem"
 )
 public class Userdata  implements java.io.Serializable {
 
@@ -53,7 +53,7 @@ public class Userdata  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="jobTitle", nullable=false)
+    @JoinColumn(name="job_title", nullable=false)
     public UserRoles getUserroles() {
         return this.userroles;
     }
@@ -63,7 +63,7 @@ public class Userdata  implements java.io.Serializable {
     }
 
     
-    @Column(name="firstName", length=45)
+    @Column(name="first_name", length=45)
     public String getFirstName() {
         return this.firstName;
     }
@@ -73,7 +73,7 @@ public class Userdata  implements java.io.Serializable {
     }
 
     
-    @Column(name="lastName", length=45)
+    @Column(name="last_name", length=45)
     public String getLastName() {
         return this.lastName;
     }
@@ -93,7 +93,7 @@ public class Userdata  implements java.io.Serializable {
     }
 
     
-    @Column(name="phoneNumber", length=45)
+    @Column(name="phone_number", length=45)
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
@@ -103,7 +103,7 @@ public class Userdata  implements java.io.Serializable {
     }
 
     
-    @Column(name="jobLocation", length=7)
+    @Column(name="job_location", length=7)
     public String getJobLocation() {
         return this.jobLocation;
     }
