@@ -1,8 +1,6 @@
 package com.iti.jets.reportingsystem.services;
 
 import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
-import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
