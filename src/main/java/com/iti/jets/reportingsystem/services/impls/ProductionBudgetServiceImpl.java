@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -46,10 +48,23 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
     }
 
     @Override
-    public ProductionBudgetModel findProductionBudgetByProductionDate(Date date) {
+    public ProductionBudgetModel findProductionBudgetByProductionDate(String date) {
+        System.out.println("Production_date======= "+date);
         ProductionBudget productionBudget = productionBudgetRepository.findProductionBudgetByProductionDate(date);
+        System.out.println("productionBudget Date object ===== "+productionBudget);
         ProductionBudgetModel productionBudgetModel = new ProductionBudgetModel();
-        modelMapper.map(productionBudget,productionBudgetModel);
+        productionBudgetModel = modelMapper.map(productionBudget,ProductionBudgetModel.class);
+        System.out.println("productionbudgetModel====== "+productionBudgetModel);
+        return productionBudgetModel;
+    }
+
+    @Override
+    public ProductionBudgetModel findProductionBudgetById(int id) {
+        System.out.println("id = " +id);
+        ProductionBudget productionBudget = productionBudgetRepository.findProductionBudgetById(id);
+        System.out.println("productionBudget Date object ===== "+productionBudget);
+        ProductionBudgetModel productionBudgetModel = new ProductionBudgetModel();
+        productionBudgetModel = modelMapper.map(productionBudget,ProductionBudgetModel.class);
         System.out.println("productionbudgetModel====== "+productionBudgetModel);
         return productionBudgetModel;
     }

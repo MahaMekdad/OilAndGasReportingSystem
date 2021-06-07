@@ -1,5 +1,6 @@
 package com.iti.jets.reportingsystem.controllers;
 
+import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
 import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
 import com.iti.jets.reportingsystem.services.FluidLevelMeasurementsService;
 import org.modelmapper.ModelMapper;

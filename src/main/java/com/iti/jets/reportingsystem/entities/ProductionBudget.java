@@ -23,7 +23,7 @@ public class ProductionBudget  implements java.io.Serializable {
 
 
      private Integer id;
-     private Date productionDate;
+     private String productionDate;
      private Double meleiha;
      private Double aghar;
      private Double eastKanays;
@@ -39,7 +39,7 @@ public class ProductionBudget  implements java.io.Serializable {
     public ProductionBudget() {
     }
 
-    public ProductionBudget(Date productionDate, Double meleiha, Double aghar, Double eastKanays, Double zarif, Double faras, Double raml, Double westernDesert, Double ashrafi, Double agibaOil, Double salesGas, Double agibaBoe) {
+    public ProductionBudget(String productionDate, Double meleiha, Double aghar, Double eastKanays, Double zarif, Double faras, Double raml, Double westernDesert, Double ashrafi, Double agibaOil, Double salesGas, Double agibaBoe) {
        this.productionDate = productionDate;
        this.meleiha = meleiha;
        this.aghar = aghar;
@@ -66,13 +66,13 @@ public class ProductionBudget  implements java.io.Serializable {
         this.id = id;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="production_date", length=10)
-    public Date getProductionDate() {
+//    @Temporal(TemporalType.DATE)
+    @Column(name="production_date")
+    public String getProductionDate() {
         return this.productionDate;
     }
     
-    public void setProductionDate(Date productionDate) {
+    public void setProductionDate(String productionDate) {
         this.productionDate = productionDate;
     }
 
