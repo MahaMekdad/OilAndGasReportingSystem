@@ -1,5 +1,6 @@
 package com.iti.jets.reportingsystem.services.impls;
 
+import com.iti.jets.reportingsystem.entities.DrillingInfo;
 import com.iti.jets.reportingsystem.models.DrillingInfoModel;
 import com.iti.jets.reportingsystem.repos.DrillingInfoRepository;
 import com.iti.jets.reportingsystem.services.DrillingInfoService;
@@ -16,7 +17,9 @@ public class DrillingServiceImpl implements DrillingInfoService {
     public List<DrillingInfoModel> getAllDrillingInfo() {
 
         List<DrillingInfoModel> drillingInfoModelList = new ArrayList<>();
-        drillingInfoModelList = drillingInfoRepository.findAll();
+        List<DrillingInfo> drillingInfooo = drillingInfoRepository.findAll();
+
+//        drillingInfoModelList =
         return drillingInfoModelList;
     }
 
