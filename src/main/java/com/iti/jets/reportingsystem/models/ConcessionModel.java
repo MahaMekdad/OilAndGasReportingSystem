@@ -6,16 +6,21 @@ import javax.persistence.Column;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Concession {
+public class ConcessionModel {
     private long id;
     private String concessionName;
     private Set<Field> fields = new HashSet<>();
 
 
-    public Concession() {
+    public ConcessionModel() {
     }
 
-    public Concession(String concessionName) {
+    public ConcessionModel(String concessionName) {
+        this.concessionName = concessionName;
+    }
+
+    public ConcessionModel(long id, String concessionName) {
+        this.id = id;
         this.concessionName = concessionName;
     }
 

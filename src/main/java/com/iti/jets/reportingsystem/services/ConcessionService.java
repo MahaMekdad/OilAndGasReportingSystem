@@ -1,24 +1,23 @@
 package com.iti.jets.reportingsystem.services;
 
-import com.iti.jets.reportingsystem.models.Concession;
-import com.iti.jets.reportingsystem.repos.ConcessionRepository;
+import com.iti.jets.reportingsystem.models.ConcessionModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface ConcessionService {
-    //create new concession
-    public Concession addConcession(Concession concession);
+    //create new concessionModel
+    public ConcessionModel addConcession(ConcessionModel concessionModel);
 
     //get concession using Id
-    public Concession findConcessionById(Long id);
+    public ConcessionModel findConcessionById(Long id);
 
     //get a list of all available concessions
-    public List<Concession> findAllConcessions();
+    public List<ConcessionModel> findAllConcessions();
 
-    //update concession
-    public Concession updateConcession(Concession concession);
+    //update concessionModel
+    public ConcessionModel updateConcession(ConcessionModel concessionModel);
 
     //delete concession using Id
     public void deleteConcession(Long id);

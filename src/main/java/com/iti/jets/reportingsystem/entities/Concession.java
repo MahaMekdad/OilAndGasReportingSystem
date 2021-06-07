@@ -25,4 +25,5 @@ public class Concession implements Serializable {
     @OneToMany
     private Set<Field> fields = new HashSet<>();
 
+
 }
