@@ -1,12 +1,25 @@
 package com.iti.jets.reportingsystem.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.iti.jets.reportingsystem.entities.DrillingInfo;
 import com.iti.jets.reportingsystem.entities.Well;
 
 import java.util.Date;
 
 public class DrillingInfoModel {
     private int id;
-    private com.iti.jets.reportingsystem.entities.Well well;
+    @JsonIgnore
+    private Well well;
+    private Integer wellId;
+
+    public Integer getWellId() {
+        return wellId;
+    }
+
+    public void setWellId(Integer wellId) {
+        this.wellId = well.getWellId();
+    }
+
     private Date releaseDate;
     private String wellDescription;
     private String wellType;
@@ -26,6 +39,9 @@ public class DrillingInfoModel {
         this.tvdDepth = tvdDepth;
         this.bbtp = bbtp;
         this.productionGeneralInfo = productionGeneralInfo;
+    }
+
+    public DrillingInfoModel() {
     }
 
     public DrillingInfoModel(int id, Well well, Date releaseDate, String wellDescription, String wellType, String boreType, Integer measuredDepth, Integer tvdDepth, Integer bbtp, String productionGeneralInfo) {
