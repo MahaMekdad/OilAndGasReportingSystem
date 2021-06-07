@@ -49,7 +49,7 @@ public class BudgetActual  implements java.io.Serializable {
      private Double salesGasPercentage;
      private Double agibaBoEactual;
      private Double agibaBoEbudget;
-     private Double agibaBoPercentage;
+     private Double agibaBoEPercentage;
 
     public BudgetActual() {
     }
@@ -58,7 +58,7 @@ public class BudgetActual  implements java.io.Serializable {
     public BudgetActual(int id) {
         this.id = id;
     }
-    public BudgetActual(int id, Date productionDate, Double meleihaBudget, Double meleihaActual, Double meleihaPercentage, Double agharActual, Double agharBudget, Double agharPercentage, Double eastKanaysActual, Double eastKanaysBudget, Double eastKanysPercentage, Double zarifActual, Double zarifBudget, Double zarifPercentage, Double farasActual, Double farasBudget, Double farasPercentage, Double ramlActual, Double ramlBudget, Double ramlPercentage, Double westernDesertActual, Double westernDesertBudget, Double westernDesertPercentage, Double ashrafiActual, Double ashrafiBudget, Double ashrafiPercentage, Double agibaOilActual, Double agibaOilBudget, Double agibaOilPercentage, Double salesGasActual, Double salesGasBudget, Double salesGasPercentage, Double agibaBoEactual, Double agibaBoEbudget, Double agibaBoPercentage) {
+    public BudgetActual(int id, Date productionDate, Double meleihaBudget, Double meleihaActual, Double meleihaPercentage, Double agharActual, Double agharBudget, Double agharPercentage, Double eastKanaysActual, Double eastKanaysBudget, Double eastKanysPercentage, Double zarifActual, Double zarifBudget, Double zarifPercentage, Double farasActual, Double farasBudget, Double farasPercentage, Double ramlActual, Double ramlBudget, Double ramlPercentage, Double westernDesertActual, Double westernDesertBudget, Double westernDesertPercentage, Double ashrafiActual, Double ashrafiBudget, Double ashrafiPercentage, Double agibaOilActual, Double agibaOilBudget, Double agibaOilPercentage, Double salesGasActual, Double salesGasBudget, Double salesGasPercentage, Double agibaBoEactual, Double agibaBoEbudget, Double agibaBoEPercentage) {
        this.id = id;
        this.productionDate = productionDate;
        this.meleihaBudget = meleihaBudget;
@@ -93,7 +93,7 @@ public class BudgetActual  implements java.io.Serializable {
        this.salesGasPercentage = salesGasPercentage;
        this.agibaBoEactual = agibaBoEactual;
        this.agibaBoEbudget = agibaBoEbudget;
-       this.agibaBoPercentage = agibaBoPercentage;
+       this.agibaBoEPercentage = agibaBoEPercentage;
     }
    
      @Id 
@@ -109,7 +109,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="ProductionDate", length=10)
+    @Column(name="Production_date", length=10)
     public Date getProductionDate() {
         return this.productionDate;
     }
@@ -119,7 +119,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="meleihaBudget", precision=22, scale=0)
+    @Column(name="meleiha_budget", precision=22, scale=0)
     public Double getMeleihaBudget() {
         return this.meleihaBudget;
     }
@@ -129,7 +129,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="meleihaActual", precision=22, scale=0)
+    @Column(name="meleiha_actual", precision=22, scale=0)
     public Double getMeleihaActual() {
         return this.meleihaActual;
     }
@@ -139,7 +139,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="meleihaPercentage", precision=22, scale=0)
+    @Column(name="meleiha_percentage", precision=22, scale=0)
     public Double getMeleihaPercentage() {
         return this.meleihaPercentage;
     }
@@ -149,7 +149,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agharActual", precision=22, scale=0)
+    @Column(name="aghar_actual", precision=22, scale=0)
     public Double getAgharActual() {
         return this.agharActual;
     }
@@ -159,7 +159,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agharBudget", precision=22, scale=0)
+    @Column(name="aghar_budget", precision=22, scale=0)
     public Double getAgharBudget() {
         return this.agharBudget;
     }
@@ -169,7 +169,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agharPercentage", precision=22, scale=0)
+    @Column(name="aghar_percentage", precision=22, scale=0)
     public Double getAgharPercentage() {
         return this.agharPercentage;
     }
@@ -179,7 +179,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="eastKanaysActual", precision=22, scale=0)
+    @Column(name="east_kanays_actual", precision=22, scale=0)
     public Double getEastKanaysActual() {
         return this.eastKanaysActual;
     }
@@ -189,7 +189,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="eastKanaysBudget", precision=22, scale=0)
+    @Column(name="east_kanays_budget", precision=22, scale=0)
     public Double getEastKanaysBudget() {
         return this.eastKanaysBudget;
     }
@@ -199,7 +199,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="eastKanysPercentage", precision=22, scale=0)
+    @Column(name="east_kanys_percentage", precision=22, scale=0)
     public Double getEastKanysPercentage() {
         return this.eastKanysPercentage;
     }
@@ -209,7 +209,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="zarifActual", precision=22, scale=0)
+    @Column(name="zarif_actual", precision=22, scale=0)
     public Double getZarifActual() {
         return this.zarifActual;
     }
@@ -219,7 +219,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="zarifBudget", precision=22, scale=0)
+    @Column(name="zarif_budget", precision=22, scale=0)
     public Double getZarifBudget() {
         return this.zarifBudget;
     }
@@ -229,7 +229,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="zarifPercentage", precision=22, scale=0)
+    @Column(name="zarif_percentage", precision=22, scale=0)
     public Double getZarifPercentage() {
         return this.zarifPercentage;
     }
@@ -239,7 +239,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="farasActual", precision=22, scale=0)
+    @Column(name="faras_actual", precision=22, scale=0)
     public Double getFarasActual() {
         return this.farasActual;
     }
@@ -249,7 +249,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="farasBudget", precision=22, scale=0)
+    @Column(name="faras_budget", precision=22, scale=0)
     public Double getFarasBudget() {
         return this.farasBudget;
     }
@@ -259,7 +259,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="farasPercentage", precision=22, scale=0)
+    @Column(name="faras_percentage", precision=22, scale=0)
     public Double getFarasPercentage() {
         return this.farasPercentage;
     }
@@ -269,7 +269,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="ramlActual", precision=22, scale=0)
+    @Column(name="raml_actual", precision=22, scale=0)
     public Double getRamlActual() {
         return this.ramlActual;
     }
@@ -279,7 +279,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="ramlBudget", precision=22, scale=0)
+    @Column(name="raml_budget", precision=22, scale=0)
     public Double getRamlBudget() {
         return this.ramlBudget;
     }
@@ -289,7 +289,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="ramlPercentage", precision=22, scale=0)
+    @Column(name="raml_percentage", precision=22, scale=0)
     public Double getRamlPercentage() {
         return this.ramlPercentage;
     }
@@ -299,7 +299,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="westernDesertActual", precision=22, scale=0)
+    @Column(name="western_desert_actual", precision=22, scale=0)
     public Double getWesternDesertActual() {
         return this.westernDesertActual;
     }
@@ -309,7 +309,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="westernDesertBudget", precision=22, scale=0)
+    @Column(name="western_desert_budget", precision=22, scale=0)
     public Double getWesternDesertBudget() {
         return this.westernDesertBudget;
     }
@@ -319,7 +319,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="westernDesertPercentage", precision=22, scale=0)
+    @Column(name="western_desert_percentage", precision=22, scale=0)
     public Double getWesternDesertPercentage() {
         return this.westernDesertPercentage;
     }
@@ -329,7 +329,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="ashrafiActual", precision=22, scale=0)
+    @Column(name="ashrafi_actual", precision=22, scale=0)
     public Double getAshrafiActual() {
         return this.ashrafiActual;
     }
@@ -339,7 +339,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="ashrafiBudget", precision=22, scale=0)
+    @Column(name="ashrafi_budget", precision=22, scale=0)
     public Double getAshrafiBudget() {
         return this.ashrafiBudget;
     }
@@ -349,7 +349,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="ashrafiPercentage", precision=22, scale=0)
+    @Column(name="ashrafi_percentage", precision=22, scale=0)
     public Double getAshrafiPercentage() {
         return this.ashrafiPercentage;
     }
@@ -359,7 +359,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaOilActual", precision=22, scale=0)
+    @Column(name="agiba_oil_actual", precision=22, scale=0)
     public Double getAgibaOilActual() {
         return this.agibaOilActual;
     }
@@ -369,7 +369,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaOilBudget", precision=22, scale=0)
+    @Column(name="agiba_oil_budget", precision=22, scale=0)
     public Double getAgibaOilBudget() {
         return this.agibaOilBudget;
     }
@@ -379,7 +379,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaOilPercentage", precision=22, scale=0)
+    @Column(name="agiba_oil_percentage", precision=22, scale=0)
     public Double getAgibaOilPercentage() {
         return this.agibaOilPercentage;
     }
@@ -389,7 +389,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="salesGasActual", precision=22, scale=0)
+    @Column(name="sales_gas_actual", precision=22, scale=0)
     public Double getSalesGasActual() {
         return this.salesGasActual;
     }
@@ -399,7 +399,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="salesGasBudget", precision=22, scale=0)
+    @Column(name="sales_gas_budget", precision=22, scale=0)
     public Double getSalesGasBudget() {
         return this.salesGasBudget;
     }
@@ -409,7 +409,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="salesGasPercentage", precision=22, scale=0)
+    @Column(name="sales_gas_percentage", precision=22, scale=0)
     public Double getSalesGasPercentage() {
         return this.salesGasPercentage;
     }
@@ -419,7 +419,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaBoEActual", precision=22, scale=0)
+    @Column(name="agiba_boe_actual", precision=22, scale=0)
     public Double getAgibaBoEactual() {
         return this.agibaBoEactual;
     }
@@ -429,7 +429,7 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaBoEBudget", precision=22, scale=0)
+    @Column(name="agiba_boe_budget", precision=22, scale=0)
     public Double getAgibaBoEbudget() {
         return this.agibaBoEbudget;
     }
@@ -439,13 +439,13 @@ public class BudgetActual  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaBoPercentage", precision=22, scale=0)
-    public Double getAgibaBoPercentage() {
-        return this.agibaBoPercentage;
+    @Column(name="agiba_boe_percentage", precision=22, scale=0)
+    public Double getAgibaBoEPercentage() {
+        return this.agibaBoEPercentage;
     }
     
-    public void setAgibaBoPercentage(Double agibaBoPercentage) {
-        this.agibaBoPercentage = agibaBoPercentage;
+    public void setAgibaBoEPercentage(Double agibaBoPercentage) {
+        this.agibaBoEPercentage = agibaBoPercentage;
     }
 
 

@@ -175,7 +175,7 @@ public class ProductionBudget  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaBOE", precision=22, scale=0)
+    @Column(name="agiba_boe", precision=22, scale=0)
     public Double getAgibaBoe() {
         return this.agibaBoe;
     }
