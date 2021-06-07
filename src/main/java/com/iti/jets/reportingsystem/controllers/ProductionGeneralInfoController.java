@@ -27,15 +27,15 @@ public class ProductionGeneralInfoController {
 //       pgiService.create(productionGeneralInfoModel);
 //    }
 
-    @GetMapping("{wellId}/productionGeneralInfo")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<ProductionGeneralInfoModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId){
-        List<ProductionGeneralInfo> pgiRecords = pgiService.getAllPGISForAWell(wellId);
-        List<ProductionGeneralInfoModel> resultList =
-                pgiRecords
-                        .stream()
-                        .map(flm -> modelMapper.map(flm, ProductionGeneralInfoModel.class))
-                        .collect(Collectors.toList());
-        return  resultList;
-    }
+//    @GetMapping("{wellId}/productionGeneralInfo")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public List<ProductionGeneralInfoModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId){
+//        List<ProductionGeneralInfo> pgiRecords = pgiService.getAllPGISForAWell(wellId);
+//        List<ProductionGeneralInfoModel> resultList =
+//                pgiRecords
+//                        .stream()
+//                        .map(flm -> modelMapper.map(flm, ProductionGeneralInfoModel.class))
+//                        .collect(Collectors.toList());
+//        return  resultList;
+//    }
 }
