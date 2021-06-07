@@ -4,10 +4,11 @@ import com.iti.jets.reportingsystem.models.DrillingInfoModel;
 import com.iti.jets.reportingsystem.repos.DrillingInfoRepository;
 import com.iti.jets.reportingsystem.services.DrillingInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class DrillingServiceImpl implements DrillingInfoService {
     @Autowired
     private DrillingInfoRepository drillingInfoRepository;
