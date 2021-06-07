@@ -65,7 +65,7 @@ public class ProductionBudget  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="productionDate", length=10)
+    @Column(name="production_date", length=10)
     public Date getProductionDate() {
         return this.productionDate;
     }
@@ -95,7 +95,7 @@ public class ProductionBudget  implements java.io.Serializable {
     }
 
     
-    @Column(name="eastKanays", precision=22, scale=0)
+    @Column(name="east_kanays", precision=22, scale=0)
     public Double getEastKanays() {
         return this.eastKanays;
     }
@@ -135,7 +135,7 @@ public class ProductionBudget  implements java.io.Serializable {
     }
 
     
-    @Column(name="westernDesert", precision=22, scale=0)
+    @Column(name="western_desert", precision=22, scale=0)
     public Double getWesternDesert() {
         return this.westernDesert;
     }
@@ -155,7 +155,7 @@ public class ProductionBudget  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaOil", precision=22, scale=0)
+    @Column(name="agiba_oil", precision=22, scale=0)
     public Double getAgibaOil() {
         return this.agibaOil;
     }
@@ -165,7 +165,7 @@ public class ProductionBudget  implements java.io.Serializable {
     }
 
     
-    @Column(name="salesGas", precision=22, scale=0)
+    @Column(name="sales_gas", precision=22, scale=0)
     public Double getSalesGas() {
         return this.salesGas;
     }
@@ -175,7 +175,7 @@ public class ProductionBudget  implements java.io.Serializable {
     }
 
     
-    @Column(name="agibaBOE", precision=22, scale=0)
+    @Column(name="agiba_boe", precision=22, scale=0)
     public Double getAgibaBoe() {
         return this.agibaBoe;
     }

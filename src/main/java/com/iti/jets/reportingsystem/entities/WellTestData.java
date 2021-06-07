@@ -88,7 +88,7 @@ public class WellTestData  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="wellId", nullable=false)
+    @JoinColumn(name="well_id", nullable=false)
     public Well getWell() {
         return this.well;
     }
@@ -98,7 +98,7 @@ public class WellTestData  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="productionDate", length=10)
+    @Column(name="production_date", length=10)
     public Date getProductionDate() {
         return this.productionDate;
     }
@@ -108,7 +108,7 @@ public class WellTestData  implements java.io.Serializable {
     }
 
     
-    @Column(name="tDuration")
+    @Column(name="t_duration")
     public Integer getTduration() {
         return this.tduration;
     }
@@ -158,7 +158,7 @@ public class WellTestData  implements java.io.Serializable {
     }
 
     
-    @Column(name="gasRate", precision=22, scale=0)
+    @Column(name="gas_rate", precision=22, scale=0)
     public Double getGasRate() {
         return this.gasRate;
     }
@@ -258,7 +258,7 @@ public class WellTestData  implements java.io.Serializable {
     }
 
     
-    @Column(name="chockType", length=10)
+    @Column(name="chock_type", length=10)
     public String getChockType() {
         return this.chockType;
     }
@@ -268,7 +268,7 @@ public class WellTestData  implements java.io.Serializable {
     }
 
     
-    @Column(name="chockSize")
+    @Column(name="chock_size")
     public Integer getChockSize() {
         return this.chockSize;
     }

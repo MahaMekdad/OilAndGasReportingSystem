@@ -76,7 +76,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="wellId", nullable=false)
+    @JoinColumn(name="well_id", nullable=false)
     public Well getWell() {
         return this.well;
     }
@@ -86,7 +86,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="drivingMechanism", length=16)
+    @Column(name="driving_mechanism", length=16)
     public String getDrivingMechanism() {
         return this.drivingMechanism;
     }
@@ -176,7 +176,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="startDate", length=10)
+    @Column(name="start_date", length=10)
     public Date getStartDate() {
         return this.startDate;
     }
@@ -186,7 +186,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="endDate", length=10)
+    @Column(name="end_date", length=10)
     public Date getEndDate() {
         return this.endDate;
     }

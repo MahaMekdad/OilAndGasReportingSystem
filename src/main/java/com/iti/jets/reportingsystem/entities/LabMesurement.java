@@ -58,7 +58,7 @@ public class LabMesurement  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="wellId", nullable=false)
+    @JoinColumn(name="well_id", nullable=false)
     public Well getWell() {
         return this.well;
     }

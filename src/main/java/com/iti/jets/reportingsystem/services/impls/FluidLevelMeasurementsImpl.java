@@ -22,6 +22,7 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
 
     @Override
     public void insert(FluidLevelMeasurements fluidLevelMeasurement) {
+        System.out.println(fluidLevelMeasurement.getWell().getWellId() + " <----------");
         flmRepo.saveAndFlush(fluidLevelMeasurement);
     }
 
