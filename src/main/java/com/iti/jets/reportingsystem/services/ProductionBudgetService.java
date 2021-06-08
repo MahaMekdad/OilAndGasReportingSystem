@@ -13,7 +13,7 @@ public interface ProductionBudgetService {
     List<ProductionBudgetModel> getGetAllProductionBudget();
     void create (ProductionBudgetModel productionBudgetModel);
     void delete (int id);
-    ProductionBudgetModel findProductionBudgetByProductionDate(String date);
+    ProductionBudgetModel findProductionBudgetByProductionDate(Date date);
     ProductionBudgetModel findProductionBudgetById(int id);
     void updateProductionBudget(int id,ProductionBudgetModel productionBudgetModel);
 

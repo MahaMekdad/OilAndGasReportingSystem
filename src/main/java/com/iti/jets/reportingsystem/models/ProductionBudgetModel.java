@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class ProductionBudgetModel implements Serializable {
     private int id;
-    private String productionDate;
+    private Date productionDate;
     private Double meleiha;
     private Double aghar;
     private Double eastKanays;
@@ -18,7 +18,7 @@ public class ProductionBudgetModel implements Serializable {
     private Double salesGas;
     private Double agibaBoe;
     public ProductionBudgetModel(){}
-    public ProductionBudgetModel(String productionDate, Double meleiha, Double aghar, Double eastKanays, Double zarif, Double faras, Double raml, Double westernDesert, Double ashrafi, Double agibaOil, Double salesGas, Double agibaBoe) {
+    public ProductionBudgetModel(Date productionDate, Double meleiha, Double aghar, Double eastKanays, Double zarif, Double faras, Double raml, Double westernDesert, Double ashrafi, Double agibaOil, Double salesGas, Double agibaBoe) {
         this.productionDate = productionDate;
         this.meleiha = meleiha;
         this.aghar = aghar;
@@ -33,7 +33,7 @@ public class ProductionBudgetModel implements Serializable {
         this.agibaBoe = agibaBoe;
     }
 
-    public ProductionBudgetModel(int id, String productionDate, Double meleiha, Double aghar, Double eastKanays, Double zarif, Double faras, Double raml, Double westernDesert, Double ashrafi, Double agibaOil, Double salesGas, Double agibaBoe) {
+    public ProductionBudgetModel(int id, Date productionDate, Double meleiha, Double aghar, Double eastKanays, Double zarif, Double faras, Double raml, Double westernDesert, Double ashrafi, Double agibaOil, Double salesGas, Double agibaBoe) {
         this.id = id;
         this.productionDate = productionDate;
         this.meleiha = meleiha;
@@ -57,11 +57,11 @@ public class ProductionBudgetModel implements Serializable {
         this.id = id;
     }
 
-    public String getProductionDate() {
+    public Date getProductionDate() {
         return productionDate;
     }
 
-    public void setProductionDate(String productionDate) {
+    public void setProductionDate(Date productionDate) {
         this.productionDate = productionDate;
     }
 

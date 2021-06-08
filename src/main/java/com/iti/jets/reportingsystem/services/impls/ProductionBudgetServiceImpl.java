@@ -50,9 +50,9 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
     }
 
     @Override
-    public ProductionBudgetModel findProductionBudgetByProductionDate(String date) {
+    public ProductionBudgetModel findProductionBudgetByProductionDate(Date date) {
         System.out.println("Production_date======= " + date);
-        ProductionBudget productionBudget = productionBudgetRepository.findProductionBudgetByProductionDate(date);
+        ProductionBudget productionBudget = productionBudgetRepository.findByProductionDateEquals(date);
         System.out.println("productionBudget Date object ===== " + productionBudget);
         ProductionBudgetModel productionBudgetModel = new ProductionBudgetModel();
         productionBudgetModel = modelMapper.map(productionBudget, ProductionBudgetModel.class);
