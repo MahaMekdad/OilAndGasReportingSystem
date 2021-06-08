@@ -15,5 +15,6 @@ public interface ProductionBudgetService {
     void delete (int id);
     ProductionBudgetModel findProductionBudgetByProductionDate(String date);
     ProductionBudgetModel findProductionBudgetById(int id);
+    void updateProductionBudget(int id,ProductionBudgetModel productionBudgetModel);
 
 }

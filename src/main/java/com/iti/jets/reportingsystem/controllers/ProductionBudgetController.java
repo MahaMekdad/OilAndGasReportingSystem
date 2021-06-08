@@ -87,5 +87,11 @@ public class ProductionBudgetController {
         productionBudgetService.delete(id);
     }
 
+    @PutMapping(value = "productionBudget/{id}")
+    void update(@PathVariable int id , @RequestBody ProductionBudgetModel productionBudgetModel)
+    {
+        productionBudgetService.updateProductionBudget(id ,productionBudgetModel);
+    }
+
 
 }

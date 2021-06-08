@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 @Service
 public class ProductionBudgetServiceImpl implements ProductionBudgetService {
     @Autowired
@@ -27,9 +28,10 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
         productionBudget = productionBudgetRepository.findAll();
         System.out.println("productionBudgetRepository.findAll()============ " + productionBudget);
         List<ProductionBudgetModel> productionBudgetModels = new ArrayList<>();
-        Type listType = new TypeToken<List<ProductionBudgetModel>>(){}.getType();
-        productionBudgetModels = modelMapper.map(productionBudget,listType);
-        System.out.println("Production budgetData================ "+productionBudgetModels);
+        Type listType = new TypeToken<List<ProductionBudgetModel>>() {
+        }.getType();
+        productionBudgetModels = modelMapper.map(productionBudget, listType);
+        System.out.println("Production budgetData================ " + productionBudgetModels);
         return productionBudgetModels;
 
     }
@@ -37,7 +39,7 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
     @Override
     public void create(ProductionBudgetModel productionBudgetModel) {
         ProductionBudget productionBudget = new ProductionBudget();
-        productionBudget = modelMapper.map(productionBudgetModel , ProductionBudget.class);
+        productionBudget = modelMapper.map(productionBudgetModel, ProductionBudget.class);
         productionBudgetRepository.saveAndFlush(productionBudget);
     }
 
@@ -49,23 +51,65 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
 
     @Override
     public ProductionBudgetModel findProductionBudgetByProductionDate(String date) {
-        System.out.println("Production_date======= "+date);
+        System.out.println("Production_date======= " + date);
         ProductionBudget productionBudget = productionBudgetRepository.findProductionBudgetByProductionDate(date);
-        System.out.println("productionBudget Date object ===== "+productionBudget);
+        System.out.println("productionBudget Date object ===== " + productionBudget);
         ProductionBudgetModel productionBudgetModel = new ProductionBudgetModel();
-        productionBudgetModel = modelMapper.map(productionBudget,ProductionBudgetModel.class);
-        System.out.println("productionbudgetModel====== "+productionBudgetModel);
+        productionBudgetModel = modelMapper.map(productionBudget, ProductionBudgetModel.class);
+        System.out.println("productionbudgetModel====== " + productionBudgetModel);
         return productionBudgetModel;
     }
 
     @Override
     public ProductionBudgetModel findProductionBudgetById(int id) {
-        System.out.println("id = " +id);
+        System.out.println("id = " + id);
         ProductionBudget productionBudget = productionBudgetRepository.findProductionBudgetById(id);
-        System.out.println("productionBudget Date object ===== "+productionBudget);
+        System.out.println("productionBudget Date object ===== " + productionBudget);
         ProductionBudgetModel productionBudgetModel = new ProductionBudgetModel();
-        productionBudgetModel = modelMapper.map(productionBudget,ProductionBudgetModel.class);
-        System.out.println("productionbudgetModel====== "+productionBudgetModel);
+        productionBudgetModel = modelMapper.map(productionBudget, ProductionBudgetModel.class);
+        System.out.println("productionbudgetModel====== " + productionBudgetModel);
         return productionBudgetModel;
+    }
+
+    @Override
+    public void updateProductionBudget(int id, ProductionBudgetModel productionBudgetModel) {
+        ProductionBudget productionBudget = productionBudgetRepository.findById(id).get();
+        if (productionBudgetModel.getProductionDate() != null) {
+            productionBudget.setProductionDate(productionBudgetModel.getProductionDate());
+        }
+        if (productionBudgetModel.getMeleiha() != null) {
+            productionBudget.setMeleiha(productionBudgetModel.getMeleiha());
+        }
+        if (productionBudgetModel.getAghar() != null) {
+            productionBudget.setAghar(productionBudgetModel.getAghar());
+        }
+        if (productionBudgetModel.getEastKanays() != null) {
+            productionBudget.setEastKanays(productionBudgetModel.getEastKanays());
+        }
+        if (productionBudgetModel.getZarif() != null) {
+            productionBudget.setZarif(productionBudgetModel.getZarif());
+        }
+        if (productionBudgetModel.getRaml() != null) {
+            productionBudget.setRaml(productionBudgetModel.getRaml());
+        }
+        if (productionBudgetModel.getFaras() != null) {
+            productionBudget.setFaras(productionBudgetModel.getFaras());
+        }
+        if (productionBudgetModel.getWesternDesert() != null) {
+            productionBudget.setWesternDesert(productionBudgetModel.getWesternDesert());
+        }
+        if (productionBudgetModel.getAshrafi() != null) {
+            productionBudget.setAshrafi(productionBudgetModel.getAshrafi());
+        }
+        if (productionBudgetModel.getAgibaOil() != null) {
+            productionBudget.setAgibaOil(productionBudgetModel.getAgibaOil());
+        }
+        if (productionBudgetModel.getSalesGas() != null) {
+            productionBudget.setSalesGas(productionBudgetModel.getSalesGas());
+        }
+        if (productionBudgetModel.getAgibaBoe() != null) {
+            productionBudget.setAgibaBoe(productionBudgetModel.getAgibaBoe());
+        }
+        productionBudgetRepository.saveAndFlush(productionBudget);
     }
 }
