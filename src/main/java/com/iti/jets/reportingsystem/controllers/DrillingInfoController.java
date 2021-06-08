@@ -21,9 +21,9 @@ public class DrillingInfoController {
         return drillingInfoModelList;
     }
 
-    @GetMapping("/drillingInfo/{id}")
-    public DrillingInfoModel getForWellId(@PathVariable int id) {
-        DrillingInfoModel drillingInfoModel = drillingInfoService.getForWellId(id);
+    @GetMapping("/{id}/drillingInfo")
+    public List<DrillingInfoModel> getForWellId(@PathVariable int id) {
+        List<DrillingInfoModel> drillingInfoModel = drillingInfoService.getForWellId(id);
 
         return drillingInfoModel;
     }
@@ -34,10 +34,10 @@ public class DrillingInfoController {
 
     }
 
-    @PostMapping("/drillingInfo")
-    public void create(@RequestBody DrillingInfoModel drillingInfoModel) {
+    @PostMapping("/{id}/drillingInfo")
+    public void create(@RequestBody DrillingInfoModel drillingInfoModel ,@PathVariable int id) {
         System.out.println("drillingInfoModel == " + drillingInfoModel);
-        drillingInfoService.creat(drillingInfoModel);
+        drillingInfoService.creat(drillingInfoModel , id);
 
     }
 

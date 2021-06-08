@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface DrillingInfoRepository extends JpaRepository<DrillingInfo, Integer > {
     @Query("select d from DrillingInfo d where d.well.wellId = ?1")
-    public DrillingInfo getAllForWellId(int wellId);
+    public List<DrillingInfo> getAllForWellId(int wellId);
 
     public List<DrillingInfo> findAllByWell_WellIdEquals(int wellId);
 

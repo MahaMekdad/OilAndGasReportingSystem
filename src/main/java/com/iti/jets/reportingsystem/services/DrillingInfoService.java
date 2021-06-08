@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface DrillingInfoService {
     List<DrillingInfoModel> getAllDrillingInfo();
-    DrillingInfoModel getForWellId (int id);
-    void creat (DrillingInfoModel drillingInfoModel);
+    List<DrillingInfoModel> getForWellId (int id);
+    void creat (DrillingInfoModel drillingInfoModel , int id);
     void delete (int id);
     void deleteWellInSpecificId(int wellId ,int id);
     DrillingInfoModel getWellForId(int wellId , int id);

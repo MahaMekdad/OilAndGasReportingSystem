@@ -37,19 +37,22 @@ public class DrillingServiceImpl implements DrillingInfoService {
     }
 
     @Override
-    public DrillingInfoModel getForWellId(int id) {
-        DrillingInfo drillingInfo = drillingInfoRepository.getAllForWellId(id);
+    public List<DrillingInfoModel> getForWellId(int id) {
+        List<DrillingInfo> drillingInfo = drillingInfoRepository.getAllForWellId(id);
         System.out.println("drillingInfo====== " + drillingInfo);
-        DrillingInfoModel drillingInfoModel = new DrillingInfoModel();
-        drillingInfoModel = modelMapper.map(drillingInfo, DrillingInfoModel.class);
+        List<DrillingInfoModel> drillingInfoModel = new ArrayList<>();
+        Type listType = new TypeToken<List<DrillingInfoModel>>() {
+        }.getType();
+
+        drillingInfoModel = modelMapper.map(drillingInfo, listType);
         return drillingInfoModel;
     }
 
     @Override
-    public void creat(DrillingInfoModel drillingInfoModel) {
+    public void creat(DrillingInfoModel drillingInfoModel , int id) {
         DrillingInfo drillingInfo = new DrillingInfo();
         System.out.println("iddddddd " + drillingInfoModel.getWellId());
-        Well well = wellRepository.findById(drillingInfoModel.getWellId()).get();
+        Well well = wellRepository.findById(id).get();
         drillingInfo = modelMapper.map(drillingInfoModel, DrillingInfo.class);
         drillingInfo.setWell(well);
         drillingInfoRepository.saveAndFlush(drillingInfo);
