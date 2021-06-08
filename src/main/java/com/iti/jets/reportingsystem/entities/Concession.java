@@ -2,6 +2,8 @@ package com.iti.jets.reportingsystem.entities;
 // Generated Jun 7, 2021, 4:22:33 AM by Hibernate Tools 6.0.0.Alpha2
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -25,6 +27,7 @@ public class Concession  implements java.io.Serializable {
 
      private Integer concessionId;
      private String concessionName;
+    @JsonManagedReference
      private Set<Field> fields = new HashSet<Field>(0);
 
     public Concession() {

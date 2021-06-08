@@ -2,6 +2,11 @@ package com.iti.jets.reportingsystem.entities;
 // Generated Jun 7, 2021, 4:22:33 AM by Hibernate Tools 6.0.0.Alpha2
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -24,20 +29,30 @@ import javax.persistence.UniqueConstraint;
     ,catalog="reportingsystem"
     , uniqueConstraints = {@UniqueConstraint(columnNames="well_code"), @UniqueConstraint(columnNames="well_name")} 
 )
+
 public class Well  implements java.io.Serializable {
 
 
      private Integer wellId;
+    @JsonBackReference
      private Field field;
      private String wellName;
      private String wellCode;
+    @JsonManagedReference
      private Set<IntervalsInfo> intervalsInfos = new HashSet<IntervalsInfo>(0);
+    @JsonManagedReference
      private Set<WellTestData> wellTestDatas = new HashSet<WellTestData>(0);
+    @JsonManagedReference
      private Set<DailyActions> dailyActionses = new HashSet<DailyActions>(0);
+    @JsonManagedReference
      private Set<ProductionGeneralInfo> productionGeneralInfos = new HashSet<ProductionGeneralInfo>(0);
+    @JsonManagedReference
      private Set<DrillingInfo> drillingInfos = new HashSet<DrillingInfo>(0);
+    @JsonManagedReference
      private Set<FluidLevelMeasurements> fluidLevelMeasurementses = new HashSet<FluidLevelMeasurements>(0);
+    @JsonManagedReference
      private Set<LabMesurement> labMesurements = new HashSet<LabMesurement>(0);
+     @JsonManagedReference
      private Set<WellGeneralInfo> wellGeneralInfos = new HashSet<WellGeneralInfo>(0);
 
     public Well() {

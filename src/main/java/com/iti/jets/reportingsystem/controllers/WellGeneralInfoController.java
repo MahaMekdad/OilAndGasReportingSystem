@@ -1,5 +1,6 @@
 package com.iti.jets.reportingsystem.controllers;
 
+import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
 import com.iti.jets.reportingsystem.services.impls.WellGeneralInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 public class WellGeneralInfoController {
     private WellGeneralInfoService wellGeneralInfoService;
 
+
     @Autowired
     public WellGeneralInfoController(WellGeneralInfoService wellGeneralInfoService){
         this.wellGeneralInfoService=wellGeneralInfoService;
@@ -22,6 +24,7 @@ public class WellGeneralInfoController {
     public ResponseEntity<List<WellGeneralInfo>> getAllWellsGeneralInfo(){
         return ResponseEntity.ok(wellGeneralInfoService.getAllWellsGeneralInfo());
     }
+
 
     @GetMapping("/wells/GeneralInformation/{id}")
     public ResponseEntity<WellGeneralInfo> getWellGeneralInfoById(@PathVariable  int id){

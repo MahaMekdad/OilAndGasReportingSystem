@@ -2,6 +2,10 @@ package com.iti.jets.reportingsystem.entities;
 // Generated Jun 7, 2021, 4:22:33 AM by Hibernate Tools 6.0.0.Alpha2
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +26,14 @@ import javax.persistence.TemporalType;
 @Table(name="well_test_data"
     ,catalog="reportingsystem"
 )
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class WellTestData  implements java.io.Serializable {
 
 
      private Integer id;
+    @JsonBackReference
      private Well well;
      private Date productionDate;
      private Integer TDuration;
@@ -146,7 +154,7 @@ public class WellTestData  implements java.io.Serializable {
     }
 
     
-    @Column(name=" WC", precision=22, scale=0)
+    @Column(name="WC", precision=22, scale=0)
     public Double getWc() {
         return this.wc;
     }
