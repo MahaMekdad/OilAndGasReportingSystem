@@ -11,15 +11,16 @@ public class DrillingInfoModel {
     @JsonIgnore
     private Well well;
     private Integer wellId;
-
     public Integer getWellId() {
         return wellId;
     }
-
     public void setWellId(Integer wellId) {
+        if(well!=null)
         this.wellId = well.getWellId();
+        else{
+            this.wellId = wellId;
+        }
     }
-
     private Date releaseDate;
     private String wellDescription;
     private String wellType;
@@ -70,6 +71,7 @@ public class DrillingInfoModel {
     }
 
     public void setWell(Well well) {
+
         this.well = well;
     }
 

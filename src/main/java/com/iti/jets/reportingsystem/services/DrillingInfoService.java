@@ -11,7 +11,9 @@ public interface DrillingInfoService {
     DrillingInfoModel getForWellId (int id);
     void creat (DrillingInfoModel drillingInfoModel);
     void delete (int id);
-    void update(DrillingInfoModel drillingInfoModel);
+    void deleteWellInSpecificId(int wellId ,int id);
+    DrillingInfoModel getWellForId(int wellId , int id);
+    void updateWellForId(int wellId , int id ,DrillingInfoModel drillingInfoModel );
 
 
 
