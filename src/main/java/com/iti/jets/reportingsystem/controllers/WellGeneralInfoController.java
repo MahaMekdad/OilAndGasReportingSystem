@@ -26,7 +26,7 @@ public class WellGeneralInfoController {
     }
 
 
-    @GetMapping("/wells/GeneralInformation/{id}")
+    @GetMapping("/wells/{id}/GeneralInformation")
     public ResponseEntity<WellGeneralInfo> getWellGeneralInfoById(@PathVariable  int id){
         WellGeneralInfo wellGeneralInfo=wellGeneralInfoService.getWellGeneralInfoById(id);
         if (wellGeneralInfo==null){
@@ -50,7 +50,7 @@ public class WellGeneralInfoController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/wells/GeneralInformation/{id}")
+    @DeleteMapping("/wells/{id}/GeneralInformation")
     public ResponseEntity deleteWellGeneralInfo(int id){
         if(wellGeneralInfoService.deleteWellGeneralInfo(id)){
             return ResponseEntity.ok().build();
