@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -85,6 +86,15 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
     }
 
     @Override
+    public List<FluidLevelMeasurementsModel> getAllFLMS(Date beginDate, Date endDate) {
+        Type listType = new TypeToken<List<FluidLevelMeasurementsModel>>(){}.getType();
+        List<FluidLevelMeasurementsModel> resultList;
+        resultList = modelMapper.map(flmRepo.findAllByDateGreaterThanEqualAndDateLessThanEqual(beginDate, endDate) , listType);
+        return resultList;
+
+    }
+
+    @Override
     public List<FluidLevelMeasurementsModel> getAllFLMSForAWell(int wellId) {
         Type listType = new TypeToken<List<FluidLevelMeasurementsModel>>(){}.getType();
         List<FluidLevelMeasurementsModel> resultList;
@@ -117,6 +127,14 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
 //                .collect(Collectors.toList());
 
 //        return resultList;
+    }
+
+    @Override
+    public List<FluidLevelMeasurementsModel> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate) {
+        Type listType = new TypeToken<List<FluidLevelMeasurementsModel>>(){}.getType();
+        List<FluidLevelMeasurementsModel> resultList;
+        resultList = modelMapper.map(flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate) , listType);
+        return resultList;
     }
 
 //    @Override

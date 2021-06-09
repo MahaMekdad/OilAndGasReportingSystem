@@ -4,6 +4,7 @@ import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
 import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,11 @@ public interface FluidLevelMeasurementsService {
 
     List<FluidLevelMeasurementsModel> getAllFLMS();
 
+    List<FluidLevelMeasurementsModel> getAllFLMS(Date beginDate, Date endDate);
+
     List<FluidLevelMeasurementsModel> getAllFLMSForAWell(int wellId);
+
+    List<FluidLevelMeasurementsModel> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate);
 
 //    public void updateAllFLMSForAWell(int wellId, FluidLevelMeasurements fluidLevelMeasurement);
 //

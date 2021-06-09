@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -70,10 +71,26 @@ public class ProductionGeneralInfoImpl implements ProductionGeneralInfoService {
     }
 
     @Override
+    public List<ProductionGeneralInfoModel> getAllPGIS(Date beginDate, Date endDate) {
+        Type listType = new TypeToken<List<ProductionGeneralInfoModel>>(){}.getType();
+        List<ProductionGeneralInfoModel> resultList;
+        resultList = modelMapper.map(pgiRepo.findAllByInitialProdDateGreaterThanEqualAndInitialProdDateLessThanEqual(beginDate, endDate) , listType);
+        return resultList;
+    }
+
+    @Override
     public List<ProductionGeneralInfoModel> getAllPGISForAWell(int wellId) {
         Type listType = new TypeToken<List<ProductionGeneralInfoModel>>(){}.getType();
         List<ProductionGeneralInfoModel> resultList;
         resultList = modelMapper.map(pgiRepo.findAllByWell_WellIdEquals(wellId) , listType);
+        return resultList;
+    }
+
+    @Override
+    public List<ProductionGeneralInfoModel> getAllPGISForAWell(int wellId, Date beginDate, Date endDate) {
+        Type listType = new TypeToken<List<ProductionGeneralInfoModel>>(){}.getType();
+        List<ProductionGeneralInfoModel> resultList;
+        resultList = modelMapper.map(pgiRepo.findAllByWell_WellIdEqualsAndInitialProdDateGreaterThanEqualAndInitialProdDateLessThanEqual(wellId, beginDate, endDate) , listType);
         return resultList;
     }
 

@@ -5,6 +5,7 @@ import com.iti.jets.reportingsystem.models.ProductionGeneralInfoModel;
 import com.iti.jets.reportingsystem.services.ProductionGeneralInfoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,12 @@ public class ProductionGeneralInfoController {
         return pgiService.getAllPGIS();
     }
 
+    @GetMapping(value = "/productionGeneralInfo", params = {"beginDate", "endDate"})
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<ProductionGeneralInfoModel> getAllProductionGeneralInfoModel(@RequestParam("beginDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date beginDate, @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
+        return pgiService.getAllPGIS(beginDate, endDate);
+    }
+
     @GetMapping(value = "{wellId}/productionGeneralInfo")
     @ResponseStatus(HttpStatus.CREATED)
     public List<ProductionGeneralInfoModel> getAllWellProductionLGeneralInfo(@PathVariable int wellId){
@@ -39,8 +46,8 @@ public class ProductionGeneralInfoController {
 
     @GetMapping(value = "{wellId}/productionGeneralInfo", params = {"beginDate", "endDate"})
     @ResponseStatus(HttpStatus.CREATED)
-    public List<ProductionGeneralInfoModel> getAllWellProductionLGeneralInfo(@PathVariable int wellId, @RequestParam("beginDate") Date beginDate, @RequestParam("endDate") Date endDate){
-        return pgiService.getAllPGISForAWell(wellId);
+    public List<ProductionGeneralInfoModel> getAllWellProductionLGeneralInfo(@PathVariable int wellId, @RequestParam("beginDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date beginDate, @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
+        return pgiService.getAllPGISForAWell(wellId, beginDate, endDate);
     }
 
     @PutMapping("{wellId}/productionGeneralInfo/{pgiId}")

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +34,20 @@ public class FluidLevelMeasurementsController {
         return flmService.getAllFLMS();
     }
 
+    @GetMapping(value = "/fluidLevelMeasurements", params = {"beginDate", "endDate"})
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<FluidLevelMeasurementsModel> getAllFluidLevelMeasurements(@RequestParam("beginDate") String beginDate, @RequestParam("endDate") String endDate){
+        try {
+            Date begin = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);
+            System.out.println(begin + "<======");
+            Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+            return flmService.getAllFLMS(begin, end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @GetMapping(value = "{wellId}/fluidLevelMeasurements")
     @ResponseStatus(HttpStatus.CREATED)
     public List<FluidLevelMeasurementsModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId){
@@ -40,8 +56,17 @@ public class FluidLevelMeasurementsController {
 
     @GetMapping(value = "{wellId}/fluidLevelMeasurements", params = {"beginDate", "endDate"})
     @ResponseStatus(HttpStatus.CREATED)
-    public List<FluidLevelMeasurementsModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId, @RequestParam("beginDate") Date beginDate, @RequestParam("endDate") Date endDate){
-        return flmService.getAllFLMSForAWell(wellId);
+    public List<FluidLevelMeasurementsModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId, @RequestParam("beginDate") String beginDate, @RequestParam("endDate") String endDate){
+        System.out.println(beginDate + "<======");
+        try {
+            Date begin = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);
+            System.out.println(begin + "<======");
+            Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+            return flmService.getAllFLMSForAWell(wellId, begin, end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @PutMapping("{wellId}/fluidLevelMeasurements/{flmId}")

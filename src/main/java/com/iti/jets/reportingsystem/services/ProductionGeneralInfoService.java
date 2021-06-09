@@ -4,6 +4,7 @@ import com.iti.jets.reportingsystem.entities.ProductionGeneralInfo;
 import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
 import com.iti.jets.reportingsystem.models.ProductionGeneralInfoModel;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ProductionGeneralInfoService {
@@ -14,7 +15,11 @@ public interface ProductionGeneralInfoService {
 
     List<ProductionGeneralInfoModel> getAllPGIS();
 
+    List<ProductionGeneralInfoModel> getAllPGIS(Date beginDate, Date endDate);
+
     public List<ProductionGeneralInfoModel> getAllPGISForAWell(int wellId);
+
+    public List<ProductionGeneralInfoModel> getAllPGISForAWell(int wellId, Date beginDate, Date endDate);
 
     public void updateSpecificPGIS(int wellId, int pgiId, ProductionGeneralInfoModel productionGeneralInfoModel);
 

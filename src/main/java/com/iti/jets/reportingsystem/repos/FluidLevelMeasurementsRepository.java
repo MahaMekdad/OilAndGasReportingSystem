@@ -7,21 +7,26 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface FluidLevelMeasurementsRepository extends JpaRepository<FluidLevelMeasurements, Integer> {
 
-    public List<FluidLevelMeasurements> findAllByWell_WellIdEquals(int wellId);
+    List<FluidLevelMeasurements> findAllByDateGreaterThanEqualAndDateLessThanEqual(Date beginDate, Date endDate);
 
-    public FluidLevelMeasurements findByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
+    List<FluidLevelMeasurements> findAllByWell_WellIdEquals(int wellId);
 
-    public void removeFluidLevelMeasurementsByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
+    FluidLevelMeasurements findByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
+
+    void removeFluidLevelMeasurementsByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
 
     @Transactional
-    public void removeByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
+    void removeByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
+
+    List<FluidLevelMeasurements> findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(int wellId, Date beginDate, Date endDate);
 
     @Query("select flm from FluidLevelMeasurements flm where flm.well.wellId = ?1")
-    public List<FluidLevelMeasurements> getAllForWellId(int wellId);
+    List<FluidLevelMeasurements> getAllForWellId(int wellId);
 
 }
