@@ -1,0 +1,4309 @@
+openapi: 3.0.0
+info:
+  version: '3.0'
+  title: Oil and Gas Reporting System (OGRS-API)
+  description: >-
+    This is an api  to allows users to obtain infomation about the oil and gas wells database and generating a punch of related reposts such as wells count, insurance as well as production allocation funcationality
+  termsOfService: http://ourcompany.com/terms-of-use
+  contact:
+    name: Muhammed Elbasiony Wafa
+    email: mohamed.wafa770@gmail.com
+  license:
+    name: reporting API liecence
+    url: http://liecence.anything.com
+
+servers:
+  - url: http://www.ourcompany.com/v1
+    description: Dev server
+
+  - url: http://www.ourcompany.com/v2
+    description: Production server
+tags:
+  - name: Lab
+    description: Lab Measurements Details
+  - name: WellDailyActions
+    description: Daily Report Measurements Details
+  - name: Field
+    description: field Measurements Details
+  - name: Well
+    description: Well Measurements Details
+  - name: FluidLevelMeasurements
+    description: Fluid Level Measurements Details
+  - name: ProductionGeneralInfo
+    description: Production General Info Details
+  - name: DrilingInfo
+    description: Driling Info Details
+  - name: ProductionBudget
+    description: Production Budget Details
+  - name: WellGeneralInfo
+    description: Well General Info Details
+  - name: IntervalsInfo
+    description: Intervals Info Details
+paths:
+
+  # ---------------MAHA---------------
+  /wells/fluidLevelMeasurements:
+    get:
+      tags:
+        - FluidLevelMeasurements
+      description: getting the fluid level measurements for a specific well id
+      parameters:
+        - in: query
+          name: beginDate
+          description: getting the fluid level measurements records that are of that date or after
+          schema:
+            type: string
+            format: date-time
+            example: 2021-03-16
+        - in: query
+          name: endDate
+          description: getting the fluid level measurements records that are of that date or before
+          schema:
+            type: string
+            format: date-time
+            example: 2021-03-16
+
+      responses:
+        204:
+          description: Successful pull of the fluid level measurements for the well with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllFluidLevelMeasurement'
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  /wells/{wellId}/fluidLevelMeasurements:
+    post:
+      tags:
+        - FluidLevelMeasurements
+      description: adding a new fluid level measurement for a specific well
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FluidLevelMeasurementRequest'
+
+      responses:
+        204:
+          description: Fluid level measurement created successfully
+        400:
+          description: please enter the of the required attributes with the correct data format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    get:
+      tags:
+        - FluidLevelMeasurements
+      description: getting the fluid level measurements for a specific well id
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+        - in: query
+          name: beginDate
+          description: getting the fluid level measurements records that are of that date or after
+          schema:
+            type: string
+            format: date-time
+            example: 2021-03-16
+        - in: query
+          name: endDate
+          description: getting the fluid level measurements records that are of that date or before
+          schema:
+            type: string
+            format: date-time
+            example: 2021-03-16
+
+      responses:
+        204:
+          description: Successful pull of the fluid level measurements for the well with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getFluidLevelMeasurement'
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  /wells/{wellId}/fluidLevelMeasurements/{flmId}:
+    put:
+      tags:
+        - FluidLevelMeasurements
+      description: updating a fluid level measurement of a specific well
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+        - in: path
+          name: flmId
+          required: true
+          description: the ID of the fluid level measurement record
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FluidLevelMeasurementRequest'
+
+      responses:
+        204:
+          description: Fluid level measurement created successfully
+        400:
+          description: please enter all of the required attributes with the correct format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    patch:
+      tags:
+        - FluidLevelMeasurements
+      description: updating a fluid level measurement of a specific well
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+        - in: path
+          name: flmId
+          required: true
+          description: the ID of the fluid level measurement record
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FluidLevelMeasurementRequest'
+
+      responses:
+        204:
+          description: Fluid level measurement created successfully
+        400:
+          description: please enter the of the required attributes with the correct data format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    delete:
+      tags:
+        - FluidLevelMeasurements
+      description: deleting a specific fluid level measurements record that is related to the well with the given id
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+        - in: path
+          name: flmId
+          required: true
+          description: the ID of the fluid level measurement record
+          schema:
+            type: integer
+            example: 5
+
+      responses:
+        204:
+          description: All records were deleted successfully
+        400:
+          description: please enter the of the required attributes with the correct data format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  /wells/productionGeneralInfo:
+    get:
+      tags:
+        - ProductionGeneralInfo
+      description: getting all the production general info for all the wells
+
+      responses:
+        204:
+          description: Successful pull of the fluid level measurements for the well with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllProductionGeneralInfoWithNames'
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  /wells/{wellId}/productionGeneralInfo:
+    post:
+      tags:
+        - ProductionGeneralInfo
+      description: creating a new production general info record for a specific well
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductionGeneralInfoRequest'
+
+      responses:
+        204:
+          description: Production general info record created successfully
+        400:
+          description: please enter the of the required attributes with the correct data format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    get:
+      tags:
+        - ProductionGeneralInfo
+      description: getting all the production general info for the well with the given id
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+        - in: query
+          name: powerSourceType
+          description: the value of the powerSourceType
+          schema:
+            type: string
+            enum: [OHL, Diesel Generator]
+            example: OHL
+        - in: query
+          name: processionPlant
+          description: the value of the processionPlant
+          schema:
+            type: string
+            enum: [Gas Plant, Oil Plant,Flair]
+            example: Gas Plant
+        - in: query
+          name: currentWellType
+          description: the value of the currentWellType
+          schema:
+            type: string
+            enum: [oil producer, gas producer, water producer, oil and gas, condensate producer, non]
+            example: oil producer
+        - in: query
+          name: currentLiftType
+          description: the value of the currentLiftType
+          schema:
+            type: string
+            enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+            example: NaturalFlow
+        - in: query
+          name: currentStatus
+          description: the value of the currentStatus
+          schema:
+            type: string
+            enum: [producing, shutin]
+            example: producing
+
+      responses:
+        204:
+          description: Successful pull of the production general info for the well with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getProductionGeneralInfo'
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  /wells/{wellId}/productionGeneralInfo/{pgiId}:
+    put:
+      tags:
+        - ProductionGeneralInfo
+      description: updating production general info of a specific well
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+        - in: path
+          name: pgiId
+          required: true
+          description: the ID of the production general info record
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductionGeneralInfoRequest'
+
+      responses:
+        204:
+          description: Fluid level measurement created successfully
+        400:
+          description: please enter the of the required attributes with the correct data format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    delete:
+      tags:
+        - ProductionGeneralInfo
+      description: deleting a specific production general info record that is related to the well with the given id
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: the ID of the well
+          schema:
+            type: integer
+            example: 5
+        - in: path
+          name: pgiId
+          required: true
+          description: the ID of the production general info record
+          schema:
+            type: integer
+            example: 5
+
+      responses:
+        204:
+          description: All records were deleted successfully
+        400:
+          description: please enter the of the required attributes with the correct data format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  # ---------------SALMA---------------
+  /wells/drillingInfo:
+    get:
+      tags:
+        - DrilingInfo
+      description: getting the drilling inforamtion for all wells
+      responses:
+        200:
+          description: search results matching the well id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/getDrillingInfoResponse'
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+  /wells/{wellId}/drillingInfo:
+    get:
+      tags:
+        - DrilingInfo
+      description: getting the drilling inforamtion for specific well
+      parameters:
+        - in: path
+          name: wellId
+          description: pass the id of a specific well
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: search results matching the well id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getDrillingInfoResponse'
+        400:
+          description: bad request
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+    post:
+      tags:
+        - DrilingInfo
+      description: adding new drilling info for specefic well
+      parameters:
+        - in: path
+          name: wellId
+          description: pass the id of a specific well
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/drillingInfoRequest'
+      responses:
+        200:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+    delete:
+      tags:
+        - DrilingInfo
+      description: delteing drilling info for specific well
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: well id that we want to delete it
+          schema:
+            type: integer
+            example: 1
+      responses:
+        204:
+          description: all records with the same well id are deleted
+        400:
+          description: invalid input, object invalid
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+  /wells/{wellId}/drillingInfo/{id}:
+    get:
+      tags:
+        - DrilingInfo
+      description: getting the drilling inforamtion for specific well
+      parameters:
+        - in: path
+          name: wellId
+          description: pass the id of a specific well
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: id
+          description: pass the id of the record
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: search results matching the well id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getDrillingInfoResponse'
+        400:
+          description: bad request
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+    delete:
+      tags:
+        - DrilingInfo
+      description: delteing drilling info for specific well
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          description: well id that we want to delete it
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: id
+          description: pass the id of the record
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        204:
+          description: all records with the same well id are deleted
+        400:
+          description: invalid input, object invalid
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+    patch:
+      tags:
+        - DrilingInfo
+      description: updating drilling info for specific well
+      parameters:
+        - in: path
+          name: wellId
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: well id that we want to update it
+        - in: path
+          name: id
+          description: pass the id of the record
+          required: true
+          schema:
+            type: integer
+            example: 1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/drillingInfoRequest'
+      responses:
+        200:
+          description: item updated
+        400:
+          description: invalid input, object invalid
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+  /concessions/budget/productionBudget:
+    get:
+      tags:
+        - ProductionBudget
+      description: gell all budgets in specific date
+      parameters:
+        - in: query
+          name: date
+          description: specific date to get all the budgets of the concessions
+          schema:
+            type: string
+            format: date-time
+            example: 2018-05-10
+
+
+      responses:
+        200:
+          description: search results matching this date
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/productionBudegetDataResponse'
+
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+    post:
+      tags:
+        - ProductionBudget
+      description: adding new prdouction budget for concessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/productionBudgetRequest'
+      responses:
+        200:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+  /concessions/budget/productionBudget/{id}:
+    delete:
+      tags:
+        - ProductionBudget
+      description: deleting budget of a concession in specific date
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: well id that we want to delete it
+          schema:
+            type: integer
+            example: 1
+      responses:
+        204:
+          description: item is deleted
+        400:
+          description: invalid input, object invalid
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+    patch:
+      tags:
+        - ProductionBudget
+      description: updating budget of a concession in specific date
+      parameters:
+        -  in: path
+           name: id
+           required: true
+           description: well id that we want to delete it
+           schema:
+             type: integer
+             example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/productionBudgetRequest'
+      responses:
+        200:
+          description: item updated
+        400:
+          description: invalid input, object invalid
+        401:
+          description: not authenticated user to access this resource
+        403:
+          description: not authorized to access this resource
+        500:
+          description: unexpected error in the server
+
+  # ---------------AMIRA---------------
+  /fields:
+    get:
+      tags:
+        - Field
+      summary: Get all fields
+      description: Returns all fields records
+      operationId: getfields
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/getAllFields'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllFields'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: field not found
+          content: {}
+        "401":
+          description: You have not been authenticated
+        "403":
+          description: Unauthorized to make this request
+        "500":
+          description: unexpected server error
+
+    post:
+      tags:
+        - Field
+      summary: Add a new field Measurement
+      description: Add a new field Measurement to report
+      operationId: addfieldMeasurement
+      requestBody:
+        description: FieldMeasurement object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fieldRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/fieldRequest'
+        required: true
+      responses:
+        "204":
+          description: Fluid level measurement created successfully
+        "400":
+          description: please enter the of the required attributes with the correct data format
+        "401":
+          description: You have not been authenticated
+        "403":
+          description: Unauthorized to make this request
+        "404":
+          description: resource not found
+        "500":
+          description: unexpected server error
+
+  /wells:
+    get:
+      tags:
+        - Well
+      summary: Find well by ID
+      description: Returns a single Report
+      operationId: getwells
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/getAllWells'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllWells'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: well not found
+          content: {}
+
+    post:
+      tags:
+        - Well
+      summary: Add a new well
+      description: Add a new well
+      operationId: addwell
+      requestBody:
+        description: well object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wellRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/wellRequest'
+        required: true
+      responses:
+        "400":
+          description: please enter the of the required attributes with the correct data format
+        "401":
+          description: You have not been authenticated
+        "403":
+          description: Unauthorized to make this request
+        "404":
+          description: resource not found
+        "500":
+          description: unexpected server error
+        "200":
+          description: successful operation
+
+  /fields/{id}:
+    get:
+      tags:
+        - Field
+      summary: Find field by ID
+      description: Returns a single field measurement
+      operationId: getfieldById
+      parameters:
+        - name: id
+          in: path
+          description: ID of field to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/fieldResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fieldResponse'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: field not found
+          content: {}
+        "401":
+          description: You have not been authenticated
+        "403":
+          description: Unauthorized to make this request
+        "500":
+          description: unexpected server error
+
+    put:
+      tags:
+        - Field
+      summary: Update a field Measurement
+      description: Update an existing field Measurement in a report
+      operationId: updatefieldMeasurement
+      parameters:
+        - name: id
+          in: path
+          description: ID of field to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: fieldMeasurement object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fieldRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/fieldRequest'
+        required: true
+      responses:
+        "400":
+          description: please enter the of the required attributes with the correct data format
+        "401":
+          description: You have not been authenticated
+        "403":
+          description: Unauthorized to make this request
+        "404":
+          description: resource not found
+        "500":
+          description: unexpected server error
+        "200":
+          description: successful operation
+
+    delete:
+      tags:
+        - Field
+      summary: Deletes a field
+      description: Deletes a field by its id
+      operationId: deletefieldById
+      parameters:
+        - name: id
+          in: path
+          description: Delete a field by its id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: field not found
+          content: {}
+        "401":
+          description: You have not been authenticated
+        "403":
+          description: Unauthorized to make this request
+        "500":
+          description: unexpected server error
+        "200":
+          description: successful operation
+
+  /wells/{id}:
+    get:
+      tags:
+        - Well
+      summary: Find well by ID
+      description: Returns a single Report
+      operationId: getwellById
+      parameters:
+        - name: id
+          in: path
+          description: ID of a well to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/wellResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wellResponse'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: well not found
+          content: {}
+
+    put:
+      tags:
+        - Well
+      summary: Update a well
+      description: Update an existing well for a well
+      operationId: updateWell
+      parameters:
+        - name: id
+          in: path
+          description: ID of well to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Well object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wellRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/wellRequest'
+        required: true
+      responses:
+        "400":
+          description: please enter the of the required attributes with the correct data format
+        "401":
+          description: You have not been authenticated
+        "403":
+          description: Unauthorized to make this request
+        "404":
+          description: resource not found
+        "500":
+          description: unexpected server error
+        "200":
+          description: successful operation
+
+    delete:
+      tags:
+        - Well
+      summary: Deletes a well
+      description: Deletes a well by its id
+      operationId: deleteWellById
+      parameters:
+        - name: id
+          in: path
+          description: Delete a well by its id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: well not found
+          content: {}
+        "401":
+          description: You have not been authenticated
+        "403":
+          description: Unauthorized to make this request
+        "500":
+          description: unexpected server error
+        "200":
+          description: successful operation
+
+  # ---------------SHAKER---------------
+  /wells/GeneralInfo:
+    get:
+      tags:
+        - WellGeneralInfo
+      description: Returns a list of wells info
+      #  ----- Added lines  ----------------------------------------
+      responses:
+        '200':
+          description: Successfully returned a list of wells general info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/wellGeneralInfoResponse'
+
+        '400':
+          description: Invalid request
+        '401':
+          description: You have not been authenticated
+        '403':
+          description: Unauthorized to make this request
+        '500':
+          description: unexpected server error
+
+    post:
+      tags:
+        - WellGeneralInfo
+      description: Lets a user post a new wellGeneralInfo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wellGeneralInfoRequest'
+
+      responses:
+        '200':
+          description: Successfully created a new wellGeneralInfo
+
+        '400':
+          description: Invalid request
+
+        '401':
+          description: You have not been authenticated
+
+        '403':
+          description: Unauthorized to make this request
+
+        '500':
+          description: unexpected server error
+
+  /wells/GeneralInfo/{id}:
+    get:
+      tags:
+        - WellGeneralInfo
+      description: Obtain information about well from its id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+
+      responses:
+        '200':
+          description: Successfully returned wellGeneralInfo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wellGeneralInfoResponse'
+
+        '400':
+          description: Invalid request
+        '401':
+          description: You have not been authenticated
+        '403':
+          description: Unauthorized to make this request
+        '404':
+          description: resource not found
+        '500':
+          description: unexpected server error
+
+    put:
+      tags:
+        - WellGeneralInfo
+      description: update information about well by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wellGeneralInfoRequest'
+      responses:
+        '200':
+          description: Successfully updated wellGeneralInfo
+
+        '400':
+          description: Invalid request
+        '401':
+          description: You have not been authenticated
+        '403':
+          description: Unauthorized to make this request
+        '404':
+          description: resource not found
+        '500':
+          description: unexpected server error
+
+    delete:
+      tags:
+        - WellGeneralInfo
+      description: delete wellGeneralInfo by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+
+
+      responses:
+        '200':
+          description: Successfully deleted wellGeneralInfo
+
+        '400':
+          description: Invalid request
+        '401':
+          description: You have not been authenticated
+        '403':
+          description: Unauthorized to make this request
+        '404':
+          description: resource not found
+        '500':
+          description: unexpected server error
+
+  /wells/intervalsInfo:
+    get:
+      tags:
+        - IntervalsInfo
+      description: Returns a list of intervals info about wells
+
+      responses:
+        '200':
+          description: Successfully returned a list of wells intervals info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/intervalsInfoResponse'
+
+        '400':
+          description: Invalid request
+        '401':
+          description: You have not been authenticated
+        '403':
+          description: Unauthorized to make this request
+        '500':
+          description: unexpected server error
+
+    post:
+      tags:
+        - IntervalsInfo
+      description: Lets a user post a new intervalsInfo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/intervalsInfoRequest'
+
+      responses:
+        '200':
+          description: Successfully created a new intervalsInfo
+
+        '400':
+          description: Invalid request
+
+        '401':
+          description: You have not been authenticated
+
+        '403':
+          description: Unauthorized to make this request
+
+        '500':
+          description: unexpected server error
+
+  /wells/intervalsInfo/{id}:
+    get:
+      tags:
+        - IntervalsInfo
+      description: Obtain intervalsInfo about well by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+
+      responses:
+        '200':
+          description: Successfully returned intervalsInfo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/intervalsInfoResponse'
+
+        '400':
+          description: Invalid request
+        '401':
+          description: You have not been authenticated
+        '403':
+          description: Unauthorized to make this request
+        '404':
+          description: resource not found
+        '500':
+          description: unexpected server error
+
+    put:
+      tags:
+        - IntervalsInfo
+      description: update intervals Info about well by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/intervalsInfoRequest'
+      responses:
+        '200':
+          description: Successfully updated intervals Info
+
+        '400':
+          description: Invalid request
+        '401':
+          description: You have not been authenticated
+        '403':
+          description: Unauthorized to make this request
+        '404':
+          description: resource not found
+        '500':
+          description: unexpected server error
+
+    delete:
+      tags:
+        - IntervalsInfo
+      description: delete intervals Info by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+
+
+      responses:
+        '200':
+          description: Successfully deleted intervalsInfo
+
+        '400':
+          description: Invalid request
+        '401':
+          description: You have not been authenticated
+        '403':
+          description: Unauthorized to make this request
+        '404':
+          description: resource not found
+        '500':
+          description: unexpected server error
+
+  # ---------------OSOS---------------
+  /wells/{wellId}/labs:
+    post:
+      tags:
+        - Lab
+      summary: Add a new lab Measurement
+      description: Add a new lab Measurement to well
+      operationId: addLabMeasurement
+      parameters:
+        - name: wellId
+          in: path
+          description: ID of lab to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: LabMeasurement object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/labMeasurementRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/labMeasurementRequest'
+        required: true
+      responses:
+        "204":
+          description: success
+        "400":
+          description: un expected body
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+        "405":
+          description: Invalid input
+          content: {}
+
+    get:
+      tags:
+        - Lab
+      summary: Find labs between two dates
+      description: Returns labs between two dates
+      operationId: getAllLabsInWell
+      parameters:
+        - name: wellId
+          in: path
+          description: ID of lab to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: beginDate
+          in: query
+          description: getting the daily actions that are of that date or after
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-03-16T00:00:00.000+0000
+        - name: endDate
+          in: query
+          description: getting the daily actions that are of that date or after
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-03-16T00:00:00.000+0000
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AllLabsOfAWell'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllLabsOfAWell'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Lab not found
+          content: {}
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+
+  /wells/labs:
+    get:
+      tags:
+        - Lab
+      summary: Find labs between two dates
+      description: Returns labs between two dates
+      operationId: getAllLabs
+      parameters:
+        - name: beginDate
+          in: query
+          description: getting the daily actions that are of that date or after
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-03-16T00:00:00.000+0000
+        - name: endDate
+          in: query
+          description: getting the daily actions that are of that date or after
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-03-16T00:00:00.000+0000
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AllLabs'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllLabs'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Lab not found
+          content: {}
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+
+  /wells/{wellId}/labs/{labId}:
+    put:
+      tags:
+        - Lab
+      summary: Update a lab Measurement
+      description: Update an existing lab Measurement in a well
+      operationId: updateLabMeasurement
+      parameters:
+        - name: wellId
+          in: path
+          description: ID of lab to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: labId
+          in: path
+          description: record Id of the lab measurements table
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: LabMeasurement object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/labMeasurementRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/labMeasurementRequest'
+        required: true
+      responses:
+        "204":
+          description: success
+        "400":
+          description: un expected body
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+        "405":
+          description: Invalid input
+          content: {}
+
+    delete:
+      tags:
+        - Lab
+      summary: Deletes a lab
+      description: Deletes a lab by its id
+      operationId: deleteLabById
+      parameters:
+        - name: labId
+          in: path
+          description: Delete a lab by its id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+        - name: wellId
+          in: path
+          description: Delete a lab in a well by its id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Lab not found
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+          content: {}
+
+    get:
+      tags:
+        - Lab
+      summary: Find a certain lab on a certain well
+      description: Returns a certain lab on a certain well
+      operationId: getLabByWellIdAndLabId
+      parameters:
+        - name: wellId
+          in: path
+          description: ID of lab to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: labId
+          in: path
+          description: record Id of the lab measurements table
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/labMeasurementResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/labMeasurementResponse'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Lab not found
+          content: {}
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+
+  /wells/{wellId}/dailyActions:
+    post:
+      tags:
+        - WellDailyActions
+      summary: Add a new daily report
+      description: Add a new daily report
+      operationId: addDailyReport
+      parameters:
+        - name: wellId
+          in: path
+          description: ID of dailyAction to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Daily Report object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wellDailyActionsRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/wellDailyActionsRequest'
+        required: true
+      responses:
+        "204":
+          description: success
+        "400":
+          description: un expected body
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+        "405":
+          description: Invalid input
+          content: {}
+
+    get:
+      tags:
+        - WellDailyActions
+      summary: Find reports between two dates
+      description: Returns reports between two dates
+      operationId: getReportById
+      parameters:
+        - name: wellId
+          in: path
+          description: ID of report to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: siLVL4
+          in: query
+          description: Return Reports
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: losses
+          in: query
+          description: Return all daily Reports of a certain well by loss
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: downTime
+          in: query
+          description: Return all daily Reports of a certain well by downTime
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: beginDate
+          in: query
+          description: getting the daily actions that are of that date or after
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-03-16T00:00:00.000+0000
+        - name: endDate
+          in: query
+          description: getting the daily actions that are of that date or after
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-03-16T00:00:00.000+0000
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AllWellDailyActionsOfAWell'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllWellDailyActionsOfAWell'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Report not found
+          content: {}
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+
+  /wells/{wellId}/dailyActions/{dailyActionId}:
+    put:
+      tags:
+        - WellDailyActions
+      summary: Update a daily report
+      description: Update an existing daily report for a well
+      operationId: updateWellReport
+      parameters:
+        - name: wellId
+          in: path
+          description: well Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: dailyActionId
+          in: path
+          description: record Id of the Daily Actions table
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: dailyReport object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wellDailyActionsRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/wellDailyActionsRequest'
+        required: true
+      responses:
+        "204":
+          description: success
+        "400":
+          description: un expected body
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+        "405":
+          description: Invalid input
+          content: {}
+
+    get:
+      tags:
+        - WellDailyActions
+      summary: Find daily Reports of a well
+      description: Returns all daily Reports of a well by well id
+      operationId: getWellReportById
+      parameters:
+        - name: wellId
+          in: path
+          description: Return all daily Reports of a certain well
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: dailyActionId
+          in: path
+          description: Return all daily Reports of a certain well
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/wellDailyActionsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wellDailyActionsResponse'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Report not found
+          content: {}
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+
+    delete:
+      tags:
+        - WellDailyActions
+      summary: Deletes a report
+      description: Deletes a report by its id
+      operationId: deleteReportById
+      parameters:
+        - name: dailyActionId
+          in: path
+          description: Delete a daily report by its id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+        - name: wellId
+          in: path
+          description: Delete a daily report in a well by its id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+      responses:
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Report not found
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+
+  /wells/dailyActions:
+    get:
+      tags:
+        - WellDailyActions
+      summary: Find reports between two dates
+      description: Returns reports between two dates
+      operationId: getAllReports
+      parameters:
+        - name: siLVL4
+          in: query
+          description: Return Reports
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: losses
+          in: query
+          description: Return all daily Reports of a certain well by loss
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: downTime
+          in: query
+          description: Return all daily Reports of a certain well by downTime
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: integer
+            format: int64
+        - name: beginDate
+          in: query
+          description: getting the daily actions that are of that date or after
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-03-16T00:00:00.000+0000
+        - name: endDate
+          in: query
+          description: getting the daily actions that are of that date or after
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-03-16T00:00:00.000+0000
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AllWellDailyActions'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllWellDailyActions'
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Report not found
+          content: {}
+        "401":
+          description: not authintecated user
+        "500":
+          description: un expected error
+        "403":
+          description: not authorized user
+
+  # ---------------BASIONY---------------
+  /concessions:
+    get:
+      tags:
+        - concessions
+      summary: Array of all concessions
+      description: returning an Array  of available concessions
+      operationId: findAllConcessions
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllConcessions'
+
+        # These two error responses have the same schema
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+    post:
+      tags:
+        - concessions
+      summary: Add a new concession to the database
+      operationId: addConcession
+      requestBody:
+        description: concession object that needs to be added to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConcessionRequest'
+      responses:
+        200:
+          description: Record created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/concessionResponse'
+        400:
+          description: Bad request. Must contain concession object in json format.
+        401:
+          description: Authorization information is missing or invalid.
+
+        405:
+          description: Invalid input. must be in json format
+          content: {}
+
+        500:
+          description: Internal server Error
+
+  /concessions/{id}:
+    get:
+      tags:
+        - concessions
+      summary: Find concession by concessionID
+      description: Returns a single concession
+      operationId: getConcessionById
+      parameters:
+        - name: id
+          in: path
+          description: ID of concession to be returned
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200: #can return 201 with empty body
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/concessionResponse'
+        # These two error responses have the same schema
+        400:
+          description: Bad request. concession ID must be an integer and larger than 0.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: Authorization information is missing or invalid.
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+    put:
+      tags:
+        - concessions
+      summary: Update an existing concession
+      operationId: updateConcession
+      parameters:
+        - name: id
+          in: path
+          description: ID of concession to be updated
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: concession object that needs to be updated to the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConcessionRequest'
+        required: true
+      responses:
+        200: #can return 201 with empty body
+          description: Ok, returns the updated concession object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/concessionResponse'
+
+        # These two error responses have the same schema
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+    delete:
+      tags:
+        - concessions
+      summary: Deletes a concession
+      operationId: deleteConcession
+      parameters:
+        - name: id
+          in: path
+          description: concession id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: The resource was deleted successfully.
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+  /concessions/budgets/budgetVsActual:
+    get:
+      tags:
+        - ConcessionsBudgets
+      summary: get all concessions Budgets
+      description: returning a list of available Concessions Budgets
+      operationId: findAllRecords
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/fieldsBudgetAndActualResponse'
+          # These two error responses have the same schema
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+    post:
+      tags:
+        - ConcessionsBudgets
+      summary: Add a new record to the dataBase
+      operationId: addBudgetRecord
+      requestBody:
+        description: budget object that needs to be added to the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fieldsBudgetAndActualRequest'
+        required: true
+      responses:
+        200:
+          description: Record created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fieldsBudgetAndActualResponse'
+        400:
+          description: Bad request. Must contain concession object in json format.
+        401:
+          description: Authorization information is missing or invalid.
+
+        405:
+          description: Invalid input. must be in json format
+          content: {}
+
+        500:
+          description: Internal server Error
+
+  /concessions/budgets/budgetVsActual/{id}:
+    put:
+      tags:
+        - ConcessionsBudgets
+      summary: Update an existing fieldsBudgetAndActual
+      operationId: updateBudgetRecord
+      requestBody:
+        description: fieldsBudgetAndActual object that needs to be added to the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/fieldsBudgetAndActualRequest'
+      parameters:
+        - name: id
+          in: path
+          description: ID of record to be updated to be returned
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200: #can return 201 with empty body
+          description: Ok, returns the updated concession object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fieldsBudgetAndActualResponse'
+
+        # These two error responses have the same schema
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+  /wells/tests:
+    get:
+      tags:
+        - wellTests
+      summary: Return a list of all available well test records for all wells.
+      description: returning a list of available test records
+      operationId: findAllTests
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllTests'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+  /wells/{id}/tests:
+    get:
+      tags:
+        - wellTests
+      summary: Find a list of  well Test records for specific well Id.
+      description: Returing a list of all avilable well test records based on a given well id, For valid response try integer IDs with value >= 1 and <= 1000
+      operationId: getTestById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the well of which we need to retreive the tests records
+          required: true
+          schema:
+            minimum: 1.0
+            type: integer
+            format: int64
+        - name: beginDate
+          in: query
+          description: getting the test  measurements records that are of that date or after
+          schema:
+            type: string
+            format: date-time
+            example: 2021-03-16
+        - name: endDate
+          in: query
+          description: getting the test  measurements records that are of that date or before
+          schema:
+            type: string
+            format: date-time
+            example: 2021-03-16
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wellTestResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+    post:
+      tags:
+        - wellTests
+      summary: Add a new test record to the database for specific well
+      operationId: addTestRecord
+      parameters:
+        - name: id
+          in: path
+          description: ID of the well of which we need to add the tests records
+          required: true
+          schema:
+            minimum: 1.0
+            type: integer
+            format: int64
+      requestBody:
+        description: test roew object that needs to be added to the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wellTestRequest'
+        required: true
+      responses:
+        200:
+          description: Record created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wellTestResponse'
+        400:
+          description: Bad request. Must contain test record object in json format.
+        401:
+          description: Authorization information is missing or invalid.
+
+        405:
+          description: Invalid input. must be in json format
+          content: {}
+        500:
+          description: Internal server Error
+
+  /wells/{id}/tests/{recordId}:
+    put:
+      tags:
+        - wellTests
+      summary: Update an existing test record based on a given Id
+      operationId: updateWellTestRecord
+      parameters:
+        - name: id
+          in: path
+          description: ID of the well of which we need to update the record.
+          required: true
+          schema:
+            minimum: 1.0
+            type: integer
+            format: int64
+        - name: recordId
+          in: path
+          description: ID of the well test record that needs to be deleted
+          required: true
+          schema:
+            minimum: 1.0
+            type: integer
+            format: int64
+      requestBody:
+        description: well test row object that needs to be added to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wellTestRequest'
+
+      responses:
+        200: #can return 201 with empty body
+          description: Ok, returns the updated test record object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wellTestResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+    delete:
+      tags:
+        - wellTests
+      summary: Delete test record  by ID
+      description: For valid response try integer IDs with positive integer value.         Negative
+        or non-integer values will generate API errors
+      operationId: deleteTest
+      parameters:
+        - name: recordId
+          in: path
+          description: ID of the well of which we need to update the record.
+          required: true
+          schema:
+            minimum: 1.0
+            type: integer
+            format: int64
+        - name: id
+          in: path
+          description: ID of the well test record that needs to be deleted
+          required: true
+          schema:
+            minimum: 1.0
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: The resource was deleted successfully.
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
+
+components:
+
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+
+    getAllFluidLevelMeasurement:
+      type: array
+      items:
+        $ref: '#/components/schemas/AllFluidLevelMeasurementResponse'
+
+    getFluidLevelMeasurement:
+      type: array
+      items:
+        $ref: '#/components/schemas/FluidLevelMeasurementResponse'
+
+    getAllProductionGeneralInfoWithNames:
+      type: array
+      items:
+        $ref: '#/components/schemas/AllProductionGeneralInfoWithNamesResponse'
+
+    getProductionGeneralInfoWithNames:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProductionGeneralInfoWithNamesResponse'
+
+    getProductionGeneralInfo:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProductionGeneralInfoResponse'
+
+    AllFluidLevelMeasurementResponse:
+      description: Model containing FluidLevelMeasurement object info for returns (get requests)
+      properties:
+        id:
+          type: integer
+
+        wellId:
+          type: integer
+
+        date:
+          type: string
+          format: date-time
+
+        intervals:
+          type: string
+
+        flType:
+          type: string
+          default: Static
+          enum: [Static, Dynamic]
+
+        fluidLevel:
+          type: number
+
+        pumpDepth:
+          type: number
+
+        liqPercentage:
+          type: number
+
+        pumpFillage:
+          type: number
+
+        pumpSubmerge:
+          type: number
+
+        card:
+          type: string
+          default: a
+          enum: [a, b, c]
+
+        remarks:
+          type: string
+
+      example:
+        id: 5
+        wellId: 16
+        date: 2021-03-16
+        intervals: intervals word example
+        flType: Static
+        fluidLevel: 1200
+        pumpDepth: 5000
+        liqPercentage: 0.22
+        pumpFillage: 15
+        pumpSubmerge: 8.9
+        card: a
+        remarks: plan to perform roundtrip
+
+    FluidLevelMeasurementResponse:
+      description: Model containing FluidLevelMeasurement object info for returns (get requests)
+      properties:
+        id:
+          type: integer
+
+        date:
+          type: string
+          format: date-time
+
+        intervals:
+          type: string
+
+        flType:
+          type: string
+          default: Static
+          enum: [Static, Dynamic]
+
+        fluidLevel:
+          type: number
+
+        pumpDepth:
+          type: number
+
+        liqPercentage:
+          type: number
+
+        pumpFillage:
+          type: number
+
+        pumpSubmerge:
+          type: number
+
+        card:
+          type: string
+          default: a
+          enum: [a, b, c]
+
+        remarks:
+          type: string
+
+      example:
+        id: 5
+        wellId: 16
+        date: 2021-03-16
+        intervals: intervals word example
+        flType: Static
+        fluidLevel: 1200
+        pumpDepth: 5000
+        liqPercentage: 0.22
+        pumpFillage: 15
+        pumpSubmerge: 8.9
+        card: a
+        remarks: plan to perform roundtrip
+
+    FluidLevelMeasurementRequest:
+      description: Model containing FluidLevelMeasurement object info for creation and modification (post, put, and patch requests)
+      properties:
+        date:
+          type: string
+          format: date-time
+
+        intervals:
+          type: string
+
+        flType:
+          type: string
+          default: Static
+          enum: [Static, Dynamic]
+
+        fluidLevel:
+          type: number
+
+        pumpDepth:
+          type: number
+
+        liqPercentage:
+          type: number
+
+        pumpFillage:
+          type: number
+
+        pumpSubmerge:
+          type: number
+
+        card:
+          type: string
+          default: a
+          enum: [a, b, c]
+
+        remarks:
+          type: string
+
+      example:
+        date: 2021-03-16
+        intervals: intervals word example
+        flType: Static
+        fluidLevel: 1200
+        pumpDepth: 5000
+        liqPercentage: 0.22
+        pumpFillage: 15
+        pumpSubmerge: 8.9
+        card: a
+        remarks: plan to perform roundtrip
+
+    ProductionGeneralInfoResponse:
+      description: Model for the ProductionGeneralInfo object info for returns (get requests)
+      properties:
+        id:
+          type: integer
+          example: 88
+
+        initialProdDate:
+          type: string
+          format: date-time
+          example: 2021-03-16
+
+        initialType:
+          type: string
+          default: oil producer
+          enum: [oil producer, gas producer, water producer, oil  and gas, condensate producer, non]
+
+        initialProduct:
+          type: string
+          default: oil
+          enum: [oil, water, gas, condensate, non condensate]
+
+        initialLiftType:
+          type: string
+          default: NaturalFlow
+          enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+
+        initStatus:
+          type: string
+          default: producing
+          enum: [producing, dry]
+
+        monitoringSystem:
+          type: string
+          default: non
+          enum: [skada, non]
+
+        currentWellType:
+          type: string
+          default: oil producer
+          enum: [oil producer, gas producer, water producer, oil  and gas, condensate producer, non]
+
+        currentWellTypeDate:
+          type: string
+          format: date-time
+          example: 2021-03-16
+
+        currentProduct:
+          type: string
+          default: oil
+          enum: [oil, water, gas, condensate, non condensate]
+
+        currentStatus:
+          type: string
+          default: producing
+          enum: [producing, shutin]
+
+        runtime:
+          type: integer
+
+        currentLiftType:
+          type: string
+          default: NaturalFlow
+          enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+
+        currentLiftTypeDate:
+          type: string
+          format: date-time
+
+        powerSourceType:
+          type: string
+          default: OHL
+          enum: [OHL, Diesel Generator]
+
+        powerSource:
+          type: string
+
+        processionPlant:
+          type: string
+          default: Oil Plant
+          enum: [Gas Plant, Oil Plant, Flair]
+
+      example:
+        id: 5
+        initialProdDate: 2021-03-16
+        initialType: oil
+        initialProduct: oil
+        initialLiftType: NaturalFlow
+        initStatus: producing
+        monitoringSystem: non
+        currentWellType: oil producer
+        currentWellTypeDate: 2021-03-16
+        currentProduct: oil
+        currentStatus: producing
+        runtime: 3
+        currentLiftType: NaturalFlow
+        currentLiftTypeDate: 2021-03-16
+        powerSourceType: OHL
+        powerSource: power source word example
+        processionPlant: Oil Plant
+
+    AllProductionGeneralInfoWithNamesResponse:
+      description: Model for the ProductionGeneralInfo object info for returns with additional columns(get requests)
+      properties:
+        id:
+          type: integer
+          example: 88
+
+        wellId:
+          type: integer
+          example: 65
+
+        wellName:
+          type: string
+
+        fieldName:
+          type: string
+
+        concessionName:
+          type: string
+
+        initialProdDate:
+          type: string
+          format: date-time
+          example: 2021-03-16
+
+        initialType:
+          type: string
+          default: oil producer
+          enum: [oil producer, gas producer, water producer, oil  and gas, condensate producer, non]
+
+        initialProduct:
+          type: string
+          default: oil
+          enum: [oil, water, gas, condensate, non condensate]
+
+        initialLiftType:
+          type: string
+          default: NaturalFlow
+          enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+
+        initStatus:
+          type: string
+          default: producing
+          enum: [producing, dry]
+
+        monitoringSystem:
+          type: string
+          default: non
+          enum: [skada, non]
+
+        currentWellType:
+          type: string
+          default: oil producer
+          enum: [oil producer, gas producer, water producer, oil  and gas, condensate producer, non]
+
+        currentWellTypeDate:
+          type: string
+          format: date-time
+          example: 2021-03-16
+
+        currentProduct:
+          type: string
+          default: oil
+          enum: [oil, water, gas, condensate, non condensate]
+
+        currentStatus:
+          type: string
+          default: producing
+          enum: [producing, shutin]
+
+        runtime:
+          type: integer
+
+        currentLiftType:
+          type: string
+          default: NaturalFlow
+          enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+
+        currentLiftTypeDate:
+          type: string
+          format: date-time
+
+        powerSourceType:
+          type: string
+          default: OHL
+          enum: [OHL, Diesel Generator]
+
+        powerSource:
+          type: string
+
+        processionPlant:
+          type: string
+          default: Oil Plant
+          enum: [Gas Plant, Oil Plant, Flair]
+
+      example:
+        id: 5
+        wellId: 16
+        wellName: x
+        fieldName: y
+        concessionName: meiliha
+        initialProdDate: 2021-03-16
+        initialType: oil
+        initialProduct: oil
+        initialLiftType: NaturalFlow
+        initStatus: producing
+        monitoringSystem: non
+        currentWellType: oil producer
+        currentWellTypeDate: 2021-03-16
+        currentProduct: oil
+        currentStatus: producing
+        runtime: 3
+        currentLiftType: NaturalFlow
+        currentLiftTypeDate: 2021-03-16
+        powerSourceType: OHL
+        powerSource: power source word example
+        processionPlant: Oil Plant
+
+    ProductionGeneralInfoWithNamesResponse:
+      description: Model for the ProductionGeneralInfo object info for returns with additional columns(get requests)
+      properties:
+        id:
+          type: integer
+          example: 88
+
+        wellName:
+          type: string
+
+        fieldName:
+          type: string
+
+        concessionName:
+          type: string
+
+        initialProdDate:
+          type: string
+          format: date-time
+          example: 2021-03-16
+
+        initialType:
+          type: string
+          default: oil producer
+          enum: [oil producer, gas producer, water producer, oil  and gas, condensate producer, non]
+
+        initialProduct:
+          type: string
+          default: oil
+          enum: [oil, water, gas, condensate, non condensate]
+
+        initialLiftType:
+          type: string
+          default: NaturalFlow
+          enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+
+        initStatus:
+          type: string
+          default: producing
+          enum: [producing, dry]
+
+        monitoringSystem:
+          type: string
+          default: non
+          enum: [skada, non]
+
+        currentWellType:
+          type: string
+          default: oil producer
+          enum: [oil producer, gas producer, water producer, oil  and gas, condensate producer, non]
+
+        currentWellTypeDate:
+          type: string
+          format: date-time
+          example: 2021-03-16
+
+        currentProduct:
+          type: string
+          default: oil
+          enum: [oil, water, gas, condensate, non condensate]
+
+        currentStatus:
+          type: string
+          default: producing
+          enum: [producing, shutin]
+
+        runtime:
+          type: integer
+
+        currentLiftType:
+          type: string
+          default: NaturalFlow
+          enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+
+        currentLiftTypeDate:
+          type: string
+          format: date-time
+
+        powerSourceType:
+          type: string
+          default: OHL
+          enum: [OHL, Diesel Generator]
+
+        powerSource:
+          type: string
+
+        processionPlant:
+          type: string
+          default: Oil Plant
+          enum: [Gas Plant, Oil Plant, Flair]
+
+      example:
+        id: 5
+        wellName: x
+        fieldName: y
+        concessionName: meiliha
+        initialProdDate: 2021-03-16
+        initialType: oil
+        initialProduct: oil
+        initialLiftType: NaturalFlow
+        initStatus: producing
+        monitoringSystem: non
+        currentWellType: oil producer
+        currentWellTypeDate: 2021-03-16
+        currentProduct: oil
+        currentStatus: producing
+        runtime: 3
+        currentLiftType: NaturalFlow
+        currentLiftTypeDate: 2021-03-16
+        powerSourceType: OHL
+        powerSource: power source word example
+        processionPlant: Oil Plant
+
+    ProductionGeneralInfoRequest:
+      description: Model for the ProductionGeneralInfo object info for returns {post, put, and patch requests)
+      properties:
+
+        initialProdDate:
+          type: string
+          format: date-time
+
+        initialType:
+          type: string
+          default: oil producer
+          enum: [oil producer, gas producer, water producer, oil  and gas, condensate producer, non]
+
+        initialProduct:
+          type: string
+          default: oil
+          enum: [oil, water, gas, condensate, non condensate]
+
+        initialLiftType:
+          type: string
+          default: NaturalFlow
+          enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+
+        initStatus:
+          type: string
+          default: producing
+          enum: [producing, dry]
+
+        monitoringSystem:
+          type: string
+          default: non
+          enum: [skada, non]
+
+        currentWellType:
+          type: string
+          default: oil producer
+          enum: [oil producer, gas producer, water producer, oil  and gas, condensate producer, non]
+
+        currentWellTypeDate:
+          type: string
+          format: date-time
+
+        currentProduct:
+          type: string
+          default: oil
+          enum: [oil, water, gas, condensate, non condensate]
+
+        currentStatus:
+          type: string
+          default: producing
+          enum: [producing, shutin]
+
+        runtime:
+          type: integer
+
+        currentLiftType:
+          type: string
+          default: NaturalFlow
+          enum: [NaturalFlow, S/R, ESP, Gl, PCP, PlungerLift, ESP-PCP]
+
+        currentLiftTypeDate:
+          type: string
+          format: date-time
+
+        powerSourceType:
+          type: string
+          default: OHL
+          enum: [OHL, Diesel Generator]
+
+        powerSource:
+          type: string
+
+        processionPlant:
+          type: string
+          default: Oil Plant
+          enum: [Gas Plant, Oil Plant, Flair]
+
+      example:
+        initialProdDate: 2021-03-16
+        initialType: oil
+        initialProduct: oil
+        initialLiftType: NaturalFlow
+        initStatus: producing
+        monitoringSystem: non
+        currentWellType: oil producer
+        currentWellTypeDate: 2021-03-16
+        currentProduct: oil
+        currentStatus: producing
+        runtime: 3
+        currentLiftType: NaturalFlow
+        currentLiftTypeDate: 2021-03-16
+        powerSourceType: OHL
+        powerSource: power source word example
+        processionPlant: Oil Plant
+
+
+    getDrillingInfoResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/drillingInfoDataResponse'
+
+    drillingInfoRequest:
+      type: object
+      items:
+        $ref: '#/components/schemas/drillingInfoDataRequest'
+
+    productionBudgetRequest:
+      type: object
+      items:
+        $ref: '#/components/schemas/productionBudegetRequest'
+
+    drillingInfoDataResponse:
+      properties:
+        id:
+          type: integer
+        releaseDate:
+          type: string
+          format: date-time
+        wellDescription:
+          type: string
+        wellType:
+          type: string
+        boreType:
+          type: string
+        measuredDepth:
+          type: integer
+        tvdDepth:
+          type: integer
+        bbtp:
+          type: integer
+        productionGeneralInfo:
+          type: string
+        wellId:
+          type: integer
+      example:
+        id: 1
+        releaseDate: 2020-03-03
+        wellDescription: "well description"
+        wellType: "well type"
+        boreType: "bore type"
+        measuredDepth: 70
+        tvdDepth: 70
+        bbtp: 70
+        productionGeneralInfo: "prduction general info"
+        wellId: 1
+
+    drillingInfoDataRequest:
+      properties:
+        releaseDate:
+          type: string
+          format: date-tim
+        wellDescription:
+          type: string
+        wellType:
+          type: string
+        boreType:
+          type: string
+        measuredDepth:
+          type: integer
+        tvdDepth:
+          type: integer
+        bbtp:
+          type: integer
+        productionGeneralInfo:
+          type: string
+      example:
+        releaseDate: 2020-03-03
+        wellDescription: "well description"
+        wellType: "well type"
+        boreType: "bore type"
+        measuredDepth: 70
+        tvdDepth: 70
+        bbtp: 70
+        productionGeneralInfo: "prduction general info"
+
+    productionBudegetDataResponse:
+      properties:
+        id:
+          type: number
+        productionDate:
+          type: string
+          format: date-time
+        meleiha:
+          type: number
+        aghar:
+          type: number
+        eastKanays:
+          type: number
+        zarif:
+          type: number
+        faras:
+          type: number
+        raml:
+          type: number
+        westernDesert:
+          type: number
+        ashrafi:
+          type: number
+        agibaOil:
+          type: number
+        salesGas:
+          type: number
+        agibaBOE:
+          type: number
+      example:
+        id: 1
+        productionDate: 2020-03-02
+        meleiha: 2.2
+        aghar: 2.2
+        eastKanays: 2.2
+        zarif: 2.2
+        faras: 2.2
+        raml: 2.2
+        westernDesert: 2.2
+        ashrafi: 2.2
+        agibaOil: 2.2
+        salesGas: 2.2
+        agibaBOE: 2.2
+
+    productionBudegetRequest:
+      properties:
+        productionDate:
+          type: string
+          format: date-time
+        meleiha:
+          type: number
+        aghar:
+          type: number
+        eastKanays:
+          type: number
+        zarif:
+          type: number
+        faras:
+          type: number
+        raml:
+          type: number
+        westernDesert:
+          type: number
+        ashrafi:
+          type: number
+        agibaOil:
+          type: number
+        salesGas:
+          type: number
+        agibaBOE:
+          type: number
+
+      example:
+        productionDate: 2020-03-02
+        meleiha: 2.2
+        aghar: 2.2
+        eastKanays: 2.2
+        zarif: 2.2
+        faras: 2.2
+        raml: 2.2
+        westernDesert: 2.2
+        ashrafi: 2.2
+        agibaOil: 2.2
+        salesGas: 2.2
+        agibaBOE: 2.2
+
+    getAllFields:
+      type: array
+      items:
+        $ref: '#/components/schemas/allFieldsResponse'
+
+    getAllWells:
+      type: array
+      items:
+        $ref: '#/components/schemas/allWellsResponse'
+
+    allFieldsResponse:
+      type: object
+      properties:
+        fieldId:
+          type: integer
+          format: int64
+        fieldName:
+          type: string
+        fieldCode:
+          type: string
+        concessionId:
+          type: integer
+          format: int64
+      example:
+        fieldId: 5
+        fieldName: field1
+        fieldCodee: code1
+        concessionId: 5
+      xml:
+        name: field
+
+    allWellsResponse:
+      type: object
+      properties:
+        wellId:
+          type: integer
+          format: int64
+        wellName:
+          type: string
+        fieldId:
+          type: integer
+          format: int64
+        wellCode:
+          type: string
+      example:
+        wellId: 6
+        wellName: well2
+        fieldId: 3
+        wellCode: code2
+      xml:
+        name: well
+
+    fieldResponse:
+      type: object
+      properties:
+        fieldId:
+          type: integer
+          format: int64
+        fieldName:
+          type: string
+        fieldCode:
+          type: string
+        concessionId:
+          type: integer
+          format: int64
+      example:
+        fieldId: 5
+        fieldName: field1
+        fieldCodee: code1
+        concessionId: 5
+      xml:
+        name: field
+
+    fieldRequest:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        fieldCode:
+          type: string
+        concessionId:
+          type: integer
+          format: int64
+      example:
+        fieldId: 5
+        fieldName: field1
+        fieldCodee: code1
+        concessionId: 5
+      xml:
+        name: field
+
+    wellResponse:
+      type: object
+      properties:
+        wellId:
+          type: integer
+          format: int64
+        wellName:
+          type: string
+        fieldId:
+          type: integer
+          format: int64
+        wellCode:
+          type: string
+      example:
+        wellId: 6
+        wellName: well2
+        fieldId: 3
+        wellCode: code2
+      xml:
+        name: well
+
+    wellRequest:
+      type: object
+      properties:
+        wellName:
+          type: string
+        wellCode:
+          type: string
+      example:
+        wellName: well2
+        fieldId: 3
+        wellCode: code2
+      xml:
+        name: well
+
+
+    AllLabs:
+      type: array
+      items:
+        $ref: '#/components/schemas/allLabMeasurementResponse'
+
+    AllLabsOfAWell:
+      type: array
+      items:
+        $ref: '#/components/schemas/labMeasurementResponse'
+
+    AllWellDailyActions:
+      type: array
+      items:
+        $ref: '#/components/schemas/allWellDailyActionsResponse'
+
+    AllWellDailyActionsOfAWell:
+      type: array
+      items:
+        $ref: '#/components/schemas/wellDailyActionsResponse'
+
+    labMeasurementRequest:
+      type: object
+      properties:
+        s1:
+          type: integer
+          format: int64
+          default: 0
+        s2:
+          type: integer
+          format: int64
+          default: 0
+        s3:
+          type: integer
+          format: int64
+          default: 0
+        s4:
+          type: integer
+          format: int64
+          default: 0
+        s5:
+          type: integer
+          format: int64
+          default: 0
+        remarks:
+          type: string
+        date:
+          type: string
+          format: date-time
+
+
+      example:
+        s1: 15.55
+        s2: 9.3
+        s3: 5.2
+        s4: 1.3
+        s5: 7
+        remarks: very poor measurements
+        date: 2021-03-16
+
+    labMeasurementResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          default: 0
+        s1:
+          type: integer
+          format: int64
+          default: 0
+        s2:
+          type: integer
+          format: int64
+          default: 0
+        s3:
+          type: integer
+          format: int64
+          default: 0
+        s4:
+          type: integer
+          format: int64
+          default: 0
+        s5:
+          type: integer
+          format: int64
+          default: 0
+        remarks:
+          type: string
+        date:
+          type: string
+          format: date-time
+      example:
+        id: 8
+        s1: 15.55
+        s2: 9.3
+        s3: 5.2
+        s4: 1.3
+        s5: 7
+        remarks: very poor measurements
+        date: 2021-03-16=
+
+    allLabMeasurementResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          default: 0
+        s1:
+          type: integer
+          format: int64
+          default: 0
+        s2:
+          type: integer
+          format: int64
+          default: 0
+        s3:
+          type: integer
+          format: int64
+          default: 0
+        s4:
+          type: integer
+          format: int64
+          default: 0
+        s5:
+          type: integer
+          format: int64
+          default: 0
+        remarks:
+          type: string
+        date:
+          type: string
+          format: date-time
+        wellId:
+          type: integer
+          format: int64
+      example:
+        id: 8
+        s1: 15.55
+        s2: 9.3
+        s3: 5.2
+        s4: 1.3
+        s5: 7
+        remarks: very poor measurements
+        date: 2021-03-16
+        wellId: 5
+
+    wellDailyActionsRequest:
+      type: object
+      properties:
+        siLVL4:
+          type: integer
+          format: int64
+        actionDescription:
+          type: string
+        netProduction:
+          type: integer
+          format: int64
+        downTime:
+          type: integer
+          format: int64
+        losses:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date-time
+      example:
+        silVL4: 2
+        actionDescription: action description
+        netProduction: 5000
+        downTime: 4.5
+        losses: 95
+        date: 2021-03-16
+      xml:
+        name: wellDailyActions
+
+    wellDailyActionsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        siLVL4:
+          type: integer
+          format: int64
+        actionDescription:
+          type: string
+        netProduction:
+          type: integer
+          format: int64
+        downTime:
+          type: integer
+          format: int64
+        losses:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date-time
+      example:
+        id: 3
+        silVL4: 2
+        actionDescription: action description
+        netProduction: 5000
+        downTime: 4.5
+        losses: 95
+        date: 2021-03-16
+      xml:
+        name: wellDailyActions
+
+    allWellDailyActionsResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        wellId:
+          type: integer
+          format: int64
+        siLVL4:
+          type: integer
+          format: int64
+        actionDescription:
+          type: string
+        netProduction:
+          type: integer
+          format: int64
+        downTime:
+          type: integer
+          format: int64
+        losses:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date-time
+      example:
+        id: 3
+        wellId: 5
+        silVL4: 2
+        actionDescription: action description
+        netProduction: 5000
+        downTime: 4.5
+        losses: 95
+        date: 2021-03-16
+      xml:
+        name: wellDailyActions
+
+
+    wellGeneralInfoRequest:
+      type: object
+      properties:
+        wellId:
+          type: "integer"
+          format: "int32"
+        subCompanyName:
+          type: string
+        locationName:
+          type: string
+        areaName:
+          type: string
+        leaseName:
+          type: string
+        boreName:
+          type: string
+        xcord:
+          type: number
+        ycord:
+          type: number
+        lat:
+          type: number
+        long_:
+          type: number
+
+      example:
+        wellId: 1
+        subCompanyName: pp
+        locationName: lll
+        areaName: hh
+        leaseName: xx
+        boreName: lll
+        xcord: 5
+        ycord: 5
+        lat: 10
+        long_: 10
+
+    wellGeneralInfoResponse:
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int32"
+        wellId:
+          type: "integer"
+          format: "int32"
+        subCompanyName:
+          type: string
+        locationName:
+          type: string
+        areaName:
+          type: string
+        leaseName:
+          type: string
+        boreName:
+          type: string
+        xcord:
+          type: number
+        ycord:
+          type: number
+        lat:
+          type: number
+        long_:
+          type: number
+
+      example:
+        id: 1
+        wellId: 1
+        subCompanyName: pp
+        locationName: lll
+        areaName: hh
+        leaseName: xx
+        boreName: lll
+        xcord: 5
+        ycord: 5
+        lat: 10
+        long_: 10
+
+    intervalsInfoResponse:
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int32"
+
+        wellId:
+          type: "integer"
+          format: "int32"
+
+        drivingMechanism:
+          type: string
+          enum: ['WaterDrive','GasCap','DepleationDrive','GravityDrainage','CombinationDrive']
+        zones:
+          type: string
+        interval:
+          type: string
+        from:
+          type: number
+        to:
+          type: number
+        length:
+          type: number
+        pr:
+          type: number
+        tr:
+          type: number
+        status:
+          type: string
+          enum: ['active','shutin']
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        pi:
+          type: number
+        mobility:
+          type: number
+        fluidType:
+          type: string
+        api:
+          type: number
+        notes:
+          type: string
+
+      example:
+        id: 1
+        wellId: 1
+        drivingMechanism: WaterDrive
+        zones: lll
+        interval: hh
+        from: 5
+        to: 6
+        length: 5
+        pr: 5
+        tr: 10
+        status: active
+        startDate: '2021-10-10'
+        endDate: '2021-12-16'
+        pi: 3
+        mobility: 5
+        fluidType: xx
+        api: 6
+        notes: lll
+
+    intervalsInfoRequest:
+      type: object
+      properties:
+        wellId:
+          type: "integer"
+          format: "int32"
+        drivingMechanism:
+          type: string
+          enum: ['WaterDrive','GasCap','DepleationDrive','GravityDrainage','CombinationDrive']
+        zones:
+          type: string
+        interval:
+          type: string
+        from:
+          type: number
+        to:
+          type: number
+        length:
+          type: number
+        pr:
+          type: number
+        tr:
+          type: number
+        status:
+          type: string
+          enum: ['active','shutin']
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        pi:
+          type: number
+        mobility:
+          type: number
+        fluidType:
+          type: string
+        api:
+          type: number
+        notes:
+          type: string
+
+
+    # Schema for error response body
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+
+    #Schema for concession Response
+    concessionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: unique id of the concession for the identifier
+        name:
+          type: string
+          description: the name of the concession
+      example:
+        id: 1
+        name: aghar
+
+    #concession object send in requests without ID
+    ConcessionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name of the concession
+          example: Melieha
+
+    AllConcessions:
+      type: array
+      items:
+        $ref: '#/components/schemas/concessionResponse'
+
+    #Well_Test_Data
+    wellTestRequest:
+      type: object
+      properties:
+        productionDate:
+          type: string
+          description: "the date in which the test was measured"
+          format: date-time
+        tDuration:
+          type: string
+          description: "a value between 0-24 representing the test duration"
+          default: 24
+          example: 24
+        gross:
+          type: number
+          description: "representign the gross production of the well"
+          example: 1000
+        net:
+          type: number
+          description: "representing the net production for the well"
+          example: 1000
+        waterCut:
+          type: number
+          description: "representing the watercut percentage in the production"
+          example: 50
+          default: 0
+        gor:
+          type: number
+          description: "representing the Gas oil ration in th stream for the well in SCF/BBL"
+          example: 1000
+        gasRate:
+          type: number
+          description: "representing the gas rate in the production stream in SCF"
+          example: 1000
+          default: 100
+        condensateRate:
+          type: number
+          description: "representing the condensate rate in the production stream"
+          default: 0
+          example: 100
+        whp:
+          type: number
+          description: "representing the well head pressure for the well in PSI"
+          default: 120
+          example: 120
+        wht:
+          type: number
+          description: "representing the well head temperature for the well in degree-f"
+          default: 120
+          example: 120
+        usp:
+          type: number
+          description: "representing the upstream pressure for the well psi"
+          default: 120
+          example: 120
+        ust:
+          type: number
+          description: "representing the upstream temperature for the well f"
+          default: 120
+          example: 120
+        sp:
+          type: number
+          description: "representing the separator pressure for the well in psi"
+          default: 120
+          example: 120
+        st:
+          type: number
+          description: "representing the separator temperature for the well in degree-f"
+          default: 60
+          example: 60
+        flp:
+          type: number
+          description: "representing the flow line pressure for the well psi"
+          default: 0
+          example: 120
+        flt:
+          type: number
+          description: "representing the flow line temperature for the well in *f "
+        chockType:
+          $ref: '#/components/schemas/ChockTypeEnum'
+        chockSize:
+          type: number
+          description: "the chock size at which the the test was performed"
+          default:
+        h2s:
+          type: number
+          description: "representing the h2s ppm in the well flow"
+
+        co2:
+          type: number
+          description: "representing the co2 in the well stream"
+          example: 0
+          default: 0
+        unit:
+          type: string
+          description: "the test unit which performed the test"
+          example: "Expro-TMU#3"
+        remarks:
+          type: string
+          description: "Any notes reported or added during the test or recommendaton for the well"
+          example: plan to perform DFL for the well
+      xml:
+        name: wellTest
+
+    wellTestResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "represents the test id"
+          example: 1
+        productionDate:
+          type: string
+          description: "the date in which the test was measured"
+          format: date-time
+        tDuration:
+          type: string
+          description: "a value between 0-24 representing the test duration"
+          default: 24
+          example: 24
+        gross:
+          type: number
+          description: "representign the gross production of the well"
+          example: 1000
+        net:
+          type: number
+          description: "representing the net production for the well"
+          example: 1000
+        waterCut:
+          type: number
+          description: "representing the watercut percentage in the production"
+          example: 50
+          default: 0
+        gor:
+          type: number
+          description: "representing the Gas oil ration in th stream for the well in SCF/BBL"
+          example: 1000
+        gasRate:
+          type: number
+          description: "representing the gas rate in the production stream in SCF"
+          example: 1000
+          default: 100
+        condensateRate:
+          type: number
+          description: "representing the condensate rate in the production stream"
+          default: 0
+          example: 100
+        whp:
+          type: number
+          description: "representing the well head pressure for the well in PSI"
+          default: 120
+          example: 120
+        wht:
+          type: number
+          description: "representing the well head temperature for the well in degree-f"
+          default: 120
+          example: 120
+        usp:
+          type: number
+          description: "representing the upstream pressure for the well psi"
+          default: 120
+          example: 120
+        ust:
+          type: number
+          description: "representing the upstream temperature for the well f"
+          default: 120
+          example: 120
+        sp:
+          type: number
+          description: "representing the separator pressure for the well in psi"
+          default: 120
+          example: 120
+        st:
+          type: number
+          description: "representing the separator temperature for the well in degree-f"
+          default: 60
+          example: 60
+        flp:
+          type: number
+          description: "representing the flow line pressure for the well psi"
+          default: 0
+          example: 120
+        flt:
+          type: number
+          description: "representing the flow line temperature for the well in *f "
+        chockType:
+          $ref: '#/components/schemas/ChockTypeEnum'
+
+        chockSize:
+          type: number
+          description: "the chock size at which the the test was performed"
+          default:
+        h2s:
+          type: number
+          description: "representing the h2s ppm in the well flow"
+
+        co2:
+          type: number
+          description: "representing the co2 in the well stream"
+          example: 0
+          default: 0
+        unit:
+          type: string
+          description: "the test unit which performed the test"
+          example: "Expro-TMU#3"
+        remarks:
+          type: string
+          description: "Any notes reported or added during the test or recommendaton for the well"
+      xml:
+        name: wellTest
+
+    AllTests:
+      type: array
+      items:
+        $ref: '#/components/schemas/wellTestResponse'
+
+    #budget_Actual
+    fieldsBudgetAndActualResponse:
+      type: object
+      properties:
+        productionDate:
+          type: string
+          format: data-time
+        meleihaBudget:
+          type: number
+        meleihaActual:
+          type: number
+        meleihaPercentage:
+          type: number
+        agharActual:
+          type: number
+        agharBudget:
+          type: number
+        agharPercentage:
+          type: number
+        eastKanaysActual:
+          type: number
+        eastKanaysBudget:
+          type: number
+        eastKanysPercentage:
+          type: number
+        zarifActual:
+          type: number
+        zarifBudget:
+          type: number
+        zarifPercentage:
+          type: number
+        farasActual:
+          type: number
+        farasBudget:
+          type: number
+        farasPercentage:
+          type: number
+        ramlActual:
+          type: number
+        ramlBudget:
+          type: number
+        ramlPercentage:
+          type: number
+        westernDesertActual:
+          type: number
+        westernDesertBudget:
+          type: number
+        westernDesertPercentage:
+          type: number
+        ashrafiActual:
+          type: number
+        ashrafiBudget:
+          type: number
+        ashrafiPercentage:
+          type: number
+        agibaOilActual:
+          type: number
+        agibaOilBudget:
+          type: number
+        agibaOilPercentage:
+          type: number
+        salesGasActual:
+          type: number
+      xml:
+        name: wellTest
+
+    fieldsBudgetAndActualRequest:
+      type: object
+      properties:
+        productionDate:
+          type: string
+          format: data-time
+        meleihaBudget:
+          type: number
+        meleihaActual:
+          type: number
+        meleihaPercentage:
+          type: number
+        agharActual:
+          type: number
+        agharBudget:
+          type: number
+        agharPercentage:
+          type: number
+        eastKanaysActual:
+          type: number
+        eastKanaysBudget:
+          type: number
+        eastKanysPercentage:
+          type: number
+        zarifActual:
+          type: number
+        zarifBudget:
+          type: number
+        zarifPercentage:
+          type: number
+        farasActual:
+          type: number
+        farasBudget:
+          type: number
+        farasPercentage:
+          type: number
+        ramlActual:
+          type: number
+        ramlBudget:
+          type: number
+        ramlPercentage:
+          type: number
+        westernDesertActual:
+          type: number
+        westernDesertBudget:
+          type: number
+        westernDesertPercentage:
+          type: number
+        ashrafiActual:
+          type: number
+        ashrafiBudget:
+          type: number
+        ashrafiPercentage:
+          type: number
+        agibaOilActual:
+          type: number
+        agibaOilBudget:
+          type: number
+        agibaOilPercentage:
+          type: number
+        salesGasActual:
+          type: number
+      xml:
+        name: wellTest
+
+    ChockTypeEnum:
+      type: string
+      description: "representing the o"
+      default: "fixed"
+      enum:
+        - fixed
+        - adjustable
