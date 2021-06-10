@@ -38,15 +38,15 @@ public class ProductionBudgetController {
 
     }
 
-    @GetMapping(value = "/productionBudget", params = "id")
-    public ProductionBudgetModel getProductionBudgetByDatej(@RequestParam("id") int id) {
-        System.out.println("id " + id);
-        ProductionBudgetModel productionBudgetModel;
-        productionBudgetModel = productionBudgetService.findProductionBudgetById(id);
-        return productionBudgetModel;
-
-
-    }
+//    @GetMapping(value = "/productionBudget", params = "id")
+//    public ProductionBudgetModel getProductionBudgetByDate(@RequestParam("id") int id) {
+//        System.out.println("id " + id);
+//        ProductionBudgetModel productionBudgetModel;
+//        productionBudgetModel = productionBudgetService.findProductionBudgetById(id);
+//        return productionBudgetModel;
+//
+//
+//    }
 
     @PostMapping(value = "/productionBudget")
     public void creatProductionBudget(@RequestBody ProductionBudgetModel productionBudgetModel) {
