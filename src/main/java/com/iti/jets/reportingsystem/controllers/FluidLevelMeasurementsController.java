@@ -1,83 +1,127 @@
 package com.iti.jets.reportingsystem.controllers;
 
-import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
-import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
+import com.iti.jets.openapi.api.WellsApi;
+import com.iti.jets.openapi.model.*;
 import com.iti.jets.reportingsystem.services.FluidLevelMeasurementsService;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+import com.iti.jets.reportingsystem.services.ProductionGeneralInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/wells")
-public class FluidLevelMeasurementsController {
+public class FluidLevelMeasurementsController implements WellsApi {
+
+
+    private FluidLevelMeasurementsService flmService;
+    private ProductionGeneralInfoService pgiService;
 
     @Autowired
-    private FluidLevelMeasurementsService flmService;
-
-    @PostMapping("/fluidLevelMeasurements")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody FluidLevelMeasurementsModel fluidLevelMeasurementsModel){
-        System.out.println(fluidLevelMeasurementsModel.getWellId() + " $$$$$ ");
-        flmService.insert(fluidLevelMeasurementsModel);
+    public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService){
+        this.flmService = flmService;
+        this.pgiService = pgiService;
     }
 
-    @GetMapping(value = "/fluidLevelMeasurements")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<FluidLevelMeasurementsModel> getAllFluidLevelMeasurements(){
-        return flmService.getAllFLMS();
-    }
-
-    @GetMapping(value = "/fluidLevelMeasurements", params = {"beginDate", "endDate"})
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<FluidLevelMeasurementsModel> getAllFluidLevelMeasurements(@RequestParam("beginDate") String beginDate, @RequestParam("endDate") String endDate){
-        try {
-            Date begin = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);
-            System.out.println(begin + "<======");
-            Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-            return flmService.getAllFLMS(begin, end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
+    //get all in gen
+    @Override
+    public ResponseEntity<List<AllFluidLevelMeasurementResponse>> wellsFluidLevelMeasurementsGet(@Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
+        if(beginDate != null && endDate != null){
+            Date begin = Date.from(beginDate.toInstant());
+            System.out.println(begin + " <== begin");
+            Date end = Date.from(endDate.toInstant());
+            System.out.println(end + " <== end");
+            return ResponseEntity.ok(flmService.getAllFLMS(begin, end));
+        } else {
+            return ResponseEntity.ok(flmService.getAllFLMS());
         }
     }
 
-    @GetMapping(value = "{wellId}/fluidLevelMeasurements")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<FluidLevelMeasurementsModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId){
-        return flmService.getAllFLMSForAWell(wellId);
-    }
-
-    @GetMapping(value = "{wellId}/fluidLevelMeasurements", params = {"beginDate", "endDate"})
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<FluidLevelMeasurementsModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId, @RequestParam("beginDate") String beginDate, @RequestParam("endDate") String endDate){
-        System.out.println(beginDate + "<======");
-        try {
-            Date begin = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);
-            System.out.println(begin + "<======");
-            Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-            return flmService.getAllFLMSForAWell(wellId, begin, end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
+    //get all for a specific well
+    @Override
+    public ResponseEntity<List<FluidLevelMeasurementResponse>> wellsWellIdFluidLevelMeasurementsGet(Integer wellId, @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
+        if(beginDate != null && endDate != null){
+            Date begin = Date.from(beginDate.toInstant());
+            System.out.println(begin + " <== begin");
+            Date end = Date.from(endDate.toInstant());
+            System.out.println(end + " <== end");
+            return ResponseEntity.ok(flmService.getAllFLMSForAWell(wellId, begin, end));
+        } else {
+            return ResponseEntity.ok(flmService.getAllFLMSForAWell(wellId));
         }
     }
 
-    @PutMapping("{wellId}/fluidLevelMeasurements/{flmId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void fullWellFluidLevelMeasurementUpdate(@PathVariable int wellId, @PathVariable int flmId, @RequestBody final FluidLevelMeasurementsModel fluidLevelMeasurementsModel){
-        flmService.updateSpecificFLMS(wellId, flmId, fluidLevelMeasurementsModel);
+    @Override
+    public ResponseEntity<Void> wellsWellIdFluidLevelMeasurementsPost(Integer wellId, @Valid FluidLevelMeasurementRequest fluidLevelMeasurementRequest) {
+        flmService.insert(fluidLevelMeasurementRequest, wellId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("{wellId}/fluidLevelMeasurements/{flmId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void deleteWellFluidLevelMeasurement(@PathVariable int wellId, @PathVariable int flmId){
+    @Override
+    public ResponseEntity<Void> wellsWellIdFluidLevelMeasurementsFlmIdPatch(Integer wellId, Integer flmId, @Valid FluidLevelMeasurementRequest fluidLevelMeasurementRequest) {
+        flmService.updateSpecificFLMS(wellId, flmId, fluidLevelMeasurementRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdFluidLevelMeasurementsFlmIdPut(Integer wellId, Integer flmId, @Valid FluidLevelMeasurementRequest fluidLevelMeasurementRequest) {
+        flmService.updateSpecificFLMS(wellId, flmId, fluidLevelMeasurementRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdFluidLevelMeasurementsFlmIdDelete(Integer wellId, Integer flmId) {
         flmService.deleteSpecificFLMS(wellId, flmId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+//    #######################################################
+
+    //get all in gen
+    @Override
+    public ResponseEntity<List<AllProductionGeneralInfoWithNamesResponse>> wellsProductionGeneralInfoGet() {
+        return ResponseEntity.ok(pgiService.getAllPGIS());
+    }
+
+    @Override
+    public ResponseEntity<List<ProductionGeneralInfoResponse>> wellsWellIdProductionGeneralInfoGet(Integer wellId, @Valid String powerSourceType, @Valid String processionPlant, @Valid String currentWellType, @Valid String currentLiftType, @Valid String currentStatus) {
+        //todo ask basiony can they be together or req of each alone?
+        if(powerSourceType != null){
+            return ResponseEntity.ok(pgiService.getAllPGISForAWellPowerSourceType(wellId, powerSourceType));
+        } else if (processionPlant != null){
+            return ResponseEntity.ok(pgiService.getAllPGISForAWellProcessionPlant(wellId, processionPlant));
+        } else if (currentWellType != null){
+            return ResponseEntity.ok(pgiService.getAllPGISForAWellCurrentWellType(wellId, currentWellType));
+        } else if (currentLiftType != null){
+            return ResponseEntity.ok(pgiService.getAllPGISForAWellCurrentLiftType(wellId, currentLiftType));
+        } else if (currentStatus != null){
+            return ResponseEntity.ok(pgiService.getAllPGISForAWellCurrentStatus(wellId, currentStatus));
+        } else {
+            return ResponseEntity.ok(pgiService.getAllPGISForAWell(wellId));
+        }
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdProductionGeneralInfoPost(Integer wellId, @Valid ProductionGeneralInfoRequest productionGeneralInfoRequest) {
+        pgiService.insert(productionGeneralInfoRequest, wellId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdProductionGeneralInfoPgiIdPut(Integer wellId, Integer pgiId, @Valid ProductionGeneralInfoRequest productionGeneralInfoRequest) {
+        pgiService.updateSpecificPGIS(wellId, pgiId, productionGeneralInfoRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdProductionGeneralInfoPgiIdDelete(Integer wellId, Integer pgiId) {
+        pgiService.deleteSpecificPGIS(wellId, pgiId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

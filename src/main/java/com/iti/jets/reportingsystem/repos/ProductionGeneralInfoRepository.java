@@ -12,15 +12,25 @@ public interface ProductionGeneralInfoRepository extends JpaRepository<Productio
 
     List<ProductionGeneralInfo> findAllByInitialProdDateGreaterThanEqualAndInitialProdDateLessThanEqual(Date beginDate, Date endDate);
 
-    public List<ProductionGeneralInfo> findAllByWell_WellIdEquals(int wellId);
+    List<ProductionGeneralInfo> findAllByWell_WellIdEquals(int wellId);
 
-    public ProductionGeneralInfo findByWell_WellIdEqualsAndIdEquals(int wellId, int pgiId);
+    ProductionGeneralInfo findByWell_WellIdEqualsAndIdEquals(int wellId, int pgiId);
 
-    public void removeFluidLevelMeasurementsByWell_WellIdEqualsAndIdEquals(int wellId, int pgiId);
+    void removeFluidLevelMeasurementsByWell_WellIdEqualsAndIdEquals(int wellId, int pgiId);
 
     List<ProductionGeneralInfo> findAllByWell_WellIdEqualsAndInitialProdDateGreaterThanEqualAndInitialProdDateLessThanEqual(int wellId, Date beginDate, Date endDate);
 
     @Transactional
-    public void removeByWell_WellIdEqualsAndIdEquals(int wellId, int pgiId);
+    void removeByWell_WellIdEqualsAndIdEquals(int wellId, int pgiId);
+
+    List<ProductionGeneralInfo> findAllByWell_WellIdEqualsAndPowerSourceTypeEquals(int wellId, String powerSourceType);
+
+    List<ProductionGeneralInfo> findAllByWell_WellIdEqualsAndProcessionPlantEquals(int wellId, String processionPlant);
+
+    List<ProductionGeneralInfo> findAllByWell_WellIdEqualsAndCurrentWellTypeEquals(int wellId, String currentWellType);
+
+    List<ProductionGeneralInfo> findAllByWell_WellIdEqualsAndCurrentLiftTypeEquals(int wellId, String currentLiftType);
+
+    List<ProductionGeneralInfo> findAllByWell_WellIdEqualsAndCurrentStatusEquals(int wellId, String currentStatus);
 
 }
