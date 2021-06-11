@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,15 +29,22 @@ public class  DrillingServiceImpl implements DrillingInfoService {
     @Autowired
     private WellRepository wellRepository;
     private ModelMapper modelMapper = new ModelMapper();
-
+    public OffsetDateTime dateHelper(Date dateToConvert){
+        LocalDate localDate = new java.sql.Date(dateToConvert.getTime()).toLocalDate();
+        return localDate.atTime(0,0,0).atOffset(ZoneOffset.UTC);
+    }
     @Override
     public List<DrillingInfoDataResponse> getAllDrillingInfo() {
 
         List<DrillingInfoDataResponse> drillingInfoModelList = new ArrayList<>();
-        List<DrillingInfo> drillingInfooo = drillingInfoRepository.findAll();
+        List<DrillingInfo> drillingInfo = drillingInfoRepository.findAll();
         Type listType = new TypeToken<List<DrillingInfoDataResponse>>() {
         }.getType();
-        drillingInfoModelList = modelMapper.map(drillingInfooo, listType);
+        drillingInfoModelList = modelMapper.map(drillingInfo, listType);
+        for (int i = 0; i < drillingInfo.size(); i++) {
+            OffsetDateTime offsetDateTime = dateHelper(drillingInfo.get(i).getReleaseDate());
+            drillingInfoModelList.get(i).setReleaseDate(offsetDateTime);
+        }
         return drillingInfoModelList;
     }
 
@@ -47,6 +57,10 @@ public class  DrillingServiceImpl implements DrillingInfoService {
         }.getType();
 
         drillingInfoModel = modelMapper.map(drillingInfo, listType);
+        for (int i = 0; i < drillingInfo.size(); i++) {
+            OffsetDateTime offsetDateTime = dateHelper(drillingInfo.get(i).getReleaseDate());
+            drillingInfoModel.get(i).setReleaseDate(offsetDateTime);
+        }
         return drillingInfoModel;
     }
 
@@ -56,6 +70,7 @@ public class  DrillingServiceImpl implements DrillingInfoService {
         Well well = wellRepository.findById(id).get();
         drillingInfo = modelMapper.map(drillingInfoModel, DrillingInfo.class);
         drillingInfo.setWell(well);
+        drillingInfo.setReleaseDate(Date.from(drillingInfoModel.getReleaseDate().toInstant()));
         drillingInfoRepository.saveAndFlush(drillingInfo);
     }
 
@@ -83,6 +98,8 @@ public class  DrillingServiceImpl implements DrillingInfoService {
         System.out.println("drillingInfo====== " + drillingInfo);
         DrillingInfoDataResponse drillingInfoModel = new DrillingInfoDataResponse();
         drillingInfoModel = modelMapper.map(drillingInfo, DrillingInfoDataResponse.class);
+        OffsetDateTime offsetDateTime = dateHelper(drillingInfo.getReleaseDate());
+        drillingInfoModel.setReleaseDate(offsetDateTime);
         return drillingInfoModel;
     }
 
