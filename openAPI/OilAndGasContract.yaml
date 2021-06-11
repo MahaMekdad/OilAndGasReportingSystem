@@ -599,9 +599,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/drillingInfoDataResponse'
+                $ref: '#/components/schemas/drillingInfoDataResponse'
         400:
           description: bad request
         401:
