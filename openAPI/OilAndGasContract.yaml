@@ -716,7 +716,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/productionBudgetRequest'
+              $ref: '#/components/schemas/productionBudegetRequest'
       responses:
         200:
           description: item created
@@ -771,7 +771,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/productionBudgetRequest'
+              $ref: '#/components/schemas/productionBudegetRequest'
       responses:
         200:
           description: item updated
@@ -3190,10 +3190,10 @@ components:
       items:
         $ref: '#/components/schemas/drillingInfoDataRequest'
 
-    productionBudgetRequest:
-      type: object
-      items:
-        $ref: '#/components/schemas/productionBudegetRequest'
+    #    productionBudgetRequest:
+    #      type: object
+    #      items:
+    #        $ref: '#/components/schemas/productionBudegetRequest'
 
     drillingInfoDataResponse:
       properties:

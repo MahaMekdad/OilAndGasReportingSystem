@@ -8,12 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public interface ProductionBudgetRepository extends JpaRepository<ProductionBudget,Integer> {
     //get by date
     @Query(value ="from ProductionBudget p where productionDate=?1")
     ProductionBudget findProductionBudgetByProductionDate(String date);
-    public ProductionBudget findByProductionDateEquals (Date date);
+    public List<ProductionBudget> findByProductionDateEquals (Date date);
     @Query(value ="from ProductionBudget p where id=?1")
     ProductionBudget findProductionBudgetById(int id);
 //todo ana 3aiza a3rf ana el mafrod h update eh bzbt
