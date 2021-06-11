@@ -164,7 +164,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="long", precision=22, scale=0)
+    @Column(name="long_", precision=22, scale=0)
     public Double getLong_() {
         return this.long_;
     }

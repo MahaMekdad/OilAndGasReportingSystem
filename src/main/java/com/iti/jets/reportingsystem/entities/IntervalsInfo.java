@@ -120,7 +120,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="interval", length=200)
+    @Column(name="interval_", length=200)
     public String getInterval() {
         return this.interval;
     }
@@ -130,7 +130,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="from", precision=22, scale=0)
+    @Column(name="from_", precision=22, scale=0)
     public Double getFrom() {
         return this.from;
     }
@@ -140,7 +140,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="to", precision=22, scale=0)
+    @Column(name="to_", precision=22, scale=0)
     public Double getTo() {
         return this.to;
     }
