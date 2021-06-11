@@ -7,6 +7,7 @@ import com.iti.jets.reportingsystem.entities.ProductionBudget;
 import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.repos.DrillingInfoRepository;
 //import com.iti.jets.reportingsystem.repos.WellRepository;
+import com.iti.jets.reportingsystem.repos.WellRepository;
 import com.iti.jets.reportingsystem.services.DrillingInfoService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -22,8 +23,8 @@ import java.util.List;
 public class  DrillingServiceImpl implements DrillingInfoService {
     @Autowired
     private DrillingInfoRepository drillingInfoRepository;
-//    @Autowired
-//    private WellRepository wellRepository;
+    @Autowired
+    private WellRepository wellRepository;
     private ModelMapper modelMapper = new ModelMapper();
 
     @Override
@@ -52,7 +53,6 @@ public class  DrillingServiceImpl implements DrillingInfoService {
     @Override
     public void creat(DrillingInfoDataRequest drillingInfoModel , int id) {
         DrillingInfo drillingInfo = new DrillingInfo();
-        System.out.println("iddddddd " + drillingInfoModel.getWellId());
         Well well = wellRepository.findById(id).get();
         drillingInfo = modelMapper.map(drillingInfoModel, DrillingInfo.class);
         drillingInfo.setWell(well);
