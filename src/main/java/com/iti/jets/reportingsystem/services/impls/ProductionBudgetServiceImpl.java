@@ -26,7 +26,10 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
     @Autowired
     private ProductionBudgetRepository productionBudgetRepository;
     private ModelMapper modelMapper = new ModelMapper();
-
+    public OffsetDateTime dateHelper(Date dateToConvert){
+        LocalDate localDate = new java.sql.Date(dateToConvert.getTime()).toLocalDate();
+        return localDate.atTime(0,0,0).atOffset(ZoneOffset.UTC);
+    }
     @Override
     public List<ProductionBudegetDataResponse> getGetAllProductionBudget() {
         List<ProductionBudget> productionBudget = new ArrayList<>();
@@ -36,17 +39,13 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
         Type listType = new TypeToken<List<ProductionBudegetDataResponse>>() {
         }.getType();
         productionBudgetModels = modelMapper.map(productionBudget, listType);
-////        for (int i = 0; i < productionBudget.size(); i++) {
-//        Date date = productionBudget.get(0).getProductionDate();
-//        LocalDate current = date.toInstant()
-//                .atZone(ZoneId.systemDefault()) // Specify the correct timezone
-//                .toLocalDate();
-//
-//          date.toInstant()
-//            OffsetDateTime offsetDateTime =current.toInstant().atOffset(ZoneOffset.UTC);
-//
-////            productionBudgetModels.get(i).setProductionDate(offsetDateTime);
-////        }
+        for (int i = 0; i < productionBudget.size(); i++) {
+            System.out.println("size = " +productionBudget.size());
+            System.out.println("date =" +productionBudget.get(i).getProductionDate());
+            OffsetDateTime offsetDateTime = dateHelper(productionBudget.get(i).getProductionDate());
+            System.out.println("offseet == "+offsetDateTime);
+            productionBudgetModels.get(i).setProductionDate(offsetDateTime);
+       }
 
 
         System.out.println("Production budgetData================ " + productionBudgetModels.get(0).getProductionDate());
@@ -58,6 +57,7 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
     public void create(ProductionBudegetRequest productionBudgetModel) {
         ProductionBudget productionBudget = new ProductionBudget();
         productionBudget = modelMapper.map(productionBudgetModel, ProductionBudget.class);
+        productionBudget.setProductionDate(Date.from(productionBudgetModel.getProductionDate().toInstant()));
         productionBudgetRepository.saveAndFlush(productionBudget);
     }
 
