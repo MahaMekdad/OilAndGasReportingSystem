@@ -12,11 +12,11 @@ import java.util.List;
 
 public interface ProductionGeneralInfoService {
 
-    public void delete(int pgiId);
+    void delete(int pgiId);
 
-//    public void insert(ProductionGeneralInfoModel productionGeneralInfoModel);
+//    void insert(ProductionGeneralInfoModel productionGeneralInfoModel);
 
-    public void insert(ProductionGeneralInfoRequest productionGeneralInfoRequest, int wellId);
+    void insert(ProductionGeneralInfoRequest productionGeneralInfoRequest, int wellId);
 
 //    List<ProductionGeneralInfoModel> getAllPGIS();
     List<AllProductionGeneralInfoWithNamesResponse> getAllPGIS();
@@ -24,23 +24,23 @@ public interface ProductionGeneralInfoService {
 //    List<ProductionGeneralInfoModel> getAllPGIS(Date beginDate, Date endDate);
     List<AllProductionGeneralInfoWithNamesResponse> getAllPGIS(Date beginDate, Date endDate);
 
-//    public List<ProductionGeneralInfoModel> getAllPGISForAWell(int wellId);
+//    List<ProductionGeneralInfoModel> getAllPGISForAWell(int wellId);
 
-    public List<ProductionGeneralInfoResponse> getAllPGISForAWell(int wellId);
+    List<ProductionGeneralInfoResponse> getAllPGISForAWell(int wellId);
 
-    public List<ProductionGeneralInfoResponse> getAllPGISForAWellPowerSourceType(int wellId, String powerSourceType);
+    List<ProductionGeneralInfoResponse> getAllPGISForAWellPowerSourceType(int wellId, String powerSourceType);
 
-    public List<ProductionGeneralInfoResponse> getAllPGISForAWellProcessionPlant(int wellId, String processionPlant);
+    List<ProductionGeneralInfoResponse> getAllPGISForAWellProcessionPlant(int wellId, String processionPlant);
 
-    public List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentWellType(int wellId, String currentWellType);
+    List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentWellType(int wellId, String currentWellType);
 
-    public List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentLiftType(int wellId, String CurrentLiftType);
+    List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentLiftType(int wellId, String CurrentLiftType);
 
-    public List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentStatus(int wellId, String CurrentStatus);
+    List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentStatus(int wellId, String CurrentStatus);
 
-//    public List<ProductionGeneralInfoModel> getAllPGISForAWell(int wellId, Date beginDate, Date endDate);
+//    List<ProductionGeneralInfoModel> getAllPGISForAWell(int wellId, Date beginDate, Date endDate);
 
-    public void updateSpecificPGIS(int wellId, int pgiId, ProductionGeneralInfoRequest productionGeneralInfoRequest);
+    void updateSpecificPGIS(int wellId, int pgiId, ProductionGeneralInfoRequest productionGeneralInfoRequest);
 
-    public void deleteSpecificPGIS(int wellId, int pgiId);
+    void deleteSpecificPGIS(int wellId, int pgiId);
 }
