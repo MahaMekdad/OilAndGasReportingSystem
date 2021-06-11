@@ -98,4 +98,29 @@ public class Rub {
 //                .collect(Collectors.toList());
 
 //        return resultList;
+
+    //    @Override
+//    public void updateAllFLMSForAWell(int wellId, FluidLevelMeasurements fluidLevelMeasurement) {
+//        List<FluidLevelMeasurements> recordsReturned = flmRepo.findAllByWell_WellIdEquals(wellId);
+//        for (FluidLevelMeasurements flm : recordsReturned) {
+//            flm.setWell(fluidLevelMeasurement.getWell());
+//            flm.setDate(fluidLevelMeasurement.getDate());
+//            flm.setIntervals(fluidLevelMeasurement.getIntervals());
+//            flm.setFltype(fluidLevelMeasurement.getFltype());
+//            flm.setFluidlLevel(fluidLevelMeasurement.getFluidlLevel());
+//            flm.setPumpDepth(fluidLevelMeasurement.getPumpDepth());
+//            flm.setLiqPercentage(fluidLevelMeasurement.getLiqPercentage());
+//            flm.setPumpFillage(fluidLevelMeasurement.getPumpFillage());
+//            flm.setPumpSubmerge(fluidLevelMeasurement.getPumpSubmerge());
+//            flm.setCard(fluidLevelMeasurement.getCard());
+//            flm.setRemarks(fluidLevelMeasurement.getRemarks());
+//            flmRepo.save(flm);
+//        }
+//        flmRepo.flush();
+//    }
+//
+//    @Override
+//    public void deleteAllFLMSForAWell(int wellId) {
+//
+//    }
 }

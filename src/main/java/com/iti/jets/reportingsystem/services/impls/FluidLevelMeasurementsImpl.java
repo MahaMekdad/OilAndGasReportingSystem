@@ -5,6 +5,7 @@ import com.iti.jets.openapi.model.FluidLevelMeasurementRequest;
 import com.iti.jets.openapi.model.FluidLevelMeasurementResponse;
 import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
 import com.iti.jets.reportingsystem.entities.Well;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
 import com.iti.jets.reportingsystem.repos.FluidLevelMeasurementsRepository;
 import com.iti.jets.reportingsystem.repos.WellRepo;
@@ -22,13 +23,10 @@ import java.util.List;
 @Service
 public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService {
 
-    private FluidLevelMeasurementsRepository flmRepo;
-
-    private WellRepo wellRepo;
-
-    private ModelMapper modelMapper;
-
-    private FluidLevelMeasurementsMapper flmMapper;
+    private final FluidLevelMeasurementsRepository flmRepo;
+    private final WellRepo wellRepo;
+    private final ModelMapper modelMapper;
+    private final FluidLevelMeasurementsMapper flmMapper;
 
     @Autowired
     public FluidLevelMeasurementsImpl(FluidLevelMeasurementsRepository flmRepo, WellRepo wellRepo, ModelMapper modelMapper, FluidLevelMeasurementsMapper flmMapper){
@@ -40,20 +38,24 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
 
     @Override
     public void delete(int flmId) {
-        flmRepo.deleteById(flmId);
+        if(flmRepo.findById(flmId).isPresent()){
+            flmRepo.deleteById(flmId);
+        } else {
+            throw new ResourceNotFoundException("No FLM found with the given id");
+        }
     }
 
     @Override
     public void insert(FluidLevelMeasurementRequest fluidLevelMeasurementRequest, int wellId) {
         Well well = wellRepo.findById(wellId).isPresent() ?
                     wellRepo.findById(wellId).get() : null;
-        if(well == null) {
-            System.out.println("no well with given id");
-            return;
+        if(well != null) {
+            FluidLevelMeasurements flm = flmMapper.map(fluidLevelMeasurementRequest);
+            flm.setWell(well);
+            flmRepo.saveAndFlush(flm);
+        } else {
+            throw new ResourceNotFoundException("No FLM/Well found within the given well id");
         }
-        FluidLevelMeasurements flm = flmMapper.map(fluidLevelMeasurementRequest);
-        flm.setWell(well);
-        flmRepo.saveAndFlush(flm);
     }
 
     public List<AllFluidLevelMeasurementResponse> getAllFLMS() {
@@ -74,54 +76,49 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
 
     @Override
     public List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId) {
-        Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
-        List<FluidLevelMeasurementResponse> resultList;
-        resultList = modelMapper.map(flmRepo.findAllByWell_WellIdEquals(wellId) , listType);
-        return resultList;
+        if(wellRepo.findById(wellId).isPresent()){
+            Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
+            List<FluidLevelMeasurementResponse> resultList;
+            resultList = modelMapper.map(flmRepo.findAllByWell_WellIdEquals(wellId) , listType);
+            return resultList;
+        } else {
+            throw new ResourceNotFoundException("No FLM/Well found within the given well id");
+        }
     }
 
     @Override
     public List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate) {
-        Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
-        List<FluidLevelMeasurementResponse> resultList;
-        resultList = modelMapper.map(flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate) , listType);
-        return resultList;
+        List<FluidLevelMeasurements> returnedList = flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate);
+        if(wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()){
+            Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
+            List<FluidLevelMeasurementResponse> resultList;
+            resultList = modelMapper.map(flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate) , listType);
+            return resultList;
+        } else if (!wellRepo.findById(wellId).isPresent()){
+            throw new ResourceNotFoundException("No FLM/Well found within the given well id");
+        } else {
+            throw new ResourceNotFoundException("No FLM/Well records were found within the given dates");
+        }
     }
-
-//    @Override
-//    public void updateAllFLMSForAWell(int wellId, FluidLevelMeasurements fluidLevelMeasurement) {
-//        List<FluidLevelMeasurements> recordsReturned = flmRepo.findAllByWell_WellIdEquals(wellId);
-//        for (FluidLevelMeasurements flm : recordsReturned) {
-//            flm.setWell(fluidLevelMeasurement.getWell());
-//            flm.setDate(fluidLevelMeasurement.getDate());
-//            flm.setIntervals(fluidLevelMeasurement.getIntervals());
-//            flm.setFltype(fluidLevelMeasurement.getFltype());
-//            flm.setFluidlLevel(fluidLevelMeasurement.getFluidlLevel());
-//            flm.setPumpDepth(fluidLevelMeasurement.getPumpDepth());
-//            flm.setLiqPercentage(fluidLevelMeasurement.getLiqPercentage());
-//            flm.setPumpFillage(fluidLevelMeasurement.getPumpFillage());
-//            flm.setPumpSubmerge(fluidLevelMeasurement.getPumpSubmerge());
-//            flm.setCard(fluidLevelMeasurement.getCard());
-//            flm.setRemarks(fluidLevelMeasurement.getRemarks());
-//            flmRepo.save(flm);
-//        }
-//        flmRepo.flush();
-//    }
-//
-//    @Override
-//    public void deleteAllFLMSForAWell(int wellId) {
-//
-//    }
 
     @Override
     public void updateSpecificFLMS(int wellId, int flmId, FluidLevelMeasurementRequest fluidLevelMeasurementRequest) {
         FluidLevelMeasurements flmObjToUpdate = flmRepo.findByWell_WellIdEqualsAndIdEquals(wellId, flmId);
-        flmObjToUpdate = flmMapper.mapForPatch(fluidLevelMeasurementRequest, flmObjToUpdate);
-        flmRepo.saveAndFlush(flmObjToUpdate);
+        if(flmObjToUpdate != null){
+            flmObjToUpdate = flmMapper.mapForPatch(fluidLevelMeasurementRequest, flmObjToUpdate);
+            flmRepo.saveAndFlush(flmObjToUpdate);
+        } else {
+            throw new ResourceNotFoundException("No FLM/Well found with the given id");
+        }
     }
 
     @Override
     public void deleteSpecificFLMS(int wellId, int flmId) {
-        flmRepo.removeByWell_WellIdEqualsAndIdEquals(wellId, flmId);
+        if(flmRepo.findByWell_WellIdEqualsAndIdEquals(wellId, flmId) != null){
+            flmRepo.removeByWell_WellIdEqualsAndIdEquals(wellId, flmId);
+        } else {
+            throw new ResourceNotFoundException("No FLM/Well found with the given id");
+        }
+//        flmRepo.removeByWell_WellIdEqualsAndIdEquals(wellId, flmId);
     }
 }

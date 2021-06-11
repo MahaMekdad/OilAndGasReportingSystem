@@ -20,8 +20,8 @@ import java.util.List;
 public class FluidLevelMeasurementsController implements WellsApi {
 
 
-    private FluidLevelMeasurementsService flmService;
-    private ProductionGeneralInfoService pgiService;
+    private final FluidLevelMeasurementsService flmService;
+    private final ProductionGeneralInfoService pgiService;
 
     @Autowired
     public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService){

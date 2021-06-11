@@ -3,34 +3,27 @@ package com.iti.jets.reportingsystem.services.impls;
 import com.iti.jets.openapi.model.AllProductionGeneralInfoWithNamesResponse;
 import com.iti.jets.openapi.model.ProductionGeneralInfoRequest;
 import com.iti.jets.openapi.model.ProductionGeneralInfoResponse;
-import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
 import com.iti.jets.reportingsystem.entities.ProductionGeneralInfo;
 import com.iti.jets.reportingsystem.entities.Well;
-import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
-import com.iti.jets.reportingsystem.models.ProductionGeneralInfoModel;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.ProductionGeneralInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellRepo;
 import com.iti.jets.reportingsystem.services.ProductionGeneralInfoService;
 import com.iti.jets.reportingsystem.utils.mappers.ProductionGeneralInfoMapper;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class ProductionGeneralInfoImpl implements ProductionGeneralInfoService {
 
-    private ProductionGeneralInfoRepository pgiRepo;
-
-    private WellRepo wellRepo;
-
+    private final ProductionGeneralInfoRepository pgiRepo;
+    private final WellRepo wellRepo;
     private ModelMapper modelMapper;
-
-    private ProductionGeneralInfoMapper pgiMapper;
+    private final ProductionGeneralInfoMapper pgiMapper;
 
     @Autowired
     public ProductionGeneralInfoImpl(ProductionGeneralInfoRepository pgiRepo, WellRepo wellRepo, ModelMapper modelMapper, ProductionGeneralInfoMapper pgiMapper){
@@ -47,15 +40,14 @@ public class ProductionGeneralInfoImpl implements ProductionGeneralInfoService {
 
     @Override
     public void insert(ProductionGeneralInfoRequest productionGeneralInfoRequest, int wellId) {
-        Well well = wellRepo.findById(wellId).isPresent() ?
-                wellRepo.findById(wellId).get() : null;
-        if(well == null) {
-            System.out.println("no well with given id");
-            return;
+        Well well = wellRepo.findById(wellId).isPresent() ? wellRepo.findById(wellId).get() : null;
+        if(well != null) {
+            ProductionGeneralInfo pgi = pgiMapper.map(productionGeneralInfoRequest);
+            pgi.setWell(well);
+            pgiRepo.saveAndFlush(pgi);
+        } else {
+            throw new ResourceNotFoundException("No PGI/Well found with the given id");
         }
-        ProductionGeneralInfo pgi = pgiMapper.map(productionGeneralInfoRequest);
-        pgi.setWell(well);
-        pgiRepo.saveAndFlush(pgi);
     }
 
 //    @Override
@@ -86,38 +78,62 @@ public class ProductionGeneralInfoImpl implements ProductionGeneralInfoService {
 
     @Override
     public List<ProductionGeneralInfoResponse> getAllPGISForAWell(int wellId) {
-        List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEquals(wellId) , listType;
-        return pgiMapper.mapPgi(returnedList);
+        if(wellRepo.findById(wellId).isPresent()){
+            List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEquals(wellId) , listType;
+            return pgiMapper.mapPgi(returnedList);
+        } else {
+            throw new ResourceNotFoundException("No Well found with the given id");
+        }
     }
 
     @Override
     public List<ProductionGeneralInfoResponse> getAllPGISForAWellPowerSourceType(int wellId, String powerSourceType) {
-        List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndPowerSourceTypeEquals(wellId, powerSourceType) , listType;
-        return pgiMapper.mapPgi(returnedList);
+        if(wellRepo.findById((wellId)).isPresent()){
+            List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndPowerSourceTypeEquals(wellId, powerSourceType) , listType;
+            return pgiMapper.mapPgi(returnedList);
+        } else {
+            throw new ResourceNotFoundException("No Well found with the given id");
+        }
     }
 
     @Override
     public List<ProductionGeneralInfoResponse> getAllPGISForAWellProcessionPlant(int wellId, String processionPlant) {
-        List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndProcessionPlantEquals(wellId, processionPlant) , listType;
-        return pgiMapper.mapPgi(returnedList);
+        if(wellRepo.findById((wellId)).isPresent()){
+            List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndProcessionPlantEquals(wellId, processionPlant) , listType;
+            return pgiMapper.mapPgi(returnedList);
+        } else {
+            throw new ResourceNotFoundException("No Well found with the given id");
+        }
     }
 
     @Override
     public List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentWellType(int wellId, String currentWellType) {
-        List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndCurrentWellTypeEquals(wellId, currentWellType) , listType;
-        return pgiMapper.mapPgi(returnedList);
+        if(wellRepo.findById((wellId)).isPresent()){
+            List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndCurrentWellTypeEquals(wellId, currentWellType) , listType;
+            return pgiMapper.mapPgi(returnedList);
+        } else {
+            throw new ResourceNotFoundException("No Well found with the given id");
+        }
     }
 
     @Override
     public List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentLiftType(int wellId, String currentLiftType) {
-        List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndCurrentLiftTypeEquals(wellId, currentLiftType) , listType;
-        return pgiMapper.mapPgi(returnedList);
+        if(wellRepo.findById((wellId)).isPresent()){
+            List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndCurrentLiftTypeEquals(wellId, currentLiftType) , listType;
+            return pgiMapper.mapPgi(returnedList);
+        } else {
+            throw new ResourceNotFoundException("No Well found with the given id");
+        }
     }
 
     @Override
     public List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentStatus(int wellId, String currentStatus) {
-        List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndCurrentStatusEquals(wellId, currentStatus) , listType;
-        return pgiMapper.mapPgi(returnedList);
+        if(wellRepo.findById((wellId)).isPresent()){
+            List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndCurrentStatusEquals(wellId, currentStatus) , listType;
+            return pgiMapper.mapPgi(returnedList);
+        } else {
+            throw new ResourceNotFoundException("No Well found with the given id");
+        }
     }
 
 //    @Override
@@ -130,13 +146,21 @@ public class ProductionGeneralInfoImpl implements ProductionGeneralInfoService {
 
     @Override
     public void updateSpecificPGIS(int wellId, int pgiId, ProductionGeneralInfoRequest productionGeneralInfoRequest) {
-        ProductionGeneralInfo pgiObjToUpdate = pgiRepo.findByWell_WellIdEqualsAndIdEquals(wellId, pgiId);
-        pgiObjToUpdate = pgiMapper.mapForPatch(productionGeneralInfoRequest, pgiObjToUpdate);
-        pgiRepo.saveAndFlush(pgiObjToUpdate);
+        if(pgiRepo.findByWell_WellIdEqualsAndIdEquals(wellId, pgiId) != null){
+            ProductionGeneralInfo pgiObjToUpdate = pgiRepo.findByWell_WellIdEqualsAndIdEquals(wellId, pgiId);
+            pgiObjToUpdate = pgiMapper.mapForPatch(productionGeneralInfoRequest, pgiObjToUpdate);
+            pgiRepo.saveAndFlush(pgiObjToUpdate);
+        } else {
+            throw new ResourceNotFoundException("No PGI/Well found with the given id");
+        }
     }
 
     @Override
     public void deleteSpecificPGIS(int wellId, int pgiId) {
-        pgiRepo.removeByWell_WellIdEqualsAndIdEquals(wellId, pgiId);
+        if(pgiRepo.findByWell_WellIdEqualsAndIdEquals(wellId, pgiId) != null){
+            pgiRepo.removeByWell_WellIdEqualsAndIdEquals(wellId, pgiId);
+        } else {
+            throw new ResourceNotFoundException("No PGI/Well found with the given id");
+        }
     }
 }
