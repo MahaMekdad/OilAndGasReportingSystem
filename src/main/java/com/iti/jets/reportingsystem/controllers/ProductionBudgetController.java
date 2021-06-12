@@ -19,7 +19,7 @@ import java.util.Optional;
 
 
 @RestController
-public class ProductionBudgetController implements com.iti.jets.openapi.api.ConcessionsApi {
+public class ProductionBudgetController implements ConcessionsApi {
     @Autowired
     private ProductionBudgetService productionBudgetService;
 
