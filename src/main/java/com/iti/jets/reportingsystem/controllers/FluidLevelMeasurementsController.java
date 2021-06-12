@@ -2,6 +2,7 @@ package com.iti.jets.reportingsystem.controllers;
 
 import com.iti.jets.openapi.api.WellsApi;
 import com.iti.jets.openapi.model.*;
+import com.iti.jets.reportingsystem.services.DrillingInfoService;
 import com.iti.jets.reportingsystem.services.FluidLevelMeasurementsService;
 import com.iti.jets.reportingsystem.services.ProductionGeneralInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,12 +24,16 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     private final FluidLevelMeasurementsService flmService;
     private final ProductionGeneralInfoService pgiService;
+    private final DrillingInfoService drillingInfoService;
 
     @Autowired
-    public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService){
+    public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService, DrillingInfoService drillingInfoService){
         this.flmService = flmService;
         this.pgiService = pgiService;
+        this.drillingInfoService = drillingInfoService;
     }
+
+//    ######################FluidLevelMeasurements#########################
 
     //get all in gen
     @Override
@@ -81,7 +87,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    #######################################################
+//    ######################GeneralProductionInfo#########################
 
     //get all in gen
     @Override
@@ -123,5 +129,66 @@ public class FluidLevelMeasurementsController implements WellsApi {
     public ResponseEntity<Void> wellsWellIdProductionGeneralInfoPgiIdDelete(Integer wellId, Integer pgiId) {
         pgiService.deleteSpecificPGIS(wellId, pgiId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+//    ######################DrillingInfo#########################
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdDrillingInfoDelete(Integer wellId) {
+        drillingInfoService.delete(wellId);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<List<DrillingInfoDataResponse>> wellsWellIdDrillingInfoGet(Integer wellId) {
+        List<DrillingInfoDataResponse> drillingInfoDataResponses = drillingInfoService.getForWellId(wellId);
+        if (drillingInfoDataResponses == null)
+            return ResponseEntity.notFound().build();
+        else {
+            return ResponseEntity.ok(drillingInfoDataResponses);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdDrillingInfoIdDelete(Integer wellId, Integer id) {
+        drillingInfoService.deleteWellInSpecificId(wellId , id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<DrillingInfoDataResponse> wellsWellIdDrillingInfoIdGet(Integer wellId, Integer id) {
+        DrillingInfoDataResponse drillingInfoDataResponse =drillingInfoService.getWellForId(wellId , id);
+        if(drillingInfoDataResponse == null)
+        {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            return ResponseEntity.ok(drillingInfoDataResponse);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdDrillingInfoIdPatch(Integer wellId, Integer id, DrillingInfoDataRequest drillingInfoDataRequest) {
+        drillingInfoService.updateWellForId(wellId ,id ,drillingInfoDataRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdDrillingInfoPost(Integer wellId, DrillingInfoDataRequest drillingInfoDataRequest) {
+        drillingInfoService.creat(drillingInfoDataRequest, wellId);
+        return ResponseEntity.ok().build();
+
+    }
+
+    @Override
+    public ResponseEntity<List<DrillingInfoDataResponse>> wellsDrillingInfoGet() {
+        List<DrillingInfoDataResponse> drillingInfoDataResponses = new ArrayList<>();
+        drillingInfoDataResponses = drillingInfoService.getAllDrillingInfo();
+        if (drillingInfoDataResponses == null)
+            return ResponseEntity.notFound().build();
+        else {
+            return ResponseEntity.ok(drillingInfoDataResponses);
+        }
+
     }
 }

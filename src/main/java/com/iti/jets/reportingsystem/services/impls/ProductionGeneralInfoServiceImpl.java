@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ProductionGeneralInfoImpl implements ProductionGeneralInfoService {
+public class ProductionGeneralInfoServiceImpl implements ProductionGeneralInfoService {
 
     private final ProductionGeneralInfoRepository pgiRepo;
     private final WellRepo wellRepo;
@@ -26,7 +26,7 @@ public class ProductionGeneralInfoImpl implements ProductionGeneralInfoService {
     private final ProductionGeneralInfoMapper pgiMapper;
 
     @Autowired
-    public ProductionGeneralInfoImpl(ProductionGeneralInfoRepository pgiRepo, WellRepo wellRepo, ModelMapper modelMapper, ProductionGeneralInfoMapper pgiMapper){
+    public ProductionGeneralInfoServiceImpl(ProductionGeneralInfoRepository pgiRepo, WellRepo wellRepo, ModelMapper modelMapper, ProductionGeneralInfoMapper pgiMapper){
         this.pgiRepo = pgiRepo;
         this.wellRepo = wellRepo;
         this.modelMapper = modelMapper;

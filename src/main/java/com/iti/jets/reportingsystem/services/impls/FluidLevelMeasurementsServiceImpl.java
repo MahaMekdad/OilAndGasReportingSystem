@@ -6,7 +6,6 @@ import com.iti.jets.openapi.model.FluidLevelMeasurementResponse;
 import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
 import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
-import com.iti.jets.reportingsystem.models.FluidLevelMeasurementsModel;
 import com.iti.jets.reportingsystem.repos.FluidLevelMeasurementsRepository;
 import com.iti.jets.reportingsystem.repos.WellRepo;
 import com.iti.jets.reportingsystem.services.FluidLevelMeasurementsService;
@@ -21,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService {
+public class FluidLevelMeasurementsServiceImpl implements FluidLevelMeasurementsService {
 
     private final FluidLevelMeasurementsRepository flmRepo;
     private final WellRepo wellRepo;
@@ -29,7 +28,7 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
     private final FluidLevelMeasurementsMapper flmMapper;
 
     @Autowired
-    public FluidLevelMeasurementsImpl(FluidLevelMeasurementsRepository flmRepo, WellRepo wellRepo, ModelMapper modelMapper, FluidLevelMeasurementsMapper flmMapper){
+    public FluidLevelMeasurementsServiceImpl(FluidLevelMeasurementsRepository flmRepo, WellRepo wellRepo, ModelMapper modelMapper, FluidLevelMeasurementsMapper flmMapper){
         this.flmRepo = flmRepo;
         this.wellRepo = wellRepo;
         this.modelMapper = modelMapper;
@@ -59,17 +58,18 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
     }
 
     public List<AllFluidLevelMeasurementResponse> getAllFLMS() {
-        Type listType = new TypeToken<List<AllFluidLevelMeasurementResponse>>(){}.getType();
+//        Type listType = new TypeToken<List<AllFluidLevelMeasurementResponse>>(){}.getType();
         List<AllFluidLevelMeasurementResponse> resultList;
-        resultList = modelMapper.map(flmRepo.findAll() , listType);
+        resultList = flmMapper.mapAllFlmList(flmRepo.findAll());
+
         return resultList;
     }
 
     @Override
     public List<AllFluidLevelMeasurementResponse> getAllFLMS(Date beginDate, Date endDate) {
-        Type listType = new TypeToken<List<AllFluidLevelMeasurementResponse>>(){}.getType();
+//        Type listType = new TypeToken<List<AllFluidLevelMeasurementResponse>>(){}.getType();
         List<AllFluidLevelMeasurementResponse> resultList;
-        resultList = modelMapper.map(flmRepo.findAllByDateGreaterThanEqualAndDateLessThanEqual(beginDate, endDate) , listType);
+        resultList = flmMapper.mapAllFlmList(flmRepo.findAllByDateGreaterThanEqualAndDateLessThanEqual(beginDate, endDate));
         return resultList;
 
     }
@@ -77,9 +77,9 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
     @Override
     public List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId) {
         if(wellRepo.findById(wellId).isPresent()){
-            Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
+//            Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
             List<FluidLevelMeasurementResponse> resultList;
-            resultList = modelMapper.map(flmRepo.findAllByWell_WellIdEquals(wellId) , listType);
+            resultList = flmMapper.mapFlmList(flmRepo.findAllByWell_WellIdEquals(wellId));
             return resultList;
         } else {
             throw new ResourceNotFoundException("No FLM/Well found within the given well id");
@@ -90,9 +90,9 @@ public class FluidLevelMeasurementsImpl implements FluidLevelMeasurementsService
     public List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate) {
         List<FluidLevelMeasurements> returnedList = flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate);
         if(wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()){
-            Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
+//            Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
             List<FluidLevelMeasurementResponse> resultList;
-            resultList = modelMapper.map(flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate) , listType);
+            resultList = flmMapper.mapFlmList(flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate));
             return resultList;
         } else if (!wellRepo.findById(wellId).isPresent()){
             throw new ResourceNotFoundException("No FLM/Well found within the given well id");

@@ -4,6 +4,7 @@ import com.iti.jets.openapi.model.AllProductionGeneralInfoWithNamesResponse;
 import com.iti.jets.openapi.model.ProductionGeneralInfoRequest;
 import com.iti.jets.openapi.model.ProductionGeneralInfoResponse;
 import com.iti.jets.reportingsystem.entities.ProductionGeneralInfo;
+import com.iti.jets.reportingsystem.utils.mappers.helpers.OffsetDateTimeHelper;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -93,15 +94,16 @@ public class ProductionGeneralInfoMapper {
         for (ProductionGeneralInfo pgi : targetList) {
             AllProductionGeneralInfoWithNamesResponse apgiwnr = new AllProductionGeneralInfoWithNamesResponse();
             apgiwnr.setId(pgi.getId());
+            apgiwnr.setWellId(pgi.getWell().getWellId());
             apgiwnr.setMonitoringSystem(AllProductionGeneralInfoWithNamesResponse.MonitoringSystemEnum.valueOf(pgi.getMonitoringSystem().toUpperCase()));
             apgiwnr.setCurrentProduct(AllProductionGeneralInfoWithNamesResponse.CurrentProductEnum.valueOf(pgi.getCurrentProduct().toUpperCase()));
             apgiwnr.setCurrentLiftType(AllProductionGeneralInfoWithNamesResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
-            apgiwnr.setCurrentLiftTypeDate(dateHelper(pgi.getCurrentLiftTypeDate()));
+            apgiwnr.setCurrentLiftTypeDate(OffsetDateTimeHelper.dateHelper(pgi.getCurrentLiftTypeDate()));
             apgiwnr.setCurrentWellType(AllProductionGeneralInfoWithNamesResponse.CurrentWellTypeEnum.valueOf(pgi.getCurrentWellType().toUpperCase().replace(" ", "_")));
-            apgiwnr.setCurrentWellTypeDate(dateHelper(pgi.getCurrentWellTypeDate()));
+            apgiwnr.setCurrentWellTypeDate(OffsetDateTimeHelper.dateHelper(pgi.getCurrentWellTypeDate()));
             apgiwnr.setCurrentStatus(AllProductionGeneralInfoWithNamesResponse.CurrentStatusEnum.valueOf(pgi.getCurrentStatus().toUpperCase())) ;
             apgiwnr.setInitialProduct(AllProductionGeneralInfoWithNamesResponse.InitialProductEnum.valueOf(pgi.getInitialProduct().toUpperCase()));
-            apgiwnr.setInitialProdDate(dateHelper(pgi.getInitialProdDate()));
+            apgiwnr.setInitialProdDate(OffsetDateTimeHelper.dateHelper(pgi.getInitialProdDate()));
             apgiwnr.setInitialLiftType(AllProductionGeneralInfoWithNamesResponse.InitialLiftTypeEnum.valueOf(pgi.getInitialLiftType().toUpperCase()));
             apgiwnr.setInitialType(AllProductionGeneralInfoWithNamesResponse.InitialTypeEnum.valueOf(pgi.getInitialType().toUpperCase().replace(" ", "_")));
             apgiwnr.setInitStatus(AllProductionGeneralInfoWithNamesResponse.InitStatusEnum.valueOf(pgi.getInitStatus().toUpperCase()));
@@ -125,12 +127,12 @@ public class ProductionGeneralInfoMapper {
             pgir.setMonitoringSystem(ProductionGeneralInfoResponse.MonitoringSystemEnum.valueOf(pgi.getMonitoringSystem().toUpperCase()));
             pgir.setCurrentProduct(ProductionGeneralInfoResponse.CurrentProductEnum.valueOf(pgi.getCurrentProduct().toUpperCase()));
             pgir.setCurrentLiftType(ProductionGeneralInfoResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
-            pgir.setCurrentLiftTypeDate(dateHelper(pgi.getCurrentLiftTypeDate()));
+            pgir.setCurrentLiftTypeDate(OffsetDateTimeHelper.dateHelper(pgi.getCurrentLiftTypeDate()));
             pgir.setCurrentWellType(ProductionGeneralInfoResponse.CurrentWellTypeEnum.valueOf(pgi.getCurrentWellType().toUpperCase().replace(" ", "_")));
-            pgir.setCurrentWellTypeDate(dateHelper(pgi.getCurrentWellTypeDate()));
+            pgir.setCurrentWellTypeDate(OffsetDateTimeHelper.dateHelper(pgi.getCurrentWellTypeDate()));
             pgir.setCurrentStatus(ProductionGeneralInfoResponse.CurrentStatusEnum.valueOf(pgi.getCurrentStatus().toUpperCase())) ;
             pgir.setInitialProduct(ProductionGeneralInfoResponse.InitialProductEnum.valueOf(pgi.getInitialProduct().toUpperCase()));
-            pgir.setInitialProdDate(dateHelper(pgi.getInitialProdDate()));
+            pgir.setInitialProdDate(OffsetDateTimeHelper.dateHelper(pgi.getInitialProdDate()));
             pgir.setInitialLiftType(ProductionGeneralInfoResponse.InitialLiftTypeEnum.valueOf(pgi.getInitialLiftType().toUpperCase()));
             pgir.setInitialType(ProductionGeneralInfoResponse.InitialTypeEnum.valueOf(pgi.getInitialType().toUpperCase().replace(" ", "_")));
             pgir.setInitStatus(ProductionGeneralInfoResponse.InitStatusEnum.valueOf(pgi.getInitStatus().toUpperCase()));
@@ -141,10 +143,5 @@ public class ProductionGeneralInfoMapper {
             resultList.add(pgir);
         }
         return resultList;
-    }
-
-    public OffsetDateTime dateHelper(Date dateToConvert){
-        LocalDate localDate = new java.sql.Date(dateToConvert.getTime()).toLocalDate();
-        return localDate.atTime(0,0,0).atOffset(ZoneOffset.UTC);
     }
 }
