@@ -9,6 +9,7 @@ import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
 import com.iti.jets.reportingsystem.repos.IntervalsInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellGeneralInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellRespository;
+import com.iti.jets.reportingsystem.services.IntervalsInfoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class IntervalsInfoService {
+public class IntervalsInfoServiceImpl implements IntervalsInfoService {
     private IntervalsInfoRepository intervalsInfoRepository;
     private ModelMapper mapper;
     private WellRespository wellRespository;
     @Autowired
-    public IntervalsInfoService(IntervalsInfoRepository intervalsInfoRepository,ModelMapper modelMapper,
-         WellRespository wellRespository){
+    public IntervalsInfoServiceImpl(IntervalsInfoRepository intervalsInfoRepository, ModelMapper modelMapper,
+                                    WellRespository wellRespository){
         this.intervalsInfoRepository=intervalsInfoRepository;
         this.mapper=modelMapper;
         this.wellRespository=wellRespository;

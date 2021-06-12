@@ -6,25 +6,25 @@ import com.iti.jets.openapi.model.IntervalsInfoResponse;
 import com.iti.jets.openapi.model.WellGeneralInfoRequest;
 import com.iti.jets.openapi.model.WellGeneralInfoResponse;
 import com.iti.jets.reportingsystem.entities.IntervalsInfo;
-import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
-import com.iti.jets.reportingsystem.services.impls.IntervalsInfoService;
-import com.iti.jets.reportingsystem.services.impls.WellGeneralInfoService;
+import com.iti.jets.reportingsystem.services.IntervalsInfoService;
+import com.iti.jets.reportingsystem.services.WellGeneralInfoService;
+import com.iti.jets.reportingsystem.services.impls.IntervalsInfoServiceImpl;
+import com.iti.jets.reportingsystem.services.impls.WellGeneralInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+//@RestController
 public class WellsController implements WellsApi {
     private WellGeneralInfoService wellGeneralInfoService;
     private IntervalsInfoService intervalsInfoService;
 
     @Autowired
-    public WellsController(WellGeneralInfoService wellGeneralInfoService,IntervalsInfoService intervalsInfoService){
+    public WellsController(WellGeneralInfoServiceImpl wellGeneralInfoService, IntervalsInfoServiceImpl intervalsInfoService){
         this.intervalsInfoService=intervalsInfoService;
         this.wellGeneralInfoService=wellGeneralInfoService;
     }

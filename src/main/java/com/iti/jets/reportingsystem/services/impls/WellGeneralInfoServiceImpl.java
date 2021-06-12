@@ -6,6 +6,7 @@ import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
 import com.iti.jets.reportingsystem.repos.WellGeneralInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellRespository;
+import com.iti.jets.reportingsystem.services.WellGeneralInfoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,13 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class WellGeneralInfoService {
+public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
     private WellGeneralInfoRepository wellGeneralInfoRepository;
     private WellRespository wellRespository;
     private ModelMapper mapper;
     @Autowired
-    public WellGeneralInfoService(WellGeneralInfoRepository wellGeneralInfoRepository,ModelMapper modelMapper
-            ,WellRespository wellRespository){
+    public WellGeneralInfoServiceImpl(WellGeneralInfoRepository wellGeneralInfoRepository, ModelMapper modelMapper
+            , WellRespository wellRespository){
         this.wellGeneralInfoRepository=wellGeneralInfoRepository;
         this.mapper=modelMapper;
         this.wellRespository=wellRespository;
