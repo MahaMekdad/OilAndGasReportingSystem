@@ -31,11 +31,9 @@ public class Field  implements java.io.Serializable {
 
 
      private Integer fieldId;
-    @JsonBackReference
      private Concession concession;
      private String fieldName;
      private String fieldCode;
-    @JsonManagedReference
      private Set<Well> wells = new HashSet<Well>(0);
 
     public Field() {

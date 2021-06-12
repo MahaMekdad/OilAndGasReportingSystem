@@ -26,6 +26,7 @@ public class WellGeneralInfoService {
         this.mapper=modelMapper;
         this.wellRespository=wellRespository;
         mapper.getConfiguration().setAmbiguityIgnored(true);
+
     }
 
     public List<WellGeneralInfoResponse> getAllWellsGeneralInfo(){

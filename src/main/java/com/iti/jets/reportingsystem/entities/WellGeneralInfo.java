@@ -29,7 +29,6 @@ public class WellGeneralInfo  implements java.io.Serializable {
 
 
      private Integer id;
-    @JsonBackReference
      private Well well;
      private String subCompanyName;
      private String locationName;

@@ -33,7 +33,6 @@ public class WellTestData  implements java.io.Serializable {
 
 
      private Integer id;
-    @JsonBackReference
      private Well well;
      private Date productionDate;
      private Integer TDuration;

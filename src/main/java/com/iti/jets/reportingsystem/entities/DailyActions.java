@@ -31,7 +31,6 @@ public class DailyActions  implements java.io.Serializable {
 
 
      private Integer id;
-    @JsonBackReference
      private Well well;
      private ShutinTypeLevel4 shutinTypeLevel4;
      private Date date;

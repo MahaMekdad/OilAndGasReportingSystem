@@ -31,7 +31,6 @@ public class LabMesurement  implements java.io.Serializable {
 
 
      private Integer id;
-    @JsonBackReference
      private Well well;
      private Date date;
      private Long s1;

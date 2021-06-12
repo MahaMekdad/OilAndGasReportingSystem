@@ -34,25 +34,16 @@ public class Well  implements java.io.Serializable {
 
 
      private Integer wellId;
-    @JsonBackReference
      private Field field;
      private String wellName;
      private String wellCode;
-    @JsonManagedReference
      private Set<IntervalsInfo> intervalsInfos = new HashSet<IntervalsInfo>(0);
-    @JsonManagedReference
      private Set<WellTestData> wellTestDatas = new HashSet<WellTestData>(0);
-    @JsonManagedReference
      private Set<DailyActions> dailyActionses = new HashSet<DailyActions>(0);
-    @JsonManagedReference
      private Set<ProductionGeneralInfo> productionGeneralInfos = new HashSet<ProductionGeneralInfo>(0);
-    @JsonManagedReference
      private Set<DrillingInfo> drillingInfos = new HashSet<DrillingInfo>(0);
-    @JsonManagedReference
      private Set<FluidLevelMeasurements> fluidLevelMeasurementses = new HashSet<FluidLevelMeasurements>(0);
-    @JsonManagedReference
      private Set<LabMesurement> labMesurements = new HashSet<LabMesurement>(0);
-     @JsonManagedReference
      private Set<WellGeneralInfo> wellGeneralInfos = new HashSet<WellGeneralInfo>(0);
 
     public Well() {

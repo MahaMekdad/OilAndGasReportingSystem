@@ -31,7 +31,6 @@ public class ProductionGeneralInfo  implements java.io.Serializable {
 
 
      private Integer id;
-    @JsonBackReference
      private Well well;
      private Date initialProdDate;
      private String initialType;

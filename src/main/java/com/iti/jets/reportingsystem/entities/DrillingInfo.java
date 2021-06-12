@@ -31,7 +31,6 @@ public class DrillingInfo  implements java.io.Serializable {
 
 
      private Integer id;
-    @JsonBackReference
      private Well well;
      private Date releaseDate;
      private String wellDescription;

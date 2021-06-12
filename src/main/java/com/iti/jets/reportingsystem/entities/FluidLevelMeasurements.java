@@ -31,7 +31,6 @@ public class FluidLevelMeasurements  implements java.io.Serializable {
 
 
      private Integer id;
-    @JsonBackReference
      private Well well;
      private Date date;
      private String intervals;

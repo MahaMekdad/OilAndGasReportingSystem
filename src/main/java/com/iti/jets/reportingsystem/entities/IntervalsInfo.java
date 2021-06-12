@@ -31,7 +31,6 @@ public class IntervalsInfo  implements java.io.Serializable {
 
 
      private Integer id;
-   @JsonBackReference
      private Well well;
      private String drivingMechanism;
      private String zones;

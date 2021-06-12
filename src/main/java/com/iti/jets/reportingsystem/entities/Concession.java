@@ -27,7 +27,6 @@ public class Concession  implements java.io.Serializable {
 
      private Integer concessionId;
      private String concessionName;
-    @JsonManagedReference
      private Set<Field> fields = new HashSet<Field>(0);
 
     public Concession() {
