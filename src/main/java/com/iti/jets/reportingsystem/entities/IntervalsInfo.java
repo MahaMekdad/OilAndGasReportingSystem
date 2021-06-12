@@ -2,6 +2,10 @@ package com.iti.jets.reportingsystem.entities;
 // Generated Jun 7, 2021, 4:22:33 AM by Hibernate Tools 6.0.0.Alpha2
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +26,7 @@ import javax.persistence.TemporalType;
 @Table(name="intervals_info"
     ,catalog="reportingsystem"
 )
+
 public class IntervalsInfo  implements java.io.Serializable {
 
 
@@ -114,7 +119,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="interval", length=200)
+    @Column(name="interval_", length=200)
     public String getInterval() {
         return this.interval;
     }
@@ -124,7 +129,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="from", precision=22, scale=0)
+    @Column(name="from_", precision=22, scale=0)
     public Double getFrom() {
         return this.from;
     }
@@ -134,7 +139,7 @@ public class IntervalsInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="to", precision=22, scale=0)
+    @Column(name="to_", precision=22, scale=0)
     public Double getTo() {
         return this.to;
     }

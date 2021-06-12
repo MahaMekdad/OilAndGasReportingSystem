@@ -2,6 +2,10 @@ package com.iti.jets.reportingsystem.entities;
 // Generated Jun 7, 2021, 4:22:33 AM by Hibernate Tools 6.0.0.Alpha2
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +23,8 @@ import javax.persistence.Table;
 @Table(name="well_general_info"
     ,catalog="reportingsystem"
 )
+
+
 public class WellGeneralInfo  implements java.io.Serializable {
 
 
@@ -157,7 +163,7 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="long", precision=22, scale=0)
+    @Column(name="long_", precision=22, scale=0)
     public Double getLong_() {
         return this.long_;
     }

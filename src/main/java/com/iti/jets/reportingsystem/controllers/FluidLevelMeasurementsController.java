@@ -2,17 +2,17 @@ package com.iti.jets.reportingsystem.controllers;
 
 import com.iti.jets.openapi.api.WellsApi;
 import com.iti.jets.openapi.model.*;
-import com.iti.jets.reportingsystem.services.DrillingInfoService;
-import com.iti.jets.reportingsystem.services.FluidLevelMeasurementsService;
-import com.iti.jets.reportingsystem.services.ProductionGeneralInfoService;
+import com.iti.jets.reportingsystem.entities.IntervalsInfo;
+import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
+import com.iti.jets.reportingsystem.services.*;
+import com.iti.jets.reportingsystem.services.impls.IntervalsInfoServiceImpl;
+import com.iti.jets.reportingsystem.services.impls.WellGeneralInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,12 +25,17 @@ public class FluidLevelMeasurementsController implements WellsApi {
     private final FluidLevelMeasurementsService flmService;
     private final ProductionGeneralInfoService pgiService;
     private final DrillingInfoService drillingInfoService;
+    private final WellGeneralInfoService wellGeneralInfoService;
+    private final IntervalsInfoService intervalsInfoService;
 
     @Autowired
-    public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService, DrillingInfoService drillingInfoService){
+    public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService, DrillingInfoService drillingInfoService
+    , WellGeneralInfoServiceImpl wellGeneralInfoService, IntervalsInfoServiceImpl intervalsInfoService){
         this.flmService = flmService;
         this.pgiService = pgiService;
         this.drillingInfoService = drillingInfoService;
+        this.intervalsInfoService=intervalsInfoService;
+        this.wellGeneralInfoService=wellGeneralInfoService;
     }
 
 //    ######################FluidLevelMeasurements#########################
@@ -191,4 +196,92 @@ public class FluidLevelMeasurementsController implements WellsApi {
         }
 
     }
+
+    //
+
+    @Override
+    public ResponseEntity<List<WellGeneralInfoResponse>> wellsGeneralInfoGet() {
+        return ResponseEntity.ok(wellGeneralInfoService.getAllWellsGeneralInfo());
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsGeneralInfoIdDelete(Integer id) {
+        if(wellGeneralInfoService.deleteWellGeneralInfo(id)){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @Override
+    public ResponseEntity<WellGeneralInfoResponse> wellsGeneralInfoIdGet(Integer id) {
+        WellGeneralInfoResponse wellGeneralInfoResponse=wellGeneralInfoService.getWellGeneralInfoById(id);
+        if (wellGeneralInfoResponse==null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(wellGeneralInfoResponse);
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsGeneralInfoIdPut(Integer id, @Valid WellGeneralInfoRequest wellGeneralInfoRequest) {
+        if(wellGeneralInfoService.updateWellGeneralInfo(id,wellGeneralInfoRequest)){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsGeneralInfoPost(@Valid WellGeneralInfoRequest wellGeneralInfoRequest) {
+        WellGeneralInfo wellGeneralInfo=wellGeneralInfoService.saveWellGeneralInfo(wellGeneralInfoRequest);
+        if(wellGeneralInfo==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
+    //Intervals Information
+
+    @Override
+    public ResponseEntity<List<IntervalsInfoResponse>> wellsIntervalsInfoGet() {
+        return ResponseEntity.ok(intervalsInfoService.getAllIntervalsInfo());
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsIntervalsInfoIdDelete(Integer id) {
+        if(intervalsInfoService.deleteIntervalsInfo(id)){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @Override
+    public ResponseEntity<IntervalsInfoResponse> wellsIntervalsInfoIdGet(Integer id) {
+        IntervalsInfoResponse intervalsInfoResponse=intervalsInfoService.getIntervalsInfoById(id);
+        if (intervalsInfoResponse==null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(intervalsInfoResponse);
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsIntervalsInfoIdPut(Integer id, @Valid IntervalsInfoRequest intervalsInfoRequest) {
+        if(intervalsInfoService.updateIntervalsInfo(id,intervalsInfoRequest)){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsIntervalsInfoPost(@Valid IntervalsInfoRequest intervalsInfoRequest) {
+        IntervalsInfo intervalsInfo=intervalsInfoService.saveIntervalsInfo(intervalsInfoRequest);
+        if(intervalsInfo==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
 }
