@@ -759,7 +759,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/getDrillingInfoResponse'
+                  $ref: '#/components/schemas/drillingInfoDataResponse'
         401:
           description: not authenticated user to access this resource
         403:
@@ -786,7 +786,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getDrillingInfoResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/drillingInfoDataResponse'
         400:
           description: bad request
         401:
@@ -813,7 +815,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/drillingInfoRequest'
+              $ref: '#/components/schemas/drillingInfoDataRequest'
       responses:
         200:
           description: item created
@@ -876,7 +878,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getDrillingInfoResponse'
+                $ref: '#/components/schemas/drillingInfoDataResponse'
         400:
           description: bad request
         401:
@@ -941,7 +943,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/drillingInfoRequest'
+              $ref: '#/components/schemas/drillingInfoDataRequest'
       responses:
         200:
           description: item updated
@@ -995,7 +997,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/productionBudgetRequest'
+              $ref: '#/components/schemas/productionBudegetRequest'
       responses:
         200:
           description: item created
@@ -1050,7 +1052,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/productionBudgetRequest'
+              $ref: '#/components/schemas/productionBudegetRequest'
       responses:
         200:
           description: item updated
@@ -3459,20 +3461,20 @@ components:
         processionPlant: Oil Plant
 
 
-    getDrillingInfoResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/drillingInfoDataResponse'
+    # getDrillingInfoResponse:
+    #   type: array
+    #   items:
+    #     $ref: '#/components/schemas/drillingInfoDataResponse'
 
-    drillingInfoRequest:
-      type: object
-      items:
-        $ref: '#/components/schemas/drillingInfoDataRequest'
+    #    drillingInfoRequest:
+    #      type: object
+    #      items:
+    #        $ref: '#/components/schemas/drillingInfoDataRequest'
 
-    productionBudgetRequest:
-      type: object
-      items:
-        $ref: '#/components/schemas/productionBudegetRequest'
+    #    productionBudgetRequest:
+    #      type: object
+    #      items:
+    #        $ref: '#/components/schemas/productionBudegetRequest'
 
     drillingInfoDataResponse:
       properties:
@@ -3513,7 +3515,7 @@ components:
       properties:
         releaseDate:
           type: string
-          format: date-tim
+          format: date-time
         wellDescription:
           type: string
         wellType:
