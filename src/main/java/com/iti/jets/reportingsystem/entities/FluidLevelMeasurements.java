@@ -29,7 +29,6 @@ import javax.persistence.TemporalType;
 
 public class FluidLevelMeasurements  implements java.io.Serializable {
 
-
      private Integer id;
      private Well well;
      private Date date;
