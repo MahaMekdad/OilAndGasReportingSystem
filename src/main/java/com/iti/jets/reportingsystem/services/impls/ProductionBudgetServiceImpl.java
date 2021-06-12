@@ -23,9 +23,15 @@ import java.util.List;
 
 @Service
 public class ProductionBudgetServiceImpl implements ProductionBudgetService {
+
+    private final ProductionBudgetRepository productionBudgetRepository;
+    private final ModelMapper modelMapper;
+
     @Autowired
-    private ProductionBudgetRepository productionBudgetRepository;
-    private ModelMapper modelMapper = new ModelMapper();
+    public ProductionBudgetServiceImpl(ProductionBudgetRepository productionBudgetRepository, ModelMapper modelMapper){
+        this.productionBudgetRepository = productionBudgetRepository;
+        this.modelMapper = modelMapper;
+    }
     public OffsetDateTime dateHelper(Date dateToConvert){
         LocalDate localDate = new java.sql.Date(dateToConvert.getTime()).toLocalDate();
         return localDate.atTime(0,0,0).atOffset(ZoneOffset.UTC);
