@@ -24,15 +24,23 @@ import java.util.List;
 
 @Service
 public class  DrillingServiceImpl implements DrillingInfoService {
+
+    private final DrillingInfoRepository drillingInfoRepository;
+    private final WellRepository wellRepository;
+    private final ModelMapper modelMapper;
+
     @Autowired
-    private DrillingInfoRepository drillingInfoRepository;
-    @Autowired
-    private WellRepository wellRepository;
-    private ModelMapper modelMapper = new ModelMapper();
+    public DrillingServiceImpl(DrillingInfoRepository drillingInfoRepository, WellRepository wellRepository, ModelMapper modelMapper){
+        this.drillingInfoRepository = drillingInfoRepository;
+        this.wellRepository = wellRepository;
+        this.modelMapper = modelMapper;
+    }
+
     public OffsetDateTime dateHelper(Date dateToConvert){
         LocalDate localDate = new java.sql.Date(dateToConvert.getTime()).toLocalDate();
         return localDate.atTime(0,0,0).atOffset(ZoneOffset.UTC);
     }
+
     @Override
     public List<DrillingInfoDataResponse> getAllDrillingInfo() {
 
