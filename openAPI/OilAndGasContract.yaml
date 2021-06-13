@@ -1482,12 +1482,9 @@ paths:
             type: string
             example: 2021-03-16T00:00:00.000+0000
       responses:
-        "200":
-          description: successful operation
+        "204":
+          description: Successful pull of the lab measurements for the well with the given id
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/AllLabsOfAWell'
             application/json:
               schema:
                 $ref: '#/components/schemas/AllLabsOfAWell'
@@ -1531,12 +1528,9 @@ paths:
             type: string
             example: 2021-03-16T00:00:00.000+0000
       responses:
-        "200":
-          description: successful operation
+        "204":
+          description: Successful pull of the lab measurements for the well with the given id
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/AllLabs'
             application/json:
               schema:
                 $ref: '#/components/schemas/AllLabs'
@@ -1611,17 +1605,17 @@ paths:
       description: Deletes a lab by its id
       operationId: deleteLabById
       parameters:
-        - name: labId
+        - name: wellId
           in: path
-          description: Delete a lab by its id
+          description: Delete a lab in a well by its id
           required: true
           style: simple
           explode: false
           schema:
             type: integer
-        - name: wellId
+        - name: labId
           in: path
-          description: Delete a lab in a well by its id
+          description: Delete a lab by its id
           required: true
           style: simple
           explode: false
@@ -1669,9 +1663,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/labMeasurementResponse'
             application/json:
               schema:
                 $ref: '#/components/schemas/labMeasurementResponse'
@@ -1709,9 +1700,6 @@ paths:
         description: Daily Report object that needs to be added
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/wellDailyActionsRequest'
-          application/xml:
             schema:
               $ref: '#/components/schemas/wellDailyActionsRequest'
         required: true
@@ -1792,12 +1780,9 @@ paths:
             type: string
             example: 2021-03-16T00:00:00.000+0000
       responses:
-        "200":
-          description: successful operation
+        "204":
+          description: Successful pull of the report for the well with the given id
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/AllWellDailyActionsOfAWell'
             application/json:
               schema:
                 $ref: '#/components/schemas/AllWellDailyActionsOfAWell'
@@ -1846,9 +1831,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/wellDailyActionsRequest'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/wellDailyActionsRequest'
         required: true
       responses:
         "204":
@@ -1891,12 +1873,9 @@ paths:
             type: integer
             format: int64
       responses:
-        "200":
-          description: successful operation
+        "204":
+          description: Successful pull of the report for the well with the given id
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/wellDailyActionsResponse'
             application/json:
               schema:
                 $ref: '#/components/schemas/wellDailyActionsResponse'
@@ -2003,12 +1982,9 @@ paths:
             type: string
             example: 2021-03-16T00:00:00.000+0000
       responses:
-        "200":
-          description: successful operation
+        "204":
+          description: Successful pull of the report for the well with the given id
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/AllWellDailyActions'
             application/json:
               schema:
                 $ref: '#/components/schemas/AllWellDailyActions'
