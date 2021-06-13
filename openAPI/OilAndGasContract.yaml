@@ -856,9 +856,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/getAllWells'
             application/json:
               schema:
                 $ref: '#/components/schemas/getAllWells'
@@ -1028,21 +1025,29 @@ paths:
             type: integer
             format: int64
       responses:
-        "200":
-          description: successful operation
+        "204":
+          description: Successful pull of the lab measurements for the well with the given id
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/wellResponse'
             application/json:
               schema:
                 $ref: '#/components/schemas/wellResponse'
-        "400":
-          description: Invalid ID supplied
-          content: {}
-        "404":
-          description: well not found
-          content: {}
+
+#      responses:
+#        "200":
+#          description: successful operation
+#          content:
+#            application/xml:
+#              schema:
+#                $ref: '#/components/schemas/wellResponse'
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/wellResponse'
+#        "400":
+#          description: Invalid ID supplied
+#          content: {}
+#        "404":
+#          description: well not found
+#          content: {}
 
     put:
       tags:
@@ -3348,26 +3353,25 @@ components:
     getAllFields:
       type: array
       items:
-        $ref: '#/components/schemas/allFieldsResponse'
+        $ref: '#/components/schemas/FieldResponse'
 
     getAllWells:
       type: array
       items:
-        $ref: '#/components/schemas/allWellsResponse'
+        $ref: '#/components/schemas/wellResponse'
 
     allFieldsResponse:
       type: object
       properties:
         fieldId:
           type: integer
-          format: int64
+
         fieldName:
           type: string
         fieldCode:
           type: string
         concessionId:
           type: integer
-          format: int64
       example:
         fieldId: 5
         fieldName: field1
@@ -3381,12 +3385,12 @@ components:
       properties:
         wellId:
           type: integer
-          format: int64
+
         wellName:
           type: string
         fieldId:
           type: integer
-          format: int64
+
         wellCode:
           type: string
       example:
@@ -3402,14 +3406,14 @@ components:
       properties:
         fieldId:
           type: integer
-          format: int64
+
         fieldName:
           type: string
         fieldCode:
           type: string
         concessionId:
           type: integer
-          format: int64
+
       example:
         fieldId: 5
         fieldName: field1
@@ -3427,7 +3431,7 @@ components:
           type: string
         concessionId:
           type: integer
-          format: int64
+
       example:
         fieldId: 5
         fieldName: field1
@@ -3441,12 +3445,10 @@ components:
       properties:
         wellId:
           type: integer
-          format: int64
         wellName:
           type: string
         fieldId:
           type: integer
-          format: int64
         wellCode:
           type: string
       example:
