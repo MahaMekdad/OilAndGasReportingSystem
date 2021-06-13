@@ -1,13 +1,16 @@
 package com.iti.jets.reportingsystem.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iti.jets.reportingsystem.entities.Well;
 
 import java.util.Date;
 
 public class ProductionGeneralInfoModel {
 
-    private int id;
+    private Integer id;
+    @JsonIgnore
     private Well well;
+    private Integer wellId;
     private Date initialProdDate;
     private String initialType;
     private String initialProduct;
@@ -18,21 +21,19 @@ public class ProductionGeneralInfoModel {
     private String currentWellType;
     private String currentProduct;
     private String currentStatus;
-    private Integer runTime;
+    private Integer runtime;
     private String currentLiftType;
     private Date currentLiftTypeDate;
     private String powerSourceType;
     private String powerSource;
     private String processionPlant;
 
-    public ProductionGeneralInfoModel() {}
+    public ProductionGeneralInfoModel() {
+    }
 
-    public ProductionGeneralInfoModel(Well well, Date initialProdDate, String initialType, String initialProduct,
-                                      String initialLiftType, String initStatus, String monitoringSystem, Date currentWellTypeDate,
-                                      String currentWellType, String currentProduct, String currentStatus, Integer runTime,
-                                      String currentLiftType, Date currentLiftTypeDate, String powerSourceType, String powerSource,
-                                      String processionPlant) {
+    public ProductionGeneralInfoModel(Well well, Integer wellId, Date initialProdDate, String initialType, String initialProduct, String initialLiftType, String initStatus, String monitoringSystem, Date currentWellTypeDate, String currentWellType, String currentProduct, String currentStatus, Integer runtime, String currentLiftType, Date currentLiftTypeDate, String powerSourceType, String powerSource, String processionPlant) {
         this.well = well;
+        this.wellId = wellId;
         this.initialProdDate = initialProdDate;
         this.initialType = initialType;
         this.initialProduct = initialProduct;
@@ -43,7 +44,7 @@ public class ProductionGeneralInfoModel {
         this.currentWellType = currentWellType;
         this.currentProduct = currentProduct;
         this.currentStatus = currentStatus;
-        this.runTime = runTime;
+        this.runtime = runtime;
         this.currentLiftType = currentLiftType;
         this.currentLiftTypeDate = currentLiftTypeDate;
         this.powerSourceType = powerSourceType;
@@ -51,11 +52,11 @@ public class ProductionGeneralInfoModel {
         this.processionPlant = processionPlant;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -65,6 +66,14 @@ public class ProductionGeneralInfoModel {
 
     public void setWell(Well well) {
         this.well = well;
+    }
+
+    public Integer getWellId() {
+        return wellId;
+    }
+
+    public void setWellId(Integer wellId) {
+        this.wellId = wellId;
     }
 
     public Date getInitialProdDate() {
@@ -147,12 +156,12 @@ public class ProductionGeneralInfoModel {
         this.currentStatus = currentStatus;
     }
 
-    public Integer getRunTime() {
-        return runTime;
+    public Integer getRuntime() {
+        return runtime;
     }
 
-    public void setRunTime(Integer runTime) {
-        this.runTime = runTime;
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
     }
 
     public String getCurrentLiftType() {

@@ -39,9 +39,288 @@ tags:
     description: Well General Info Details
   - name: IntervalsInfo
     description: Intervals Info Details
+  - name: Users
+    description: Users Details
+  - name: UsersRoles
+    description: Users Roles Details
 paths:
 
   # ---------------MAHA---------------
+  /users:
+    post:
+      tags:
+        - Users
+      description: registering a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+
+      responses:
+        204:
+          description: User created successfully
+        400:
+          description: please enter the of the required attributes with the correct data format
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    get:
+      tags:
+        - Users
+      description: getting all users
+      parameters:
+        - in: query
+          name: jobRole
+          description: getting the users that are of that role
+          schema:
+            type: integer
+            example: 1
+        - in: query
+          name: jobLocation
+          description: getting the users that are located at this location
+          schema:
+            type: string
+            example: office
+
+      responses:
+        204:
+          description: Successful pull of all users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllUsers'
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      description: getting the fluid level measurements for a specific well id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: the ID of the user
+          schema:
+            type: integer
+            example: 5
+
+      responses:
+        204:
+          description: Successful pull of the user with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    put:
+      tags:
+        - Users
+      description: updating user record
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: the user id
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+
+      responses:
+        204:
+          description: User updated successfully
+        400:
+          description: please enter all of the required attributes with the correct format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    delete:
+      tags:
+        - Users
+      description: deleting a specific user record with the given id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: the user id
+          schema:
+            type: integer
+            example: 5
+
+      responses:
+        204:
+          description: user record deleted successfully
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  /usersRoles:
+    post:
+      tags:
+        - UsersRoles
+      description: adding a new user role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRoleRequest'
+
+      responses:
+        204:
+          description: User role created successfully
+        400:
+          description: please enter the of the required attributes with the correct data format
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    get:
+      tags:
+        - UsersRoles
+      description: getting all users roles
+
+      responses:
+        204:
+          description: Successful pull of all users roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllUserRoles'
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+  /usersRoles/{id}:
+    get:
+      tags:
+        - UsersRoles
+      description: getting the user role record with the given id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: the ID of the user role
+          schema:
+            type: integer
+            example: 5
+
+      responses:
+        204:
+          description: Successful pull of the user with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRoleResponse'
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    put:
+      tags:
+        - UsersRoles
+      description: updating user role record (name)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: the user role id
+          schema:
+            type: integer
+            example: 5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRoleRequest'
+
+      responses:
+        204:
+          description: User role updated successfully
+        400:
+          description: please enter all of the required attributes with the correct format
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
+    delete:
+      tags:
+        - UsersRoles
+      description: deleting a specific user role record with the given id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: the user role id
+          schema:
+            type: integer
+            example: 5
+
+      responses:
+        204:
+          description: user role record deleted successfully
+        401:
+          description: You have not been authenticated
+        403:
+          description: Unauthorized to make this request
+        404:
+          description: resource not found
+        500:
+          description: unexpected server error
+
   /wells/fluidLevelMeasurements:
     get:
       tags:
@@ -480,7 +759,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/getDrillingInfoResponse'
+                  $ref: '#/components/schemas/drillingInfoDataResponse'
         401:
           description: not authenticated user to access this resource
         403:
@@ -507,7 +786,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getDrillingInfoResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/drillingInfoDataResponse'
         400:
           description: bad request
         401:
@@ -534,7 +815,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/drillingInfoRequest'
+              $ref: '#/components/schemas/drillingInfoDataRequest'
       responses:
         200:
           description: item created
@@ -597,7 +878,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getDrillingInfoResponse'
+                $ref: '#/components/schemas/drillingInfoDataResponse'
         400:
           description: bad request
         401:
@@ -662,7 +943,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/drillingInfoRequest'
+              $ref: '#/components/schemas/drillingInfoDataRequest'
       responses:
         200:
           description: item updated
@@ -716,7 +997,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/productionBudgetRequest'
+              $ref: '#/components/schemas/productionBudegetRequest'
       responses:
         200:
           description: item created
@@ -771,7 +1052,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/productionBudgetRequest'
+              $ref: '#/components/schemas/productionBudegetRequest'
       responses:
         200:
           description: item updated
@@ -3180,20 +3461,20 @@ components:
         processionPlant: Oil Plant
 
 
-    getDrillingInfoResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/drillingInfoDataResponse'
+    # getDrillingInfoResponse:
+    #   type: array
+    #   items:
+    #     $ref: '#/components/schemas/drillingInfoDataResponse'
 
-    drillingInfoRequest:
-      type: object
-      items:
-        $ref: '#/components/schemas/drillingInfoDataRequest'
+    #    drillingInfoRequest:
+    #      type: object
+    #      items:
+    #        $ref: '#/components/schemas/drillingInfoDataRequest'
 
-    productionBudgetRequest:
-      type: object
-      items:
-        $ref: '#/components/schemas/productionBudegetRequest'
+    #    productionBudgetRequest:
+    #      type: object
+    #      items:
+    #        $ref: '#/components/schemas/productionBudegetRequest'
 
     drillingInfoDataResponse:
       properties:
@@ -3234,7 +3515,7 @@ components:
       properties:
         releaseDate:
           type: string
-          format: date-tim
+          format: date-time
         wellDescription:
           type: string
         wellType:
@@ -4307,3 +4588,131 @@ components:
       enum:
         - fixed
         - adjustable
+
+    getAllUsers:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserResponse'
+
+    UserRequest:
+      description: Model for the UserData object info for creation {post, put, and patch requests)
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phoneNumber
+        - jobTitle
+        - jobLocation
+      properties:
+        firstName:
+          type: string
+
+        lastName:
+          type: string
+
+        email:
+          type: string
+
+        phoneNumber:
+          type: string
+
+        jobTitle:
+          type: integer
+
+        jobLocation:
+          $ref: '#/components/schemas/jobLocation'
+
+      example:
+        firstName: mek
+        lastName: mek
+        email: maha@g.com
+        phoneNumber: 01144444478
+        jobTitle: 1
+        jobLocation: office
+
+    UserResponse:
+      description: Model for the UserData object info for returns (get)
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - phoneNumber
+        - jobTitle
+        - jobLocation
+      properties:
+        id:
+          type: integer
+
+        firstName:
+          type: string
+
+        lastName:
+          type: string
+
+        email:
+          type: string
+
+        phoneNumber:
+          type: string
+
+        jobTitle:
+          type: integer
+
+        jobLocation:
+          $ref: '#/components/schemas/jobLocation'
+
+      example:
+        id: 5
+        firstName: mek
+        lastName: mek
+        email: maha@g.com
+        phoneNumber: 01144444478
+        jobTitle: 1
+        jobLocation: office
+
+    jobLocation:
+      type: string
+      description: "representing the job locations"
+      default: "office"
+      enum:
+        - office
+        - meleiha
+        - faras
+        - raml
+        - ashrafi
+
+    getAllUserRoles:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserRoleResponse'
+
+    UserRoleRequest:
+      description: Model for the UserRole object info for creation {post, put, and patch requests)
+      type: object
+      required:
+        - role
+      properties:
+        role:
+          type: string
+
+      example:
+        role: manager
+
+    UserRoleResponse:
+      description: Model for the UserRole object info for return (get)
+      type: object
+      required:
+        - id
+        - role
+      properties:
+        id:
+          type: integer
+        role:
+          type: string
+
+      example:
+        id: 4
+        role: manager
