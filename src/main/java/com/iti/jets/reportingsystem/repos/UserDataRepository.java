@@ -15,4 +15,6 @@ public interface UserDataRepository extends JpaRepository<Userdata, Integer> {
     List<Userdata> findByUserroles_IdEqualsAndJobLocationEquals(int userRoleId, String jobLocation);
 
     Userdata findByEmailEqualsAndPasswordEquals(String email, String password);
+
+    List<Userdata> findAllByUserroles_IdEquals(Integer userRoleId);
 }

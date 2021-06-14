@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -27,15 +28,17 @@ public class FluidLevelMeasurementsController implements WellsApi {
     private final DrillingInfoService drillingInfoService;
     private final WellGeneralInfoService wellGeneralInfoService;
     private final IntervalsInfoService intervalsInfoService;
+    private final WellService wellService;
 
     @Autowired
     public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService, DrillingInfoService drillingInfoService
-    , WellGeneralInfoServiceImpl wellGeneralInfoService, IntervalsInfoServiceImpl intervalsInfoService){
+    , WellGeneralInfoServiceImpl wellGeneralInfoService, IntervalsInfoServiceImpl intervalsInfoService, WellService wellService){
         this.flmService = flmService;
         this.pgiService = pgiService;
         this.drillingInfoService = drillingInfoService;
         this.intervalsInfoService=intervalsInfoService;
         this.wellGeneralInfoService=wellGeneralInfoService;
+        this.wellService = wellService;
     }
 
 //    ######################FluidLevelMeasurements#########################
@@ -197,7 +200,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     }
 
-    //
+//    ######################wellGeneralInfo#########################
 
     @Override
     public ResponseEntity<List<WellGeneralInfoResponse>> wellsGeneralInfoGet() {
@@ -240,7 +243,8 @@ public class FluidLevelMeasurementsController implements WellsApi {
     }
 
 
-    //Intervals Information
+//    ######################IntervalsInformation#########################
+
 
     @Override
     public ResponseEntity<List<IntervalsInfoResponse>> wellsIntervalsInfoGet() {
@@ -281,6 +285,51 @@ public class FluidLevelMeasurementsController implements WellsApi {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+//    ######################Well#########################
+
+    @Override
+    public ResponseEntity<List<WellResponse>> getwells() {
+        List<WellResponse> responseList = wellService.getAllWells();
+        return ResponseEntity.ok(responseList);
+    }
+
+    @Override
+    public ResponseEntity<WellResponse> getwellById(Long wellId) {
+
+        return ResponseEntity.ok(wellService.getWellByID(Math.toIntExact(wellId)));
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteWellById(Integer id) {
+        wellService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateWell(Long id, @Valid WellRequest wellRequest) {
+
+        WellResponse wellResponse = null;
+        try {
+//            wellResponse = wellService.updateWell(Math.toIntExact(id), wellRequest);
+            wellService.updateWell(Math.toIntExact(id), wellRequest);
+        } catch (EntityNotFoundException e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>( HttpStatus.OK);
+//        return new ResponseEntity<>(wellResponse, HttpStatus.OK);
+    }
+
+
+    @Override
+    public ResponseEntity<Void> addwell(@Valid WellRequest wellRequest) {
+        wellService.insert(wellRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+//        WellResponse wellResponse = wellService.insert(wellRequest);
+//        return new ResponseEntity<>(wellResponse, HttpStatus.CREATED);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
