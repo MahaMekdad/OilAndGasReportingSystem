@@ -1,8 +1,8 @@
 package com.iti.jets.reportingsystem.services.impls;
 
+import com.iti.jets.openapi.model.ConcessionRequest;
+import com.iti.jets.openapi.model.ConcessionResponse;
 import com.iti.jets.reportingsystem.entities.Concession;
-import com.iti.jets.reportingsystem.exceptions.EntityNotFoundException;
-import com.iti.jets.reportingsystem.models.ConcessionModel;
 import com.iti.jets.reportingsystem.repos.ConcessionRepository;
 import com.iti.jets.reportingsystem.services.ConcessionService;
 import org.modelmapper.ModelMapper;
@@ -10,7 +10,9 @@ import org.modelmapper.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,47 +32,57 @@ public class ConcessionServiceImpl implements ConcessionService {
     }
 
     @Override
-    public ConcessionModel addConcession(ConcessionModel concessionModel) {
+    public ConcessionResponse addConcession(ConcessionRequest concessionRequest) {
         //concert the concession model coming from the user to concession entity
-        Concession entity = modelMapper.map(concessionModel, Concession.class);
+        Concession entity = modelMapper.map(concessionRequest, Concession.class);
         //saving the entity to the database
         concessionRepository.save(entity);
-        return concessionModel;
+        return modelMapper.map(entity, ConcessionResponse.class);
     }
 
     @Override
-    public ConcessionModel findConcessionById(Long id) {
-        Concession concessionEntity = concessionRepository.findConcessionById(id).orElseThrow(() -> new EntityNotFoundException(
-                "ConcessionModel by id" + id + "Was not found"
-        ));
-
-        //concert the entity to the model tobe returned
-        ConcessionModel concessionModel = modelMapper.map(concessionEntity,ConcessionModel.class);
-        return concessionModel;
+    public ConcessionResponse findConcessionById(int id) {
+        Concession concessionEntity = concessionRepository.findById(id).get();
+        if (concessionEntity == null) {
+            throw new EntityNotFoundException("Concession with Id " + id + " Was not found");
+        }
+        ConcessionResponse concessionResponse = modelMapper.map(concessionEntity, ConcessionResponse.class);
+        return concessionResponse;
     }
 
     @Override
-    public List<ConcessionModel> findAllConcessions() {
+    public List<ConcessionResponse> findAllConcessions() {
         //returning list of concession entities
         List<Concession> concessionsEntities = concessionRepository.findAll();
         //mapping entities to DTOs
-        List<ConcessionModel> concessionModels = concessionsEntities
-                .stream().map(concession -> modelMapper.map(concession,ConcessionModel.class))
+        List<ConcessionResponse> concessionResponses = concessionsEntities
+                .stream().map(concession -> modelMapper.map(concession, ConcessionResponse.class))
                 .collect(Collectors.toList());
         //returning DTOs
-        return concessionModels;
+        return concessionResponses;
     }
 
     @Override
-    public ConcessionModel updateConcession(ConcessionModel concessionModel) {
-    //convert dto to entity and store it in the database
-        Concession concessionEntity = modelMapper.map(concessionModel,Concession.class);
-        concessionRepository.save(concessionEntity);
-        return concessionModel;
+    public ConcessionResponse updateConcession(int concessionId, ConcessionRequest concessionRequest) {
+        Optional<Concession> concessionById = concessionRepository.findById(concessionId);
+        if (concessionById.isPresent()){
+            Concession concession = concessionById.get();
+            concession.setConcessionName(concessionRequest.getName());
+            Concession savedEntity = concessionRepository.save(concession);
+
+            //mapping the saved to the concession response and returning it.
+            ConcessionResponse concessionResponse = modelMapper.map(savedEntity,ConcessionResponse.class);
+            return concessionResponse;
+        }else{
+            throw new EntityNotFoundException("concession with id: " + concessionId + " was not found");
+        }
     }
 
     @Override
-    public void deleteConcession(Long id) {
-        concessionRepository.deleteById(id);
+    public void deleteConcession(int id) {
+        Optional<Concession> concessionEntity = concessionRepository.findById(id);
+        concessionEntity.ifPresentOrElse(concessionRepository::delete, () -> {
+            throw new EntityNotFoundException("concession With id: " + id + " Was not found");
+        });
     }
 }

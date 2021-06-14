@@ -1,6 +1,5 @@
 package com.iti.jets.reportingsystem.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iti.jets.reportingsystem.entities.Well;
 
 import java.util.Date;
@@ -8,13 +7,11 @@ import java.util.Date;
 public class FluidLevelMeasurementsModel {
 
     private int id;
-    @JsonIgnore
     private Well well;
-    private Integer wellId;
     private Date date;
     private String intervals;
-    private String flType;
-    private Double fluidLevel;
+    private String fltype;
+    private Double fluidlLevel;
     private Double pumpDepth;
     private Long liqPercentage;
     private Long pumpFillage;
@@ -24,29 +21,20 @@ public class FluidLevelMeasurementsModel {
 
     public FluidLevelMeasurementsModel() {}
 
-    public FluidLevelMeasurementsModel(Well well, Date date, String intervals, String fltype, Double fluidLevel,
-                                       Double pumpDepth, Long liqPercentage, Long pumpFillage, Double pumpSubmerge,
+    public FluidLevelMeasurementsModel(Well well, Date date, String intervals, String fltype,
+                                       Double fluidlLevel,
+                                       Double pumpDepth, Long liqPercentage, Long pumpFillage,
+                                       Double pumpSubmerge,
                                        Character card, String remarks) {
         this.well = well;
         this.date = date;
         this.intervals = intervals;
-        this.flType = fltype;
-        this.fluidLevel = fluidLevel;
+        this.fltype = fltype;
+        this.fluidlLevel = fluidlLevel;
         this.pumpDepth = pumpDepth;
         this.pumpSubmerge = pumpSubmerge;
         this.card = card;
         this.remarks = remarks;
-    }
-
-    public Integer getWellId() {
-        return wellId;
-    }
-
-    public void setWellId(Integer wellId) {
-        if(well != null)
-            this.wellId = well.getWellId();
-        else
-            this.wellId = wellId;
     }
 
     public int getId() {
@@ -81,20 +69,20 @@ public class FluidLevelMeasurementsModel {
         this.intervals = intervals;
     }
 
-    public String getFlType() {
-        return flType;
+    public String getFltype() {
+        return fltype;
     }
 
-    public void setFlType(String flType) {
-        this.flType = flType;
+    public void setFltype(String fltype) {
+        this.fltype = fltype;
     }
 
-    public Double getFluidLevel() {
-        return fluidLevel;
+    public Double getFluidlLevel() {
+        return fluidlLevel;
     }
 
-    public void setFluidLevel(Double fluidLevel) {
-        this.fluidLevel = fluidLevel;
+    public void setFluidlLevel(Double fluidlLevel) {
+        this.fluidlLevel = fluidlLevel;
     }
 
     public Double getPumpDepth() {
@@ -143,5 +131,23 @@ public class FluidLevelMeasurementsModel {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    @Override
+    public String toString() {
+        return "FluidLevelMeasurementsModel{" +
+                "id=" + id +
+                ", well=" + well +
+                ", date=" + date +
+                ", intervals='" + intervals + '\'' +
+                ", fltype='" + fltype + '\'' +
+                ", fluidlLevel=" + fluidlLevel +
+                ", pumpDepth=" + pumpDepth +
+                ", liqPercentage=" + liqPercentage +
+                ", pumpFillage=" + pumpFillage +
+                ", pumpSubmerge=" + pumpSubmerge +
+                ", card=" + card +
+                ", remarks='" + remarks + '\'' +
+                '}';
     }
 }

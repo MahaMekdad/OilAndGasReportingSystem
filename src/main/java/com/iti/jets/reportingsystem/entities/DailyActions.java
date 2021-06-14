@@ -3,8 +3,6 @@ package com.iti.jets.reportingsystem.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -26,11 +24,11 @@ import javax.persistence.TemporalType;
 @Table(name="daily_actions"
     ,catalog="reportingsystem"
 )
-
 public class DailyActions  implements java.io.Serializable {
 
 
      private Integer id;
+     @JsonBackReference
      private Well well;
      private ShutinTypeLevel4 shutinTypeLevel4;
      private Date date;
