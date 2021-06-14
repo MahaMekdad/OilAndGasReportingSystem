@@ -1,10 +1,10 @@
 package com.iti.jets.reportingsystem.services.impls;
 
+import com.iti.jets.openapi.model.JobLocation;
+import com.iti.jets.openapi.model.LoginRequest;
 import com.iti.jets.openapi.model.UserRequest;
 import com.iti.jets.openapi.model.UserResponse;
-import com.iti.jets.openapi.model.UserRoleResponse;
 import com.iti.jets.reportingsystem.entities.Userdata;
-import com.iti.jets.reportingsystem.entities.Userroles;
 import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.UserDataRepository;
 import com.iti.jets.reportingsystem.repos.UserRolesRepository;
@@ -78,7 +78,11 @@ public class UserDataImpl implements UserDataService {
         user.setLastName(userRequest.getLastName());
         user.setEmail(userRequest.getEmail());
         user.setPhoneNumber(userRequest.getPhoneNumber());
+        user.setPassword(userRequest.getPassword());
         //todo check if the job title is valid :)
+        if(!urRepo.findById(userRequest.getJobTitle()).isPresent()){
+            throw new ResourceNotFoundException("No User Role found with the given ID, please check your entered data");
+        }
         user.setUserroles(urRepo.findById(userRequest.getJobTitle()).get());
         user.setJobLocation(userRequest.getJobLocation().getValue());
         udRepo.saveAndFlush(user);
@@ -94,6 +98,7 @@ public class UserDataImpl implements UserDataService {
             if(userRequest.getPhoneNumber() != null) user.setPhoneNumber(userRequest.getPhoneNumber());
             if(userRequest.getJobTitle() != null) user.setUserroles(urRepo.findById(userRequest.getJobTitle()).get());
             if(userRequest.getJobLocation() != null) user.setJobLocation(userRequest.getJobLocation().getValue());
+            if(userRequest.getPassword() != null) user.setPassword(userRequest.getPassword());
             udRepo.saveAndFlush(user);
         } else {
             throw new ResourceNotFoundException("No User found with the given ID");
@@ -106,6 +111,23 @@ public class UserDataImpl implements UserDataService {
             udRepo.deleteById(userId);
         } else {
             throw new ResourceNotFoundException("No User found with the given ID");
+        }
+    }
+
+    public void addUserRole(int roleId, int userId){
+        Userdata userToUpdate = udRepo.findById(userId).get();
+        userToUpdate.setUserroles(urRepo.findById(roleId).get());
+    }
+
+    public UserResponse login(LoginRequest loginRequest){
+        Userdata userData = udRepo.findByEmailEqualsAndPasswordEquals(loginRequest.getEmail(), loginRequest.getPassword());
+        if(userData == null){
+            throw new ResourceNotFoundException("No User found with the given credentials");
+        } else {
+            UserResponse user = modelMapper.map(udRepo.findByEmailEqualsAndPasswordEquals(loginRequest.getEmail(), loginRequest.getPassword()), UserResponse.class);
+            user.setJobLocation(JobLocation.valueOf(userData.getJobLocation().toUpperCase()));
+            user.setJobTitle(userData.getUserroles().getId());
+            return user;
         }
     }
 }
