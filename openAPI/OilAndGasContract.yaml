@@ -87,7 +87,7 @@ paths:
             example: office
 
       responses:
-        204:
+        200:
           description: Successful pull of all users
           content:
             application/json:
@@ -117,7 +117,7 @@ paths:
             example: 5
 
       responses:
-        204:
+        200:
           description: Successful pull of the user with the given id
           content:
             application/json:
@@ -218,7 +218,7 @@ paths:
       description: getting all users roles
 
       responses:
-        204:
+        200:
           description: Successful pull of all users roles
           content:
             application/json:
@@ -248,7 +248,7 @@ paths:
             example: 5
 
       responses:
-        204:
+        200:
           description: Successful pull of the user with the given id
           content:
             application/json:
@@ -343,7 +343,7 @@ paths:
             example: 2021-03-16
 
       responses:
-        204:
+        200:
           description: Successful pull of the fluid level measurements for the well with the given id
           content:
             application/json:
@@ -420,7 +420,7 @@ paths:
             example: 2021-03-16
 
       responses:
-        204:
+        200:
           description: Successful pull of the fluid level measurements for the well with the given id
           content:
             application/json:
@@ -557,7 +557,7 @@ paths:
       description: getting all the production general info for all the wells
 
       responses:
-        204:
+        200:
           description: Successful pull of the fluid level measurements for the well with the given id
           content:
             application/json:
@@ -655,7 +655,7 @@ paths:
             example: producing
 
       responses:
-        204:
+        200:
           description: Successful pull of the production general info for the well with the given id
           content:
             application/json:
@@ -4550,7 +4550,6 @@ components:
         - lastName
         - email
         - phoneNumber
-        - jobTitle
         - jobLocation
       properties:
         firstName:
