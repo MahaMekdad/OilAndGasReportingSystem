@@ -68,6 +68,7 @@ public class FieldServiceImpl implements FieldService {
         }
         Type listType = new TypeToken<List<FieldResponse>>() {}.getType();
         fieldResponsesList = modelMapper.map(fieldEntities, listType);
+        System.out.println("-------- " + fieldResponsesList);
         for (int i = 0; i < fieldEntities.size(); i++) {
             fieldResponsesList.get(i).setConcessionId(fieldEntities.get(i).getConcession().getConcessionId());
         }

@@ -26,6 +26,7 @@ public class FieldController implements FieldsApi {
     @Override
     public ResponseEntity<List<FieldResponse>> getfields() {
         List<FieldResponse> responseList = fieldService.getAllFields();
+        System.out.println("list in controller == "+ responseList);
         return ResponseEntity.ok(responseList);
     }
 

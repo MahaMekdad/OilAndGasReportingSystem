@@ -796,9 +796,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/getAllFields'
             application/json:
               schema:
                 $ref: '#/components/schemas/getAllFields'
@@ -825,9 +822,6 @@ paths:
         description: FieldMeasurement object that needs to be added
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/fieldRequest'
-          application/xml:
             schema:
               $ref: '#/components/schemas/fieldRequest'
         required: true
@@ -878,9 +872,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/wellRequest'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/wellRequest'
         required: true
       responses:
         "400":
@@ -917,9 +908,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/fieldResponse'
             application/json:
               schema:
                 $ref: '#/components/schemas/fieldResponse'
@@ -956,9 +944,6 @@ paths:
         description: fieldMeasurement object that needs to be updated
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/fieldRequest'
-          application/xml:
             schema:
               $ref: '#/components/schemas/fieldRequest'
         required: true
@@ -1069,9 +1054,6 @@ paths:
         description: Well object that needs to be updated
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/wellRequest'
-          application/xml:
             schema:
               $ref: '#/components/schemas/wellRequest'
         required: true
@@ -1433,9 +1415,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/labMeasurementRequest'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/labMeasurementRequest'
         required: true
       responses:
         "204":
@@ -1490,9 +1469,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/AllLabsOfAWell'
             application/json:
               schema:
                 $ref: '#/components/schemas/AllLabsOfAWell'
@@ -1539,9 +1515,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/AllLabs'
             application/json:
               schema:
                 $ref: '#/components/schemas/AllLabs'
@@ -1588,9 +1561,6 @@ paths:
         description: LabMeasurement object that needs to be updated
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/labMeasurementRequest'
-          application/xml:
             schema:
               $ref: '#/components/schemas/labMeasurementRequest'
         required: true
@@ -1674,9 +1644,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/labMeasurementResponse'
             application/json:
               schema:
                 $ref: '#/components/schemas/labMeasurementResponse'
@@ -1714,9 +1681,6 @@ paths:
         description: Daily Report object that needs to be added
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/wellDailyActionsRequest'
-          application/xml:
             schema:
               $ref: '#/components/schemas/wellDailyActionsRequest'
         required: true
@@ -1800,9 +1764,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/AllWellDailyActionsOfAWell'
             application/json:
               schema:
                 $ref: '#/components/schemas/AllWellDailyActionsOfAWell'
@@ -1851,9 +1812,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/wellDailyActionsRequest'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/wellDailyActionsRequest'
         required: true
       responses:
         "204":
@@ -1899,9 +1857,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/wellDailyActionsResponse'
             application/json:
               schema:
                 $ref: '#/components/schemas/wellDailyActionsResponse'
@@ -2011,9 +1966,6 @@ paths:
         "200":
           description: successful operation
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/AllWellDailyActions'
             application/json:
               schema:
                 $ref: '#/components/schemas/AllWellDailyActions'
@@ -3377,8 +3329,8 @@ components:
         fieldName: field1
         fieldCodee: code1
         concessionId: 5
-      xml:
-        name: field
+#      xml:
+#        name: field
 
     allWellsResponse:
       type: object
@@ -3398,8 +3350,8 @@ components:
         wellName: well2
         fieldId: 3
         wellCode: code2
-      xml:
-        name: well
+#      xml:
+#        name: well
 
     fieldResponse:
       type: object
@@ -3418,8 +3370,8 @@ components:
         fieldName: field1
         fieldCodee: code1
         concessionId: 5
-      xml:
-        name: field
+#      xml:
+#        name: field
 
     fieldRequest:
       type: object
@@ -3432,8 +3384,8 @@ components:
       example:
         fieldName: field1
         concessionId: 5
-      xml:
-        name: field
+#      xml:
+#        name: field
 
     wellResponse:
       type: object
@@ -3451,8 +3403,8 @@ components:
         wellName: well2
         fieldId: 3
         wellCode: code2
-      xml:
-        name: well
+#      xml:
+#        name: well
 
     wellRequest:
       type: object
@@ -3464,8 +3416,8 @@ components:
       example:
         wellName: well2
         fieldId: 3
-      xml:
-        name: well
+#      xml:
+#        name: well
 
 
     AllLabs:
@@ -3642,8 +3594,8 @@ components:
         downTime: 4.5
         losses: 95
         date: 2021-03-16
-      xml:
-        name: wellDailyActions
+#      xml:
+#        name: wellDailyActions
 
     wellDailyActionsResponse:
       type: object
@@ -3676,8 +3628,8 @@ components:
         downTime: 4.5
         losses: 95
         date: 2021-03-16
-      xml:
-        name: wellDailyActions
+#      xml:
+#        name: wellDailyActions
 
     allWellDailyActionsResponse:
       type: object
@@ -3714,8 +3666,8 @@ components:
         downTime: 4.5
         losses: 95
         date: 2021-03-16
-      xml:
-        name: wellDailyActions
+#      xml:
+#        name: wellDailyActions
 
 
     wellGeneralInfoRequest:
@@ -4050,8 +4002,8 @@ components:
           type: string
           description: "Any notes reported or added during the test or recommendaton for the well"
           example: plan to perform DFL for the well
-      xml:
-        name: wellTest
+#      xml:
+#        name: wellTest
 
     wellTestResponse:
       type: object
@@ -4157,8 +4109,8 @@ components:
         remarks:
           type: string
           description: "Any notes reported or added during the test or recommendaton for the well"
-      xml:
-        name: wellTest
+#      xml:
+#        name: wellTest
 
     AllTests:
       type: array
@@ -4228,8 +4180,8 @@ components:
           type: number
         salesGasActual:
           type: number
-      xml:
-        name: wellTest
+#      xml:
+#        name: wellTest
 
     fieldsBudgetAndActualRequest:
       type: object
@@ -4293,8 +4245,8 @@ components:
           type: number
         salesGasActual:
           type: number
-      xml:
-        name: wellTest
+#      xml:
+#        name: wellTest
 
     ChockTypeEnum:
       type: string
