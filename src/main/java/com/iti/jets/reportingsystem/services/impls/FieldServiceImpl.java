@@ -2,13 +2,17 @@ package com.iti.jets.reportingsystem.services.impls;
 
 import com.iti.jets.openapi.model.*;
 import com.iti.jets.reportingsystem.entities.Field;
+import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.repos.DummyCon;
 import com.iti.jets.reportingsystem.repos.FieldRepository;
 import com.iti.jets.reportingsystem.services.FieldService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,10 +62,19 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public List<FieldResponse> getAllFields() {
         List<Field> fieldEntities = fieldRepository.findAll();
-        List<FieldResponse> fieldResponses = fieldEntities.
-                stream().map(field-> modelMapper.map(field,FieldResponse.class))
-                .collect(Collectors.toList());
-        return fieldResponses;
+        List<FieldResponse> fieldResponsesList  = new ArrayList<>();
+        for (Field f : fieldEntities) {
+            System.out.println(f.getConcession().getConcessionId() + ", " + f.getConcession().getConcessionId() + " <<<<<<<<<<<<<<<");
+        }
+        Type listType = new TypeToken<List<FieldResponse>>() {}.getType();
+        fieldResponsesList = modelMapper.map(fieldEntities, listType);
+        for (int i = 0; i < fieldEntities.size(); i++) {
+            fieldResponsesList.get(i).setConcessionId(fieldEntities.get(i).getConcession().getConcessionId());
+        }
+        for (FieldResponse f : fieldResponsesList) {
+            System.out.println(f.getConcessionId() + ", " + f.getConcessionId() + " ======================");
+        }
+        return fieldResponsesList;
     }
 
     @Override
