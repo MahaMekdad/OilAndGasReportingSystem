@@ -33,7 +33,7 @@ public class FieldController implements FieldsApi {
     @Override
     public ResponseEntity<FieldResponse> getfieldById(Long fieldId) {
 
-        return ResponseEntity.ok(fieldService.getFieldByID(Math.toIntExact(fieldId)));
+        return ResponseEntity.ok(fieldService.getFieldByID(fieldId.intValue()));
     }
 
 

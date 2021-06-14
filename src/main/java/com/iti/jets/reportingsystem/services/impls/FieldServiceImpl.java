@@ -81,7 +81,6 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public FieldResponse getFieldByID(Integer fieldId) {
         FieldResponse fieldResponse = modelMapper.map(fieldRepository.findById(fieldId).get(),FieldResponse.class);
-
         return fieldResponse;
     }
 
