@@ -82,6 +82,10 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
         Type listType = new TypeToken<List<ProductionBudegetDataResponse>>() {
         }.getType();
         productionBudgetModel = modelMapper.map(productionBudget, listType);
+        for(int i = 0 ; i <productionBudget.size() ; i++)
+        {
+            productionBudgetModel.get(i).setProductionDate(dateHelper(productionBudget.get(i).getProductionDate()));
+        }
         System.out.println("productionbudgetModel====== " + productionBudgetModel);
         return productionBudgetModel;
     }
