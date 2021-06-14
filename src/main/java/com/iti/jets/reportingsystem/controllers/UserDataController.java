@@ -43,7 +43,7 @@ public class UserDataController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<Void> usersIdPut(Integer id, @Valid UserRequest userRequest) {
+    public ResponseEntity<Void> usersIdPatch(Integer id, @Valid UserRequest userRequest) {
         userDataService.updateUser(id, userRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -53,4 +53,5 @@ public class UserDataController implements UsersApi {
         userDataService.insertNewUser(userRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
