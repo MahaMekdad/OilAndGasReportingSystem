@@ -3305,7 +3305,7 @@ components:
     getAllFields:
       type: array
       items:
-        $ref: '#/components/schemas/FieldResponse'
+        $ref: '#/components/schemas/fieldResponse'
 
     getAllWells:
       type: array

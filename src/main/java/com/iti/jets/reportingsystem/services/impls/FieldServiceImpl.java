@@ -62,27 +62,19 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public List<FieldResponse> getAllFields() {
         List<Field> fieldEntities = fieldRepository.findAll();
-        List<FieldResponse> fieldResponsesList  = new ArrayList<>();
-        for (Field f : fieldEntities) {
-            System.out.println(f.getConcession().getConcessionId() + ", " + f.getConcession().getConcessionId() + " <<<<<<<<<<<<<<<");
-        }
         Type listType = new TypeToken<List<FieldResponse>>() {}.getType();
-        fieldResponsesList = modelMapper.map(fieldEntities, listType);
+        List<FieldResponse> fieldResponsesList = modelMapper.map(fieldEntities, listType);
         System.out.println("-------- " + fieldResponsesList);
         for (int i = 0; i < fieldEntities.size(); i++) {
             fieldResponsesList.get(i).setConcessionId(fieldEntities.get(i).getConcession().getConcessionId());
-        }
-        for (FieldResponse f : fieldResponsesList) {
-            System.out.println(f.getConcessionId() + ", " + f.getConcessionId() + " ======================");
         }
         return fieldResponsesList;
     }
 
     @Override
     public FieldResponse getFieldByID(Integer fieldId) {
-        FieldResponse fieldResponse = modelMapper.map(fieldRepository.findById(fieldId).get(),FieldResponse.class);
 
-        return fieldResponse;
+        return modelMapper.map(fieldRepository.findById(fieldId).get(),FieldResponse.class);
     }
 
 
