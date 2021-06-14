@@ -2,6 +2,11 @@ package com.iti.jets.reportingsystem.entities;
 // Generated Jun 7, 2021, 4:22:33 AM by Hibernate Tools 6.0.0.Alpha2
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -24,6 +29,7 @@ import javax.persistence.UniqueConstraint;
     ,catalog="reportingsystem"
     , uniqueConstraints = {@UniqueConstraint(columnNames="well_code"), @UniqueConstraint(columnNames="well_name")} 
 )
+
 public class Well  implements java.io.Serializable {
 
 

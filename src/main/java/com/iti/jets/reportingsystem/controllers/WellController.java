@@ -13,14 +13,16 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+//@RestController
 public class WellController implements WellsApi {
 
-private WellService wellService;
+    private final WellService wellService;
+
     @Autowired
     public WellController(WellService wellService) {
         this.wellService = wellService;
     }
+
     @Override
     public ResponseEntity<List<WellResponse>> getwells() {
         List<WellResponse> responseList = wellService.getAllWells();
@@ -72,9 +74,7 @@ private WellService wellService;
 //        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-
-
-    }
+}
 
 
 
