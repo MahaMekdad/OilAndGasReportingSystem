@@ -3464,6 +3464,8 @@ components:
       properties:
         wellName:
           type: string
+        fieldId:
+          type: integer
         wellCode:
           type: string
       example:

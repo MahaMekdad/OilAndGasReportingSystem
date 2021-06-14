@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface WellService {
 
-    WellResponse insert( WellRequest wellRequest);
+    void insert( WellRequest wellRequest);
 
      WellResponse updateWell(int wellId, WellRequest wellRequest);
     List<WellResponse> getAllWells();
