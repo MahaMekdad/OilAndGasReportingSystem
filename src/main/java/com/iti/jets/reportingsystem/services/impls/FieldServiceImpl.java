@@ -2,17 +2,14 @@ package com.iti.jets.reportingsystem.services.impls;
 
 import com.iti.jets.openapi.model.*;
 import com.iti.jets.reportingsystem.entities.Field;
-import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.repos.FieldRepository;
 import com.iti.jets.reportingsystem.services.FieldService;
-import com.iti.jets.reportingsystem.utils.mappers.FieldMapper;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Type;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,27 +17,36 @@ public class FieldServiceImpl implements FieldService {
 
     private FieldRepository fieldRepository;
     private ModelMapper modelMapper;
-//    private FieldMapper fieldMapper;
+
 
 
     @Autowired
     public FieldServiceImpl(FieldRepository fieldRepository, ModelMapper modelMapper) {
         this.fieldRepository = fieldRepository;
         this.modelMapper = modelMapper;
-//        this.fieldMapper = fieldMapper;
     }
 
     @Override
-    public void insert(FieldRequest fieldRequest) {
-
+    public FieldResponse insert(FieldRequest fieldRequest) {
         Field field  = modelMapper.map(fieldRequest,Field.class);
-        fieldRepository.saveAndFlush(field);
-
+        fieldRepository.save(field);
+        return modelMapper.map(field, FieldResponse.class);
     }
 
-    @Override
-    public void update(int i, FieldRequest fieldRequest) {
 
+
+    @Override
+    public FieldResponse update(int fieldId, FieldRequest fieldRequest) {
+        Optional<Field> fieldById = fieldRepository.findById(fieldId);
+        if (fieldById.isPresent()){
+            Field field = fieldById.get();
+            field.setFieldName(fieldRequest.getFieldName());
+            Field savedEntity = fieldRepository.save(field);
+            FieldResponse fieldResponse = modelMapper.map(savedEntity,FieldResponse.class);
+            return fieldResponse;
+        }else{
+            throw new EntityNotFoundException("field with id: " + fieldId + " was not found");
+        }
     }
 
     @Override
