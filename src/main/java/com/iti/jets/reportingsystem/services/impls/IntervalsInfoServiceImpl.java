@@ -2,12 +2,9 @@ package com.iti.jets.reportingsystem.services.impls;
 
 import com.iti.jets.openapi.model.IntervalsInfoRequest;
 import com.iti.jets.openapi.model.IntervalsInfoResponse;
-import com.iti.jets.openapi.model.WellGeneralInfoResponse;
 import com.iti.jets.reportingsystem.entities.IntervalsInfo;
 import com.iti.jets.reportingsystem.entities.Well;
-import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
 import com.iti.jets.reportingsystem.repos.IntervalsInfoRepository;
-import com.iti.jets.reportingsystem.repos.WellGeneralInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellRespository;
 import com.iti.jets.reportingsystem.services.IntervalsInfoService;
 import com.iti.jets.reportingsystem.utils.mappers.helpers.OffsetDateTimeHelper;
@@ -18,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class IntervalsInfoServiceImpl implements IntervalsInfoService {
@@ -37,17 +33,21 @@ public class IntervalsInfoServiceImpl implements IntervalsInfoService {
     public List<IntervalsInfoResponse> getAllIntervalsInfo() {
         List<IntervalsInfoResponse> intervalsInfoResponseList = new ArrayList<>();
         Iterable<IntervalsInfo> wellGeneralInfoIterable = intervalsInfoRepository.findAll();
-        System.out.println("wellGeneralInfoIterable  " + wellGeneralInfoIterable);
         wellGeneralInfoIterable.forEach((intervalsInfo) -> {
             IntervalsInfoResponse intervalsInfoResponse = mapper.map(intervalsInfo, IntervalsInfoResponse.class);
-            intervalsInfoResponse.setDrivingMechanism(IntervalsInfoResponse.DrivingMechanismEnum.valueOf(intervalsInfo.getDrivingMechanism().toUpperCase()));
-            intervalsInfoResponse.setStatus(IntervalsInfoResponse.StatusEnum.valueOf(intervalsInfo.getStatus().toUpperCase()));
-            intervalsInfoResponse.setStartDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getStartDate()));
-            intervalsInfoResponse.setEndDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getEndDate()));
+            if(intervalsInfo.getDrivingMechanism()!=null) {
+                intervalsInfoResponse.setDrivingMechanism(IntervalsInfoResponse.DrivingMechanismEnum.valueOf(intervalsInfo.getDrivingMechanism().toUpperCase()));
+            }
+            if(intervalsInfo.getStatus()!=null) {
+                intervalsInfoResponse.setStatus(IntervalsInfoResponse.StatusEnum.valueOf(intervalsInfo.getStatus().toUpperCase()));
+            }
+            if(intervalsInfo.getStartDate()!=null) {
+                intervalsInfoResponse.setStartDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getStartDate()));
+            }
+            if(intervalsInfo.getEndDate()!=null) {
+                intervalsInfoResponse.setEndDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getEndDate()));
+            }
             intervalsInfoResponseList.add(intervalsInfoResponse);
-//            int index = intervalsInfoResponseList.indexOf(intervalsInfo);
-//            intervalsInfoResponseList.get(index).setDrivingMechanism(IntervalsInfoResponse.DrivingMechanismEnum.valueOf(intervalsInfo.getDrivingMechanism().toUpperCase()));
-            System.out.println("Driving Mech =" + intervalsInfoResponseList.get(0).getDrivingMechanism());
         });
 
         return intervalsInfoResponseList;
@@ -58,10 +58,18 @@ public class IntervalsInfoServiceImpl implements IntervalsInfoService {
         IntervalsInfo intervalsInfo = intervalsInfoRepository.findById(id).get();
         if (intervalsInfo != null) {
             IntervalsInfoResponse intervalsInfoResponse = mapper.map(intervalsInfoRepository.findById(id).get(), IntervalsInfoResponse.class);
-            intervalsInfoResponse.setDrivingMechanism(IntervalsInfoResponse.DrivingMechanismEnum.valueOf(intervalsInfo.getDrivingMechanism().toUpperCase()));
-            intervalsInfoResponse.setStatus(IntervalsInfoResponse.StatusEnum.valueOf(intervalsInfo.getStatus().toUpperCase()));
-            intervalsInfoResponse.setStartDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getStartDate()));
-            intervalsInfoResponse.setEndDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getEndDate()));
+            if(intervalsInfo.getDrivingMechanism()!=null) {
+                intervalsInfoResponse.setDrivingMechanism(IntervalsInfoResponse.DrivingMechanismEnum.valueOf(intervalsInfo.getDrivingMechanism().toUpperCase()));
+            }
+            if(intervalsInfo.getStatus()!=null) {
+                intervalsInfoResponse.setStatus(IntervalsInfoResponse.StatusEnum.valueOf(intervalsInfo.getStatus().toUpperCase()));
+            }
+            if(intervalsInfo.getStartDate()!=null) {
+                intervalsInfoResponse.setStartDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getStartDate()));
+            }
+            if(intervalsInfo.getEndDate()!=null) {
+                intervalsInfoResponse.setEndDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getEndDate()));
+            }
             return intervalsInfoResponse;
 
         }
