@@ -2,6 +2,7 @@ package com.iti.jets.reportingsystem.services.impls;
 
 import com.iti.jets.openapi.model.*;
 import com.iti.jets.reportingsystem.entities.Field;
+import com.iti.jets.reportingsystem.repos.DummyCon;
 import com.iti.jets.reportingsystem.repos.FieldRepository;
 import com.iti.jets.reportingsystem.services.FieldService;
 import org.modelmapper.ModelMapper;
@@ -15,22 +16,27 @@ import java.util.stream.Collectors;
 @Service
 public class FieldServiceImpl implements FieldService {
 
-    private FieldRepository fieldRepository;
-    private ModelMapper modelMapper;
+    private final FieldRepository fieldRepository;
+    private final ModelMapper modelMapper;
+    private final DummyCon concessionRepo;
 
 
 
     @Autowired
-    public FieldServiceImpl(FieldRepository fieldRepository, ModelMapper modelMapper) {
+    public FieldServiceImpl(FieldRepository fieldRepository, ModelMapper modelMapper, DummyCon concessionRepo) {
         this.fieldRepository = fieldRepository;
         this.modelMapper = modelMapper;
+        this.concessionRepo = concessionRepo;
     }
 
     @Override
-    public FieldResponse insert(FieldRequest fieldRequest) {
-        Field field  = modelMapper.map(fieldRequest,Field.class);
-        fieldRepository.save(field);
-        return modelMapper.map(field, FieldResponse.class);
+    public void insert(FieldRequest fieldRequest) {
+        List<Field> numOfFields = fieldRepository.findAllByConcession_ConcessionIdEquals(fieldRequest.getConcessionId().intValue());
+        Field toBeInserted = new Field();
+        toBeInserted.setFieldName(fieldRequest.getFieldName());
+        toBeInserted.setConcession(concessionRepo.findById(fieldRequest.getConcessionId().intValue()).get());
+        toBeInserted.setFieldCode("C"+fieldRequest.getConcessionId().intValue()+"F"+(numOfFields.size()+1));
+        fieldRepository.save(toBeInserted);
     }
 
 

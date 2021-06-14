@@ -3406,7 +3406,6 @@ components:
       properties:
         fieldId:
           type: integer
-
         fieldName:
           type: string
         fieldCode:
@@ -3427,15 +3426,11 @@ components:
       properties:
         fieldName:
           type: string
-        fieldCode:
-          type: string
         concessionId:
           type: integer
 
       example:
-        fieldId: 5
         fieldName: field1
-        fieldCodee: code1
         concessionId: 5
       xml:
         name: field
@@ -3466,12 +3461,9 @@ components:
           type: string
         fieldId:
           type: integer
-        wellCode:
-          type: string
       example:
         wellName: well2
         fieldId: 3
-        wellCode: code2
       xml:
         name: well
 

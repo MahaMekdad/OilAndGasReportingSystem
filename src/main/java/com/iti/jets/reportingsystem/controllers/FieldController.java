@@ -16,25 +16,26 @@ import java.util.List;
 @RestController
 public class FieldController implements FieldsApi {
 
-private FieldService fieldService;
+    private final FieldService fieldService;
+
     @Autowired
     public FieldController(FieldService fieldService) {
         this.fieldService = fieldService;
     }
+
     @Override
     public ResponseEntity<List<FieldResponse>> getfields() {
 
         List<FieldResponse> responseList = fieldService.getAllFields();
         return ResponseEntity.ok(responseList);
 
-        }
+    }
 
     @Override
     public ResponseEntity<FieldResponse> getfieldById(Long fieldId) {
 
         return ResponseEntity.ok(fieldService.getFieldByID(Math.toIntExact(fieldId)));
     }
-
 
 
     @Override
@@ -47,27 +48,24 @@ private FieldService fieldService;
     public ResponseEntity<Void> updatefieldMeasurement(Long fieldId, @Valid FieldRequest fieldRequest) {
         FieldResponse fieldResponse = null;
         try {
-             fieldService.update(Math.toIntExact(fieldId), fieldRequest);
+            fieldService.update(Math.toIntExact(fieldId), fieldRequest);
         } catch (EntityNotFoundException e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 
     @Override
     public ResponseEntity<Void> addfieldMeasurement(@Valid FieldRequest fieldRequest) {
         fieldService.insert(fieldRequest);
-        FieldResponse fieldResponse = fieldService.insert(fieldRequest);
-        return new ResponseEntity<>( HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
-
-    }
+}
 
 
 

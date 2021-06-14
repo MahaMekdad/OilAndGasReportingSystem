@@ -35,12 +35,12 @@ public class WellServiceImpl implements WellService {
 
     @Override
     public void insert(WellRequest wellRequest) {
-        Field field = fieldRepository.findById(wellRequest.getFieldId()).get();
-        System.out.println("id== " + wellRequest.getFieldId());
+        List<Well> numOfWells = wellRepository.findAllByField_FieldIdEquals(wellRequest.getFieldId());
         Well well = new Well();
-        well.setWellCode(wellRequest.getWellCode());
-        well.setWellName(wellRequest.getWellName());
+        Field field = fieldRepository.findById(wellRequest.getFieldId()).get();
         well.setField(field);
+        well.setWellName(wellRequest.getWellName());
+        well.setWellCode(field.getFieldCode()+"W"+(numOfWells.size()+1));
         wellRepository.saveAndFlush(well);
     }
 

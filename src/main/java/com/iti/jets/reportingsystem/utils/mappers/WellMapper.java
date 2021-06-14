@@ -11,16 +11,4 @@ import java.sql.Date;
 @Component
 public class WellMapper {
 
-    public Well WellMap(WellRequest wellRequest) {
-        Well well= new Well();
-        well.setWellCode(wellRequest.getWellCode());
-        well.setWellName(wellRequest.getWellName());
-        return well;
-    }
-
-
-
-
-
-
 }

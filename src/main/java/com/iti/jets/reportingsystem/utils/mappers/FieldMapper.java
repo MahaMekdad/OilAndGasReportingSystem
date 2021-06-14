@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class FieldMapper {
 
-    public Field FieldMap(FieldRequest fieldRequest) {
-        Field field= new Field();
-        field.setFieldCode(fieldRequest.getFieldCode());
-        field.setFieldName(fieldRequest.getFieldName());
-
-        return field;
-    }
+//    public Field FieldMap(FieldRequest fieldRequest) {
+//        Field field= new Field();
+//        field.setFieldCode(fieldRequest.getFieldCode());
+//        field.setFieldName(fieldRequest.getFieldName());
+//
+//        return field;
+//    }
 
 
 
