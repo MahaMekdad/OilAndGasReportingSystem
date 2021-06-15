@@ -2195,17 +2195,17 @@ paths:
       description: Deletes a report by its id
       operationId: deleteReportById
       parameters:
-        - name: dailyActionId
+        - name: wellId
           in: path
-          description: Delete a daily report by its id
+          description: Delete a daily report in a well by its id
           required: true
           style: simple
           explode: false
           schema:
             type: integer
-        - name: wellId
+        - name: dailyActionId
           in: path
-          description: Delete a daily report in a well by its id
+          description: Delete a daily report by its id
           required: true
           style: simple
           explode: false

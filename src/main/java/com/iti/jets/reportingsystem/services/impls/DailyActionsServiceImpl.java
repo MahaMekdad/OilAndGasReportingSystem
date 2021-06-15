@@ -10,6 +10,7 @@ import com.iti.jets.reportingsystem.repos.DailyActionsRepository;
 import com.iti.jets.reportingsystem.repos.WellRepo;
 import com.iti.jets.reportingsystem.services.DailyActionsService;
 import com.iti.jets.reportingsystem.utils.mappers.DailyActionsMapper;
+import com.iti.jets.reportingsystem.utils.mappers.helpers.OffsetDateTimeHelper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,23 +62,26 @@ public class DailyActionsServiceImpl implements DailyActionsService {
 
     @Override
     public void update(Integer wellId, Integer labId, WellDailyActionsRequest wellDailyActionsRequest) {
-        List<DailyActions> list = new ArrayList<>();
-        DailyActions dailyActions = new DailyActions();
-        DailyActions dailyActions2 = new DailyActions();
-        list = dailyActionsRepository.findAllByWell_WellIdEquals(wellId);
-        dailyActions2 = list.get(labId - 1);
-
-        if (dailyActions2 != null) {
-            dailyActions = dailyActionsMapper.dailyActionsMap(wellDailyActionsRequest);
-            dailyActions.setId(dailyActions2.getId());
-            dailyActions.setWell(dailyActions2.getWell());
-            ShutinTypeLevel4 shutinTypeLevel4 = new ShutinTypeLevel4();
-            shutinTypeLevel4.setId(Math.toIntExact(wellDailyActionsRequest.getSiLVL4()));
-            dailyActions.setShutinTypeLevel4(shutinTypeLevel4);
-            dailyActionsRepository.saveAndFlush(dailyActions);
-        } else {
-            return;
-        }
+        DailyActions dailyAction = dailyActionsRepository.findById(labId).get();
+        modelMapper.map(wellDailyActionsRequest, dailyAction);
+        dailyActionsRepository.saveAndFlush(dailyAction);
+//        List<DailyActions> list = new ArrayList<>();
+//        DailyActions dailyActions = new DailyActions();
+//        DailyActions dailyActions2 = new DailyActions();
+//        list = dailyActionsRepository.findAllByWell_WellIdEquals(wellId);
+//        dailyActions2 = list.get(labId - 1);
+//
+//        if (dailyActions2 != null) {
+//            dailyActions = dailyActionsMapper.dailyActionsMap(wellDailyActionsRequest);
+//            dailyActions.setId(dailyActions2.getId());
+//            dailyActions.setWell(dailyActions2.getWell());
+//            ShutinTypeLevel4 shutinTypeLevel4 = new ShutinTypeLevel4();
+//            shutinTypeLevel4.setId(Math.toIntExact(wellDailyActionsRequest.getSiLVL4()));
+//            dailyActions.setShutinTypeLevel4(shutinTypeLevel4);
+//            dailyActionsRepository.saveAndFlush(dailyActions);
+//        } else {
+//            return;
+//        }
     }
 
     @Override
@@ -87,7 +91,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         List<WellDailyActionsResponse> list;
         list = modelMapper.map(dailyActionsRepository.findAll(), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
-        for (int i = 0 ; i < list.size() ; i++){
+        for (int i = 0; i < list.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
@@ -101,8 +105,8 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         List<WellDailyActionsResponse> list;
         list = modelMapper.map(dailyActionsRepository.findAllByWell_WellIdEquals(wellId), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
-        for (int i = 0 ; i < list.size() ; i++){
-//            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
@@ -115,7 +119,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         List<WellDailyActionsResponse> resultList;
         resultList = modelMapper.map(dailyActionsRepository.findAllByDateGreaterThanEqualAndDateLessThanEqual(beginDate, endDate), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
-        for (int i = 0 ; i < resultList.size() ; i++){
+        for (int i = 0; i < resultList.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
             resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
@@ -131,7 +135,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
             List<WellDailyActionsResponse> resultList;
             resultList = modelMapper.map(dailyActionsRepository.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate), listType);
             List<DailyActions> list1 = dailyActionsRepository.findAll();
-            for (int i = 0 ; i < resultList.size() ; i++){
+            for (int i = 0; i < resultList.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
                 resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
             }
@@ -154,62 +158,70 @@ public class DailyActionsServiceImpl implements DailyActionsService {
     //
     @Override
     public boolean delete(Integer wellId, Integer reportId) {
-        WellDailyActionsResponse wellDailyActionsResponse;
-        wellDailyActionsResponse = getAdailyActionFromAwell(wellId, reportId);
-
-        if (wellDailyActionsResponse != null) {
-            dailyActionsRepository.deleteByWellIdAndDailyActionId(wellId, reportId);
+//        WellDailyActionsResponse wellDailyActionsResponse;
+//        wellDailyActionsResponse = getAdailyActionFromAwell(wellId, reportId);
+        System.out.println(reportId + " ///");
+        if (dailyActionsRepository.findById(reportId).isPresent()) {
+//            dailyActionsRepository.deleteByWellIdAndDailyActionId(wellId, reportId);
+            dailyActionsRepository.deleteById(reportId);
             return true;
         } else {
+            System.out.println("lll");
             return false;
         }
 
     }
 
-    public List<WellDailyActionsResponse> getAllDailyActionsByShLvl4 (Long sLvl4){
+    public List<WellDailyActionsResponse> getAllDailyActionsByShLvl4(Long sLvl4) {
         Type listType = new TypeToken<List<WellDailyActionsResponse>>() {
         }.getType();
         List<WellDailyActionsResponse> list;
         list = modelMapper.map(dailyActionsRepository.findByShLvl4(Math.toIntExact(sLvl4)), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
-        for (int i = 0 ; i < list.size() ; i++){
-//            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
 
-    };
+    }
 
-    public List<WellDailyActionsResponse> getAllDailyActionsByLosses(Double losses){
+    ;
+
+    public List<WellDailyActionsResponse> getAllDailyActionsByLosses(Double losses) {
         Type listType = new TypeToken<List<WellDailyActionsResponse>>() {
         }.getType();
         List<WellDailyActionsResponse> list;
         list = modelMapper.map(dailyActionsRepository.findByLosses(losses), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
-        for (int i = 0 ; i < list.size() ; i++){
+        for (int i = 0; i < list.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
 
-    };
+    }
 
-    public List<WellDailyActionsResponse> getAllDailyActionsByDownTime(Float downTime){
+    ;
+
+    public List<WellDailyActionsResponse> getAllDailyActionsByDownTime(Float downTime) {
         Type listType = new TypeToken<List<WellDailyActionsResponse>>() {
         }.getType();
         List<WellDailyActionsResponse> list;
         list = modelMapper.map(dailyActionsRepository.findByDownTime(downTime), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
-        for (int i = 0 ; i < list.size() ; i++){
+        for (int i = 0; i < list.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
 
-    };
+    }
+
+    ;
 
     @Override
-    public List<WellDailyActionsResponse> getAllDailyActionsFromWellWithShLvl4(Integer wellId , Long shlvl4) {
+    public List<WellDailyActionsResponse> getAllDailyActionsFromWellWithShLvl4(Integer wellId, Long shlvl4) {
         List<DailyActions> returnedList = dailyActionsRepository.findAllByWell_WellIdEqualsAndShutinTypeLevel4Equals(wellId, Math.toIntExact(shlvl4));
         if (wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()) {
             Type listType = new TypeToken<List<LabMeasurementResponse>>() {
@@ -217,7 +229,26 @@ public class DailyActionsServiceImpl implements DailyActionsService {
             List<WellDailyActionsResponse> resultList;
             resultList = modelMapper.map(returnedList, listType);
             List<DailyActions> list1 = dailyActionsRepository.findAll();
-            for (int i = 0 ; i < resultList.size() ; i++){
+            for (int i = 0; i < resultList.size(); i++) {
+                resultList.get(i).setDate(OffsetDateTimeHelper.dateHelper(returnedList.get(i).getDate()));
+                resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
+            }
+            return resultList;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<WellDailyActionsResponse> getAllDailyActionsFromWellWithLosses(Integer wellId, Double losses) {
+        List<DailyActions> returnedList = dailyActionsRepository.findAllByWell_WellIdEqualsAndLossesEquals(wellId, Double.valueOf(losses));
+        if (wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()) {
+            Type listType = new TypeToken<List<LabMeasurementResponse>>() {
+            }.getType();
+            List<WellDailyActionsResponse> resultList;
+            resultList = modelMapper.map(returnedList, listType);
+            List<DailyActions> list1 = dailyActionsRepository.findAll();
+            for (int i = 0; i < resultList.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
                 resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
             }
@@ -226,45 +257,25 @@ public class DailyActionsServiceImpl implements DailyActionsService {
             return null;
         }
     }
-        @Override
-        public List<WellDailyActionsResponse> getAllDailyActionsFromWellWithLosses(Integer wellId , Double losses) {
-            List<DailyActions> returnedList = dailyActionsRepository.findAllByWell_WellIdEqualsAndLossesEquals(wellId, Double.valueOf(losses));
-            if (wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()) {
-                Type listType = new TypeToken<List<LabMeasurementResponse>>() {
-                }.getType();
-                List<WellDailyActionsResponse> resultList;
-                resultList = modelMapper.map(returnedList, listType);
-                List<DailyActions> list1 = dailyActionsRepository.findAll();
-                for (int i = 0 ; i < resultList.size() ; i++){
+
+    @Override
+    public List<WellDailyActionsResponse> getAllDailyActionsFromWellWithDownTime(Integer wellId, Float downTime) {
+        List<DailyActions> returnedList = dailyActionsRepository.findAllByWell_WellIdEqualsAndDownTimeEquals(wellId, Float.valueOf(downTime));
+        if (wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()) {
+            Type listType = new TypeToken<List<LabMeasurementResponse>>() {
+            }.getType();
+            List<WellDailyActionsResponse> resultList;
+            resultList = modelMapper.map(returnedList, listType);
+            List<DailyActions> list1 = dailyActionsRepository.findAll();
+            for (int i = 0; i < resultList.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
-                    resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
-                }
-                return resultList;
-            } else {
-                return null;
+                resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
             }
+            return resultList;
+        } else {
+            return null;
         }
-
-            @Override
-            public List<WellDailyActionsResponse> getAllDailyActionsFromWellWithDownTime(Integer wellId , Float downTime) {
-                List<DailyActions> returnedList = dailyActionsRepository.findAllByWell_WellIdEqualsAndDownTimeEquals(wellId, Float.valueOf(downTime));
-                if (wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()) {
-                    Type listType = new TypeToken<List<LabMeasurementResponse>>() {
-                    }.getType();
-                    List<WellDailyActionsResponse> resultList;
-                    resultList = modelMapper.map(returnedList, listType);
-                    List<DailyActions> list1 = dailyActionsRepository.findAll();
-                    for (int i = 0 ; i < resultList.size() ; i++){
-//            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
-                        resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
-                    }
-                    return resultList;
-                } else {
-                    return null;
-                }
     }
-
-
 
 
 }

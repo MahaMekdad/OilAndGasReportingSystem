@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@RestController
+//@RestController
 public class DailyActionsController implements WellsApi {
 
     private DailyActionsService dailyActionsService;
@@ -27,59 +27,51 @@ public class DailyActionsController implements WellsApi {
     }
 
     @Override
-    public ResponseEntity<List<WellDailyActionsResponse>> getAllReports(@Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid String beginDate, @Valid String endDate) {
+    public ResponseEntity<List<WellDailyActionsResponse>> getAllReports(@Valid Long siLVL4, @Valid Long losses, @Valid Long downTime, @Valid String beginDate, @Valid String endDate) {
         if (beginDate != null && endDate != null) {
             try {
                 Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
                 Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
-                return ResponseEntity.ok(dailyActionsService.getAllDailyActions(date1,date2));
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActions(date1, date2));
             } catch (ParseException p) {
             }
 
-        }
-        else if(siLVL4!=null){
+        } else if (siLVL4 != null) {
             return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByShLvl4(siLVL4));
-        }
-        else if(losses!=null){
+        } else if (losses != null) {
             return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByLosses(new Double((losses))));
-        }
-        else if(downTime!=null){
+        } else if (downTime != null) {
             return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByDownTime(new Float(downTime)));
-        }
-            else{
+        } else {
             return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
         }
         return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
     }
 
     @Override
-    public ResponseEntity<List<WellDailyActionsResponse>> getReportById(Long wellId , @Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid String beginDate, @Valid String endDate) {
+    public ResponseEntity<List<WellDailyActionsResponse>> getReportById(Long wellId, @Valid Long siLVL4, @Valid Long losses, @Valid Long downTime, @Valid String beginDate, @Valid String endDate) {
         if (beginDate != null && endDate != null) {
             try {
                 Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
                 Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
-                return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWell(Math.toIntExact(wellId),date1,date2));
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWell(Math.toIntExact(wellId), date1, date2));
             } catch (ParseException p) {
             }
 
-        }
-        else if(siLVL4!=null){
-            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWellWithShLvl4(Math.toIntExact(wellId),siLVL4));
-        }
-        else if(losses!=null){
+        } else if (siLVL4 != null) {
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWellWithShLvl4(Math.toIntExact(wellId), siLVL4));
+        } else if (losses != null) {
             return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWellWithLosses(Math.toIntExact(wellId), Double.valueOf(losses)));
-        }
-        else if(downTime!=null){
+        } else if (downTime != null) {
             return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWellWithDownTime(Math.toIntExact(wellId), Float.valueOf(downTime)));
-        }
-        else{
+        } else {
             return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
         }
         return null;
     }
 
 
-//    @Override
+    //    @Override
 //    public ResponseEntity<List<LabMeasurementResponse>> getAllLabsInWell(Long wellId , @Valid String beginDate, @Valid String endDate) {
 //        if (beginDate != null && endDate != null) {
 //            try {
@@ -95,9 +87,9 @@ public class DailyActionsController implements WellsApi {
 //    }
 //
     @Override
-    public ResponseEntity<WellDailyActionsResponse> getWellReportById(Long wellId , Long reportId) {
+    public ResponseEntity<WellDailyActionsResponse> getWellReportById(Long wellId, Long reportId) {
 
-        return ResponseEntity.ok(dailyActionsService.getAdailyActionFromAwell(Math.toIntExact(wellId),Math.toIntExact(reportId)));
+        return ResponseEntity.ok(dailyActionsService.getAdailyActionFromAwell(Math.toIntExact(wellId), Math.toIntExact(reportId)));
     }
 
     @Override
@@ -111,17 +103,15 @@ public class DailyActionsController implements WellsApi {
         dailyActionsService.update(Math.toIntExact(wellId), Math.toIntExact(reportId), wellDailyActionsRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-//
+
+    //
     @Override
     public ResponseEntity<Void> addDailyReport(Long wellId, @Valid WellDailyActionsRequest wellDailyActionsRequest) {
-        dailyActionsService.insert( Math.toIntExact(wellId),wellDailyActionsRequest);
+        dailyActionsService.insert(Math.toIntExact(wellId), wellDailyActionsRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 //
 //}
-
-
-
 
 
 }
