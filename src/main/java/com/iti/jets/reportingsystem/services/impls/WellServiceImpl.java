@@ -82,7 +82,7 @@ public class WellServiceImpl implements WellService {
     @Override
     public WellResponse getWellByID(Integer wellId) {
         WellResponse wellResponse = modelMapper.map(wellRepository.findById(wellId).get(), WellResponse.class);
-
+        wellResponse.setFieldId(wellRepository.findById(wellId).get().getField().getFieldId());
         return wellResponse;
     }
 
