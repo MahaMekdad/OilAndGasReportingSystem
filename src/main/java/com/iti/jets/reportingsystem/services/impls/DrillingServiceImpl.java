@@ -52,6 +52,8 @@ public class  DrillingServiceImpl implements DrillingInfoService {
         for (int i = 0; i < drillingInfo.size(); i++) {
             OffsetDateTime offsetDateTime = dateHelper(drillingInfo.get(i).getReleaseDate());
             drillingInfoModelList.get(i).setReleaseDate(offsetDateTime);
+            drillingInfoModelList.get(i).setWellId(drillingInfo.get(i).getWell().getWellId());
+
         }
         return drillingInfoModelList;
     }
@@ -68,6 +70,7 @@ public class  DrillingServiceImpl implements DrillingInfoService {
         for (int i = 0; i < drillingInfo.size(); i++) {
             OffsetDateTime offsetDateTime = dateHelper(drillingInfo.get(i).getReleaseDate());
             drillingInfoModel.get(i).setReleaseDate(offsetDateTime);
+            drillingInfoModel.get(i).setWellId(drillingInfo.get(i).getWell().getWellId());
         }
         return drillingInfoModel;
     }
@@ -108,6 +111,7 @@ public class  DrillingServiceImpl implements DrillingInfoService {
         drillingInfoModel = modelMapper.map(drillingInfo, DrillingInfoDataResponse.class);
         OffsetDateTime offsetDateTime = dateHelper(drillingInfo.getReleaseDate());
         drillingInfoModel.setReleaseDate(offsetDateTime);
+        drillingInfoModel.setWellId(wellId);
         return drillingInfoModel;
     }
 
