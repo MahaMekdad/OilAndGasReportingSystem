@@ -2603,6 +2603,7 @@ paths:
           description: The resource was deleted successfully.
         400:
           description: Bad request
+          content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'

@@ -70,10 +70,9 @@ public class ProductionBudgetController implements ConcessionsApi {
         }
     }
 
-
+    //Salma's table Production Budget
     @Override
-    public ResponseEntity<Void> deleteRecord(Integer id) {
-//        deleting budget vs actual record
+    public ResponseEntity<Void> concessionsBudgetProductionBudgetIdDelete(Integer id) {
         productionBudgetService.delete(id);
         return ResponseEntity.ok().build();
     }
@@ -148,7 +147,8 @@ public class ProductionBudgetController implements ConcessionsApi {
     }
 
     @Override
-    public ResponseEntity<Void> concessionsBudgetProductionBudgetIdDelete(Integer id) {
+    public ResponseEntity<Void> deleteRecord(Integer id) {
+//        deleting budget vs actual record
         budgetVsActualService.deleteRecord(id);
         return ResponseEntity.ok().build();
     }

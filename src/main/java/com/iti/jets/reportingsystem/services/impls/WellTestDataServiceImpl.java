@@ -1,19 +1,26 @@
 package com.iti.jets.reportingsystem.services.impls;
 
+import com.iti.jets.openapi.model.ChockTypeEnum;
+import com.iti.jets.openapi.model.FieldsBudgetAndActualResponse;
 import com.iti.jets.openapi.model.WellTestRequest;
 import com.iti.jets.openapi.model.WellTestResponse;
+import com.iti.jets.reportingsystem.entities.BudgetActual;
 import com.iti.jets.reportingsystem.entities.WellTestData;
 import com.iti.jets.reportingsystem.repos.WellRepository;
 import com.iti.jets.reportingsystem.repos.WellTestDataRepository;
 import com.iti.jets.reportingsystem.services.WellTestDataService;
+import com.iti.jets.reportingsystem.utils.mappers.helpers.OffsetDateTimeHelper;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.modelmapper.config.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.lang.reflect.Type;
 import java.sql.Date;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,17 +62,24 @@ public class WellTestDataServiceImpl implements WellTestDataService {
         //get a list of All well  test Entities for certain wells.
         List<WellTestData> wellTestEntities = wellTestRepo.findAllByWellId(wellId);
 
-        //convert entities into DTOs and return them
-        List<WellTestResponse> wellTestResponseList = wellTestEntities
-                .stream().map(wellTestData -> modelMapper.map(wellTestData, WellTestResponse.class))
-                .collect(Collectors.toList());
+        List<WellTestResponse> responseList = new ArrayList<>();
+        Type listType = new TypeToken<List<WellTestResponse>>() {}.getType();
+        responseList = modelMapper.map(wellTestEntities, listType);
+        for (int i = 0; i < responseList.size(); i++) {
+            responseList.get(i).setChockType(ChockTypeEnum.valueOf(wellTestEntities.get(i).getChockType().toUpperCase()));
+            responseList.get(i).setProductionDate(OffsetDateTimeHelper.dateHelper(wellTestEntities.get(i).getProductionDate()));
 
-        //returning DTOs
-        return wellTestResponseList;
+        //convert entities into DTOs and return them
+//        List<WellTestResponse> wellTestResponseList = wellTestEntities
+//                .stream().map(wellTestData -> modelMapper.map(wellTestData, WellTestResponse.class))
+//                .collect(Collectors.toList());
+            //returning DTOs
+        }
+        return responseList;
     }
 
     @Override
-    public WellTestResponse insert(int wellId,WellTestRequest wellTestRequest) {
+    public WellTestResponse insert(int wellId, WellTestRequest wellTestRequest) {
 
         //map dto into entity
         WellTestData wellTestDataEntity = modelMapper.map(wellTestRequest, WellTestData.class);
@@ -88,7 +102,8 @@ public class WellTestDataServiceImpl implements WellTestDataService {
 
         //to be tested
         entity.setWell(wellRepository.findById(wellId).get());
-
+        entity.setProductionDate(Date.from(wellTestRequest.getProductionDate().toInstant()));
+        System.out.println(entity.getProductionDate() + " <-------------");
         wellTestRepo.save(entity);
 
         return modelMapper.map(wellTestRequest, WellTestResponse.class);

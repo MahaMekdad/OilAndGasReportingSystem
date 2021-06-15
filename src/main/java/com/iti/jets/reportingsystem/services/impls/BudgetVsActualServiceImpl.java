@@ -41,8 +41,7 @@ public class BudgetVsActualServiceImpl implements BudgetVsActualService {
 //                .collect(Collectors.toList());
 
 
-        Type listType = new TypeToken<List<FieldsBudgetAndActualResponse>>() {
-        }.getType();
+        Type listType = new TypeToken<List<FieldsBudgetAndActualResponse>>() {}.getType();
         responseList = modelMapper.map(budgetActualList, listType);
 //            for (int i = 0; i < budgetActualList.size(); i++) {
 //                budgetActualList.get(i).setFieldId(wellEntities.get(i).getField().getFieldId());
@@ -69,6 +68,7 @@ public class BudgetVsActualServiceImpl implements BudgetVsActualService {
         Optional<BudgetActual> findOptional = budgetVsActualRepository.findById(recordId);
         if (findOptional.isPresent()) {
             BudgetActual entity = modelMapper.map(requestBody, BudgetActual.class);
+            entity.setId(recordId);
             budgetVsActualRepository.save(entity);
         } else {
             throw new EntityNotFoundException();
