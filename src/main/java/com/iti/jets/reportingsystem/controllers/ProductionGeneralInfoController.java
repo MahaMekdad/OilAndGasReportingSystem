@@ -1,34 +1,52 @@
 package com.iti.jets.reportingsystem.controllers;
 
+import com.iti.jets.openapi.api.WellsApi;
+import com.iti.jets.openapi.model.AllProductionGeneralInfoWithNamesResponse;
+import com.iti.jets.openapi.model.ProductionGeneralInfoRequest;
+import com.iti.jets.openapi.model.ProductionGeneralInfoResponse;
 import com.iti.jets.reportingsystem.services.ProductionGeneralInfoService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-    @RequestMapping("/wells")
-public class ProductionGeneralInfoController {
+import javax.validation.Valid;
+import java.util.List;
 
-    @Autowired
+//@RestController
+public class ProductionGeneralInfoController implements WellsApi {
+
     private ProductionGeneralInfoService pgiService;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    public ProductionGeneralInfoController(ProductionGeneralInfoService pgiService){
+        this.pgiService = pgiService;
+    }
 
-//    @PostMapping("/productionGeneralInfo")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void create(@RequestBody final ProductionGeneralInfoModel productionGeneralInfoModel){
-//       pgiService.create(productionGeneralInfoModel);
-//    }
+    //get all in gen
+    @Override
+    public ResponseEntity<List<AllProductionGeneralInfoWithNamesResponse>> wellsProductionGeneralInfoGet() {
+        return ResponseEntity.ok(pgiService.getAllPGIS());
+    }
 
-//    @GetMapping("{wellId}/productionGeneralInfo")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public List<ProductionGeneralInfoModel> getAllWellFluidLevelMeasurements(@PathVariable int wellId){
-//        List<ProductionGeneralInfo> pgiRecords = pgiService.getAllPGISForAWell(wellId);
-//        List<ProductionGeneralInfoModel> resultList =
-//                pgiRecords
-//                        .stream()
-//                        .map(flm -> modelMapper.map(flm, ProductionGeneralInfoModel.class))
-//                        .collect(Collectors.toList());
-//        return  resultList;
-//    }
+    //get for a specific well
+    @Override
+    public ResponseEntity<List<ProductionGeneralInfoResponse>> wellsWellIdProductionGeneralInfoGet(Integer wellId, @Valid String powerSourceType, @Valid String processionPlant, @Valid String currentWellType, @Valid String currentLiftType, @Valid String currentStatus) {
+//        return ResponseEntity.ok(pgiService.getAllPGIS(beginDate, endDate));
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdProductionGeneralInfoPost(Integer wellId, @Valid ProductionGeneralInfoRequest productionGeneralInfoRequest) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdProductionGeneralInfoPgiIdPut(Integer wellId, Integer pgiId, @Valid ProductionGeneralInfoRequest productionGeneralInfoRequest) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Void> wellsWellIdProductionGeneralInfoPgiIdDelete(Integer wellId, Integer pgiId) {
+        return null;
+    }
 }

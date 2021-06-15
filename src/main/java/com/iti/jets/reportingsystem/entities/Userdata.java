@@ -29,6 +29,7 @@ public class Userdata  implements java.io.Serializable {
      private String email;
      private String phoneNumber;
      private String jobLocation;
+     private String password;
 
     public Userdata() {
     }
@@ -118,9 +119,14 @@ public class Userdata  implements java.io.Serializable {
         this.jobLocation = jobLocation;
     }
 
+    @Column(name="password", length=5000, nullable = false)
+    public String getPassword() {
+        return password;
+    }
 
-
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
 
 
