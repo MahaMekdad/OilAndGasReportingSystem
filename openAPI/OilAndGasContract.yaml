@@ -3758,7 +3758,7 @@ components:
     AllLabs:
       type: array
       items:
-        $ref: '#/components/schemas/LabMeasurementResponse'
+        $ref: '#/components/schemas/labMeasurementResponse'
 
     AllLabsOfAWell:
       type: array
@@ -3768,7 +3768,7 @@ components:
     AllWellDailyActions:
       type: array
       items:
-        $ref: '#/components/schemas/WellDailyActionsResponse'
+        $ref: '#/components/schemas/wellDailyActionsResponse'
 
     AllWellDailyActionsOfAWell:
       type: array
