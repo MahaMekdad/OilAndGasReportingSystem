@@ -4,19 +4,19 @@ import com.iti.jets.openapi.api.WellsApi;
 
 import com.iti.jets.openapi.model.WellDailyActionsRequest;
 import com.iti.jets.openapi.model.WellDailyActionsResponse;
-import com.iti.jets.reportingsystem.entities.DailyActions;
 import com.iti.jets.reportingsystem.services.DailyActionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-//@RestController
+@RestController
 public class DailyActionsController implements WellsApi {
 
     private DailyActionsService dailyActionsService;

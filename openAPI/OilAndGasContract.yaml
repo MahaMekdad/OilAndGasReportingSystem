@@ -1724,6 +1724,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/labMeasurementRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/labMeasurementRequest'
         required: true
       responses:
         "204":
@@ -1870,6 +1873,9 @@ paths:
         description: LabMeasurement object that needs to be updated
         content:
           application/json:
+            schema:
+              $ref: '#/components/schemas/labMeasurementRequest'
+          application/xml:
             schema:
               $ref: '#/components/schemas/labMeasurementRequest'
         required: true
@@ -3732,7 +3738,7 @@ components:
     AllLabs:
       type: array
       items:
-        $ref: '#/components/schemas/allLabMeasurementResponse'
+        $ref: '#/components/schemas/LabMeasurementResponse'
 
     AllLabsOfAWell:
       type: array
@@ -3742,7 +3748,7 @@ components:
     AllWellDailyActions:
       type: array
       items:
-        $ref: '#/components/schemas/allWellDailyActionsResponse'
+        $ref: '#/components/schemas/WellDailyActionsResponse'
 
     AllWellDailyActionsOfAWell:
       type: array
@@ -3830,51 +3836,51 @@ components:
         remarks: very poor measurements
         date: 2021-03-16=
 
-    allLabMeasurementResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          default: 0
-        s1:
-          type: integer
-          format: int64
-          default: 0
-        s2:
-          type: integer
-          format: int64
-          default: 0
-        s3:
-          type: integer
-          format: int64
-          default: 0
-        s4:
-          type: integer
-          format: int64
-          default: 0
-        s5:
-          type: integer
-          format: int64
-          default: 0
-        remarks:
-          type: string
-        date:
-          type: string
-          format: date-time
-        wellId:
-          type: integer
-          format: int64
-      example:
-        id: 8
-        s1: 15.55
-        s2: 9.3
-        s3: 5.2
-        s4: 1.3
-        s5: 7
-        remarks: very poor measurements
-        date: 2021-03-16
-        wellId: 5
+#    allLabMeasurementResponse:
+#      type: object
+#      properties:
+#        id:
+#          type: integer
+#          format: int64
+#          default: 0
+#        s1:
+#          type: integer
+#          format: int64
+#          default: 0
+#        s2:
+#          type: integer
+#          format: int64
+#          default: 0
+#        s3:
+#          type: integer
+#          format: int64
+#          default: 0
+#        s4:
+#          type: integer
+#          format: int64
+#          default: 0
+#        s5:
+#          type: integer
+#          format: int64
+#          default: 0
+#        remarks:
+#          type: string
+#        date:
+#          type: string
+#          format: date-time
+#        wellId:
+#          type: integer
+#          format: int64
+#      example:
+#        id: 8
+#        s1: 15.55
+#        s2: 9.3
+#        s3: 5.2
+#        s4: 1.3
+#        s5: 7
+#        remarks: very poor measurements
+#        date: 2021-03-16
+#        wellId: 5
 
     wellDailyActionsRequest:
       type: object
@@ -3940,41 +3946,41 @@ components:
 #      xml:
 #        name: wellDailyActions
 
-    allWellDailyActionsResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        wellId:
-          type: integer
-          format: int64
-        siLVL4:
-          type: integer
-          format: int64
-        actionDescription:
-          type: string
-        netProduction:
-          type: integer
-          format: int64
-        downTime:
-          type: integer
-          format: int64
-        losses:
-          type: integer
-          format: int64
-        date:
-          type: string
-          format: date-time
-      example:
-        id: 3
-        wellId: 5
-        silVL4: 2
-        actionDescription: action description
-        netProduction: 5000
-        downTime: 4.5
-        losses: 95
-        date: 2021-03-16
+#    allWellDailyActionsResponse:
+#      type: object
+#      properties:
+#        id:
+#          type: integer
+#          format: int64
+#        wellId:
+#          type: integer
+#          format: int64
+#        siLVL4:
+#          type: integer
+#          format: int64
+#        actionDescription:
+#          type: string
+#        netProduction:
+#          type: integer
+#          format: int64
+#        downTime:
+#          type: integer
+#          format: int64
+#        losses:
+#          type: integer
+#          format: int64
+#        date:
+#          type: string
+#          format: date-time
+#      example:
+#        id: 3
+#        wellId: 5
+#        silVL4: 2
+#        actionDescription: action description
+#        netProduction: 5000
+#        downTime: 4.5
+#        losses: 95
+#        date: 2021-03-16
 #      xml:
 #        name: wellDailyActions
 
