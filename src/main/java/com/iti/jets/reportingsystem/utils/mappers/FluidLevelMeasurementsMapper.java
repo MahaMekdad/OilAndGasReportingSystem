@@ -33,7 +33,8 @@ public class FluidLevelMeasurementsMapper {
             flmr.setFlType(AllFluidLevelMeasurementResponse.FlTypeEnum.valueOf(flm.getFlType().toUpperCase()));
 //            System.out.println(OffsetDateTimeHelper.dateHelper(flm.getDate()) + "=====");
 //            System.out.println(flm.getDate() + " ----");
-            flmr.setDate(OffsetDateTimeHelper.dateHelper(flm.getDate())); flmr.setIntervals(flm.getIntervals());
+            flmr.setDate(OffsetDateTimeHelper.dateHelper(flm.getDate()));
+            flmr.setIntervals(flm.getIntervals());
             flmr.setPumpFillage(BigDecimal.valueOf(flm.getPumpFillage()));
             resultList.add(flmr);
         }
