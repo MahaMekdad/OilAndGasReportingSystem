@@ -2586,6 +2586,35 @@ paths:
         500:
           description: Internal Server error.
 
+    delete:
+      tags:
+        - ConcessionsBudgets
+      summary: Deletes a recird
+      operationId: deleteRecord
+      parameters:
+        - name: id
+          in: path
+          description: Record id to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: The resource was deleted successfully.
+        400:
+          description: Bad request
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server error.
+
   /wells/tests:
     get:
       tags:

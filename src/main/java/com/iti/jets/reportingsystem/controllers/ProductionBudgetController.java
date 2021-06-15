@@ -70,11 +70,13 @@ public class ProductionBudgetController implements ConcessionsApi {
         }
     }
 
-//    @Override
-//    public ResponseEntity<Void> concessionsBudgetProductionBudgetIdDelete(Integer id) {
-//        productionBudgetService.delete(id);
-//        return ResponseEntity.ok().build();
-//    }
+
+    @Override
+    public ResponseEntity<Void> deleteRecord(Integer id) {
+//        deleting budget vs actual record
+        productionBudgetService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 
     @Override
     public ResponseEntity<Void> concessionsBudgetProductionBudgetIdPatch(Integer id, ProductionBudegetRequest productionBudegetRequest) {
