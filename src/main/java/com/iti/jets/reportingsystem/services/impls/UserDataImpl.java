@@ -6,6 +6,7 @@ import com.iti.jets.openapi.model.UserRequest;
 import com.iti.jets.openapi.model.UserResponse;
 import com.iti.jets.reportingsystem.entities.Userdata;
 import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
+import com.iti.jets.reportingsystem.exceptions.UserAlreadyExistsException;
 import com.iti.jets.reportingsystem.repos.UserDataRepository;
 import com.iti.jets.reportingsystem.repos.UserRolesRepository;
 import com.iti.jets.reportingsystem.services.UserDataService;
@@ -56,23 +57,35 @@ public class UserDataImpl implements UserDataService {
         if(jobTitle != null && jobLocation != null){
             Type listType = new TypeToken<List<UserResponse>>(){}.getType();
             List<UserResponse> resultList;
-            resultList = modelMapper.map(udRepo.findByUserroles_IdEqualsAndJobLocationEquals(jobTitle, jobLocation) , listType);
-            return resultList;
+            List<Userdata> returnedUserData = udRepo.findByUserroles_IdEqualsAndJobLocationEquals(jobTitle, jobLocation);
+            return setJobRoleAndLocation(listType, returnedUserData);
         } else if(jobTitle != null){
             Type listType = new TypeToken<List<UserResponse>>(){}.getType();
             List<UserResponse> resultList;
-            resultList = modelMapper.map(udRepo.findByUserroles_IdEquals(jobTitle) , listType);
-            return resultList;
+            List<Userdata> returnedUserData = udRepo.findByUserroles_IdEquals(jobTitle);
+            return setJobRoleAndLocation(listType, returnedUserData);
         } else {
             Type listType = new TypeToken<List<UserResponse>>(){}.getType();
             List<UserResponse> resultList;
-            resultList = modelMapper.map(udRepo.findByJobLocationEquals(jobLocation) , listType);
-            return resultList;
+            List<Userdata> returnedUserData = udRepo.findByJobLocationEquals(jobLocation);
+            return setJobRoleAndLocation(listType, returnedUserData);
         }
+    }
+
+    private List<UserResponse> setJobRoleAndLocation(Type listType, List<Userdata> returnedUserData) {
+        List<UserResponse> resultList;
+        resultList = modelMapper.map(returnedUserData, listType);
+        for(int i = 0; i < returnedUserData.size(); i++){
+            resultList.get(i).setJobTitle(returnedUserData.get(i).getUserroles().getId());
+            resultList.get(i).setJobLocation(JobLocation.valueOf(returnedUserData.get(i).getJobLocation().toUpperCase()));
+        }
+        return resultList;
     }
 
     @Override
     public void insertNewUser(UserRequest userRequest) {
+        Userdata exists = udRepo.findByEmailEquals(userRequest.getEmail());
+        if(exists != null) throw new UserAlreadyExistsException("There is an account registered with this email");
         Userdata user = new Userdata();
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
