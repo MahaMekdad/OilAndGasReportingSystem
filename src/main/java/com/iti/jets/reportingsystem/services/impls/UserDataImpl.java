@@ -35,7 +35,11 @@ public class UserDataImpl implements UserDataService {
     @Override
     public UserResponse getSpecificUser(int userId) {
         if(udRepo.findById(userId).isPresent()){
-            return modelMapper.map(udRepo.findById(userId).get(), UserResponse.class);
+            Userdata user = udRepo.findById(userId).get();
+            UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+            userResponse.setJobTitle(user.getUserroles().getId());
+            userResponse.setJobLocation(JobLocation.valueOf(user.getJobLocation().toUpperCase()));
+            return userResponse;
         } else {
             throw new ResourceNotFoundException("No User found with the given ID");
         }
@@ -45,8 +49,10 @@ public class UserDataImpl implements UserDataService {
     public List<UserResponse> getAllUsers() {
         Type listType = new TypeToken<List<UserResponse>>(){}.getType();
         List<UserResponse> resultList;
+        List<Userdata> returnedUserData = udRepo.findAll();
         resultList = modelMapper.map(udRepo.findAll() , listType);
-        return resultList;
+        return setJobRoleAndLocation(listType, returnedUserData);
+//        return resultList;
     }
 
     @Override
