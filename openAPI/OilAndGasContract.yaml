@@ -66,7 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/UserLoggedInResponse'
         400:
           description: please enter the of the required attributes with the correct data format
         404:
@@ -4737,3 +4737,50 @@ components:
       example:
         email: maha@gmail.com
         password: 12345
+
+    UserLoggedInResponse:
+        description: Model for the UserData object with the jwt token
+        type: object
+        required:
+          - id
+          - firstName
+          - lastName
+          - email
+          - phoneNumber
+          - jobTitle
+          - jobLocation
+          - accessToken
+        properties:
+          id:
+            type: integer
+
+          firstName:
+            type: string
+
+          lastName:
+            type: string
+
+          email:
+            type: string
+
+          phoneNumber:
+            type: string
+
+          jobTitle:
+            type: integer
+
+          jobLocation:
+            $ref: '#/components/schemas/jobLocation'
+
+          accessToken:
+            type: string
+
+        example:
+          id: 5
+          firstName: mek
+          lastName: mek
+          email: maha@g.com
+          phoneNumber: 01144444478
+          jobTitle: 1
+          jobLocation: office
+          accessToken: sfewf3wr24ge3
