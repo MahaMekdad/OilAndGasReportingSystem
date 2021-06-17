@@ -1,8 +1,11 @@
 package com.iti.jets.reportingsystem.utils.jwt;
 
+import com.iti.jets.reportingsystem.entities.Userdata;
+import com.iti.jets.reportingsystem.repos.UserDataRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,9 @@ public class JwtUtil {
 
     @Value("${jwt.secret")
     private String secretKey;
+
+    @Autowired
+    private UserDataRepository udRepo;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -39,7 +45,12 @@ public class JwtUtil {
     }
 
     public String generateToken(String email) {
+        Userdata user = udRepo.findByEmailEquals(email);
         Map<String, Object> claims = new HashMap<>();
+        claims.put("email", email);
+        claims.put("roleId", user.getUserroles().getId());
+        claims.put("role", user.getUserroles().getRole());
+        claims.put("location", user.getJobLocation());
         return createToken(claims, email);
     }
 

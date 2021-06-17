@@ -13,6 +13,7 @@ import com.iti.jets.reportingsystem.utils.mappers.FluidLevelMeasurementsMapper;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -57,6 +58,7 @@ public class FluidLevelMeasurementsServiceImpl implements FluidLevelMeasurements
         }
     }
 
+    @PreAuthorize("hasRole('NON')")
     public List<AllFluidLevelMeasurementResponse> getAllFLMS() {
 //        Type listType = new TypeToken<List<AllFluidLevelMeasurementResponse>>(){}.getType();
         List<AllFluidLevelMeasurementResponse> resultList;
