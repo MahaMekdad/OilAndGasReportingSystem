@@ -21,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
 public class FluidLevelMeasurementsController implements WellsApi {
 
 
