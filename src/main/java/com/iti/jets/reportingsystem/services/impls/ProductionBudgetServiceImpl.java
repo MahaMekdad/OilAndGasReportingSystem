@@ -40,7 +40,7 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
     public List<ProductionBudegetDataResponse> getGetAllProductionBudget() {
         List<ProductionBudget> productionBudget = new ArrayList<>();
         productionBudget = productionBudgetRepository.findAll();
-        System.out.println("productionBudgetRepository.findAll()============ " + productionBudget.get(0).getProductionDate());
+//        System.out.println("productionBudgetRepository.findAll()============ " + productionBudget.get(0).getProductionDate());
         List<ProductionBudegetDataResponse> productionBudgetModels = new ArrayList<>();
         Type listType = new TypeToken<List<ProductionBudegetDataResponse>>() {
         }.getType();

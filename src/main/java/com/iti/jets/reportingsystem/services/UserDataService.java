@@ -1,5 +1,6 @@
 package com.iti.jets.reportingsystem.services;
 
+import com.iti.jets.openapi.model.LoginRequest;
 import com.iti.jets.openapi.model.UserRequest;
 import com.iti.jets.openapi.model.UserResponse;
 
@@ -18,4 +19,8 @@ public interface UserDataService {
     void updateUser(int userId, UserRequest userRequest);
 
     void deleteUser(int userId);
+
+    void addUserRole(int roleId, int userId);
+
+    UserResponse login(LoginRequest loginRequest);
 }

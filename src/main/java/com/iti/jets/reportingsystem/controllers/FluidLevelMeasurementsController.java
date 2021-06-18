@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,16 +32,23 @@ public class FluidLevelMeasurementsController implements WellsApi {
     private final WellGeneralInfoService wellGeneralInfoService;
     private final IntervalsInfoService intervalsInfoService;
     private final WellService wellService;
+    private final WellTestDataService wellTestDataService;
+    private final LabMeasurementService labMeasurementService;
+    private final DailyActionsService dailyActionsService;
 
     @Autowired
     public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService, DrillingInfoService drillingInfoService
-    , WellGeneralInfoServiceImpl wellGeneralInfoService, IntervalsInfoServiceImpl intervalsInfoService, WellService wellService){
+            , WellGeneralInfoServiceImpl wellGeneralInfoService, IntervalsInfoServiceImpl intervalsInfoService,
+              WellService wellService, WellTestDataService wellTestDataService, LabMeasurementService labMeasurementService, DailyActionsService dailyActionsService) {
         this.flmService = flmService;
         this.pgiService = pgiService;
         this.drillingInfoService = drillingInfoService;
-        this.intervalsInfoService=intervalsInfoService;
-        this.wellGeneralInfoService=wellGeneralInfoService;
+        this.intervalsInfoService = intervalsInfoService;
+        this.wellGeneralInfoService = wellGeneralInfoService;
         this.wellService = wellService;
+        this.wellTestDataService = wellTestDataService;
+        this.labMeasurementService = labMeasurementService;
+        this.dailyActionsService = dailyActionsService;
     }
 
 //    ######################FluidLevelMeasurements#########################
@@ -47,7 +56,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
     //get all in gen
     @Override
     public ResponseEntity<List<AllFluidLevelMeasurementResponse>> wellsFluidLevelMeasurementsGet(@Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
-        if(beginDate != null && endDate != null){
+        if (beginDate != null && endDate != null) {
             Date begin = Date.from(beginDate.toInstant());
             System.out.println(begin + " <== begin");
             Date end = Date.from(endDate.toInstant());
@@ -61,7 +70,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
     //get all for a specific well
     @Override
     public ResponseEntity<List<FluidLevelMeasurementResponse>> wellsWellIdFluidLevelMeasurementsGet(Integer wellId, @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
-        if(beginDate != null && endDate != null){
+        if (beginDate != null && endDate != null) {
             Date begin = Date.from(beginDate.toInstant());
             System.out.println(begin + " <== begin");
             Date end = Date.from(endDate.toInstant());
@@ -107,15 +116,15 @@ public class FluidLevelMeasurementsController implements WellsApi {
     @Override
     public ResponseEntity<List<ProductionGeneralInfoResponse>> wellsWellIdProductionGeneralInfoGet(Integer wellId, @Valid String powerSourceType, @Valid String processionPlant, @Valid String currentWellType, @Valid String currentLiftType, @Valid String currentStatus) {
         //todo ask basiony can they be together or req of each alone?
-        if(powerSourceType != null){
+        if (powerSourceType != null) {
             return ResponseEntity.ok(pgiService.getAllPGISForAWellPowerSourceType(wellId, powerSourceType));
-        } else if (processionPlant != null){
+        } else if (processionPlant != null) {
             return ResponseEntity.ok(pgiService.getAllPGISForAWellProcessionPlant(wellId, processionPlant));
-        } else if (currentWellType != null){
+        } else if (currentWellType != null) {
             return ResponseEntity.ok(pgiService.getAllPGISForAWellCurrentWellType(wellId, currentWellType));
-        } else if (currentLiftType != null){
+        } else if (currentLiftType != null) {
             return ResponseEntity.ok(pgiService.getAllPGISForAWellCurrentLiftType(wellId, currentLiftType));
-        } else if (currentStatus != null){
+        } else if (currentStatus != null) {
             return ResponseEntity.ok(pgiService.getAllPGISForAWellCurrentStatus(wellId, currentStatus));
         } else {
             return ResponseEntity.ok(pgiService.getAllPGISForAWell(wellId));
@@ -160,25 +169,23 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<Void> wellsWellIdDrillingInfoIdDelete(Integer wellId, Integer id) {
-        drillingInfoService.deleteWellInSpecificId(wellId , id);
+        drillingInfoService.deleteWellInSpecificId(wellId, id);
         return ResponseEntity.ok().build();
     }
 
     @Override
     public ResponseEntity<DrillingInfoDataResponse> wellsWellIdDrillingInfoIdGet(Integer wellId, Integer id) {
-        DrillingInfoDataResponse drillingInfoDataResponse =drillingInfoService.getWellForId(wellId , id);
-        if(drillingInfoDataResponse == null)
-        {
+        DrillingInfoDataResponse drillingInfoDataResponse = drillingInfoService.getWellForId(wellId, id);
+        if (drillingInfoDataResponse == null) {
             return ResponseEntity.notFound().build();
-        }
-        else {
+        } else {
             return ResponseEntity.ok(drillingInfoDataResponse);
         }
     }
 
     @Override
     public ResponseEntity<Void> wellsWellIdDrillingInfoIdPatch(Integer wellId, Integer id, DrillingInfoDataRequest drillingInfoDataRequest) {
-        drillingInfoService.updateWellForId(wellId ,id ,drillingInfoDataRequest);
+        drillingInfoService.updateWellForId(wellId, id, drillingInfoDataRequest);
         return ResponseEntity.ok().build();
     }
 
@@ -210,7 +217,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<Void> wellsGeneralInfoIdDelete(Integer id) {
-        if(wellGeneralInfoService.deleteWellGeneralInfo(id)){
+        if (wellGeneralInfoService.deleteWellGeneralInfo(id)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
@@ -218,8 +225,8 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<WellGeneralInfoResponse> wellsGeneralInfoIdGet(Integer id) {
-        WellGeneralInfoResponse wellGeneralInfoResponse=wellGeneralInfoService.getWellGeneralInfoById(id);
-        if (wellGeneralInfoResponse==null){
+        WellGeneralInfoResponse wellGeneralInfoResponse = wellGeneralInfoService.getWellGeneralInfoById(id);
+        if (wellGeneralInfoResponse == null) {
             return ResponseEntity.notFound().build();
         }
 
@@ -228,7 +235,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<Void> wellsGeneralInfoIdPut(Integer id, @Valid WellGeneralInfoRequest wellGeneralInfoRequest) {
-        if(wellGeneralInfoService.updateWellGeneralInfo(id,wellGeneralInfoRequest)){
+        if (wellGeneralInfoService.updateWellGeneralInfo(id, wellGeneralInfoRequest)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
@@ -236,8 +243,8 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<Void> wellsGeneralInfoPost(@Valid WellGeneralInfoRequest wellGeneralInfoRequest) {
-        WellGeneralInfo wellGeneralInfo=wellGeneralInfoService.saveWellGeneralInfo(wellGeneralInfoRequest);
-        if(wellGeneralInfo==null){
+        WellGeneralInfo wellGeneralInfo = wellGeneralInfoService.saveWellGeneralInfo(wellGeneralInfoRequest);
+        if (wellGeneralInfo == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -254,16 +261,18 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<Void> wellsIntervalsInfoIdDelete(Integer id) {
-        if(intervalsInfoService.deleteIntervalsInfo(id)){
+        if (intervalsInfoService.deleteIntervalsInfo(id)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
+
     public ResponseEntity<List<IntervalsInfoResponse>> wellsIntervalsInfoIdGet(Integer wellId) {
         List<IntervalsInfoResponse> intervalsInfoResponse=intervalsInfoService.getIntervalsInfoById(wellId);
         if (intervalsInfoResponse==null){
+
             return ResponseEntity.notFound().build();
         }
 
@@ -272,7 +281,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<Void> wellsIntervalsInfoIdPut(Integer id, @Valid IntervalsInfoRequest intervalsInfoRequest) {
-        if(intervalsInfoService.updateIntervalsInfo(id,intervalsInfoRequest)){
+        if (intervalsInfoService.updateIntervalsInfo(id, intervalsInfoRequest)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
@@ -280,8 +289,8 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<Void> wellsIntervalsInfoPost(@Valid IntervalsInfoRequest intervalsInfoRequest) {
-        IntervalsInfo intervalsInfo=intervalsInfoService.saveIntervalsInfo(intervalsInfoRequest);
-        if(intervalsInfo==null){
+        IntervalsInfo intervalsInfo = intervalsInfoService.saveIntervalsInfo(intervalsInfoRequest);
+        if (intervalsInfo == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
@@ -319,7 +328,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
 //        return new ResponseEntity<>(wellResponse, HttpStatus.OK);
     }
 
@@ -333,5 +342,170 @@ public class FluidLevelMeasurementsController implements WellsApi {
 //        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    //    ---------------------Basiony, adding well test manag functionality------------
+    @Override
+    public ResponseEntity<List<WellTestResponse>> findAllTests() {
+        List<WellTestResponse> responseList = wellTestDataService.getAllTestsForWells();
+        return new ResponseEntity<>(responseList, HttpStatus.OK);
+    }
 
+    @Override
+    public ResponseEntity<List<WellTestResponse>> getTestById(Integer wellId, OffsetDateTime beginDate, OffsetDateTime endDate) {
+        List<WellTestResponse> responsesList = wellTestDataService.getAllTestsForAWell(wellId);
+        return ResponseEntity.ok(responsesList);
+    }
+
+    @Override
+    public ResponseEntity<WellTestResponse> addTestRecord(Integer id, WellTestRequest wellTestRequest) {
+        WellTestResponse wellTestResponse = wellTestDataService.insert(id, wellTestRequest);
+        return new ResponseEntity<>(wellTestResponse, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<WellTestResponse> updateWellTestRecord(Integer id, Integer recordId, WellTestRequest wellTestRequest) {
+        WellTestResponse
+                wellTestResponse = wellTestDataService.updateSpecificTest(id, recordId, wellTestRequest);
+        return new ResponseEntity<>(wellTestResponse, HttpStatus.ACCEPTED);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteTest(Integer recordId, Integer id) {
+        wellTestDataService.deleteTestRecordByWellIdAndRecordId(id, recordId);
+        return ResponseEntity.noContent().build();
+    }
+
+//    ######################LabMeasurements#########################
+
+    @Override
+    public ResponseEntity<List<LabMeasurementResponse>> getAllLabs(@Valid String beginDate, @Valid String endDate) {
+        if (beginDate != null && endDate != null) {
+            try {
+                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
+                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
+                return ResponseEntity.ok(labMeasurementService.getAllLabs(date1,date2));
+            } catch (ParseException p) {
+            }
+        }else{
+            return ResponseEntity.ok(labMeasurementService.getAllLabs());
+        }
+        return null;
+    }
+
+
+    @Override
+    public ResponseEntity<List<LabMeasurementResponse>> getAllLabsInWell(Long wellId , @Valid String beginDate, @Valid String endDate) {
+        if (beginDate != null && endDate != null) {
+            try {
+                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
+                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
+                return ResponseEntity.ok(labMeasurementService.getAllLabsFromWell(Math.toIntExact(wellId),date1,date2));
+            } catch (ParseException p) {
+            }
+        }else{
+            return ResponseEntity.ok(labMeasurementService.getAllLabsFromWell(Math.toIntExact(wellId)));
+        }
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<LabMeasurementResponse> getLabByWellIdAndLabId(Long wellId , Long labId) {
+
+        return ResponseEntity.ok(labMeasurementService.getAlabFromAwell(Math.toIntExact(wellId),Math.toIntExact(labId)));
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteLabById(Integer wellId, Integer labId) {
+        labMeasurementService.delete(wellId, labId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateLabMeasurement(Long wellId, Long labId, @Valid LabMeasurementRequest labMeasurementRequest) {
+        labMeasurementService.update(Math.toIntExact(wellId), Math.toIntExact(labId), labMeasurementRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> addLabMeasurement(Long wellId, @Valid LabMeasurementRequest labMeasurementRequest) {
+        labMeasurementService.insert( Math.toIntExact(wellId),labMeasurementRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+//    ######################DailyActions#########################
+
+    @Override
+    public ResponseEntity<List<WellDailyActionsResponse>> getAllReports(@Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid String beginDate, @Valid String endDate) {
+        if (beginDate != null && endDate != null) {
+            try {
+                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
+                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActions(date1,date2));
+            } catch (ParseException p) {
+            }
+
+        }
+        else if(siLVL4!=null){
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByShLvl4(siLVL4));
+        }
+        else if(losses!=null){
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByLosses(new Double((losses))));
+        }
+        else if(downTime!=null){
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByDownTime(new Float(downTime)));
+        }
+        else{
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
+        }
+        return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
+    }
+
+    @Override
+    public ResponseEntity<List<WellDailyActionsResponse>> getReportById(Long wellId , @Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid String beginDate, @Valid String endDate) {
+        if (beginDate != null && endDate != null) {
+            try {
+                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
+                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWell(Math.toIntExact(wellId),date1,date2));
+            } catch (ParseException p) {
+            }
+
+        }
+        else if(siLVL4!=null){
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWellWithShLvl4(Math.toIntExact(wellId),siLVL4));
+        }
+        else if(losses!=null){
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWellWithLosses(Math.toIntExact(wellId), Double.valueOf(losses)));
+        }
+        else if(downTime!=null){
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWellWithDownTime(Math.toIntExact(wellId), Float.valueOf(downTime)));
+        }
+        else{
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
+        }
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<WellDailyActionsResponse> getWellReportById(Long wellId , Long reportId) {
+
+        return ResponseEntity.ok(dailyActionsService.getAdailyActionFromAwell(Math.toIntExact(wellId),Math.toIntExact(reportId)));
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteReportById(Integer wellId, Integer reportId) {
+        dailyActionsService.delete(wellId, reportId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateWellReport(Long wellId, Long reportId, @Valid WellDailyActionsRequest wellDailyActionsRequest) {
+        dailyActionsService.update(Math.toIntExact(wellId), Math.toIntExact(reportId), wellDailyActionsRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    //
+    @Override
+    public ResponseEntity<Void> addDailyReport(Long wellId, @Valid WellDailyActionsRequest wellDailyActionsRequest) {
+        dailyActionsService.insert( Math.toIntExact(wellId),wellDailyActionsRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
