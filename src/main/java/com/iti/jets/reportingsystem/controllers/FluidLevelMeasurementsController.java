@@ -7,9 +7,11 @@ import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
 import com.iti.jets.reportingsystem.services.*;
 import com.iti.jets.reportingsystem.services.impls.IntervalsInfoServiceImpl;
 import com.iti.jets.reportingsystem.services.impls.WellGeneralInfoServiceImpl;
+import com.iti.jets.reportingsystem.utils.helpers.RepoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
@@ -34,11 +36,12 @@ public class FluidLevelMeasurementsController implements WellsApi {
     private final WellTestDataService wellTestDataService;
     private final LabMeasurementService labMeasurementService;
     private final DailyActionsService dailyActionsService;
+    private final RepoHelper repoHelper;
 
     @Autowired
     public FluidLevelMeasurementsController(FluidLevelMeasurementsService flmService, ProductionGeneralInfoService pgiService, DrillingInfoService drillingInfoService
             , WellGeneralInfoServiceImpl wellGeneralInfoService, IntervalsInfoServiceImpl intervalsInfoService,
-              WellService wellService, WellTestDataService wellTestDataService, LabMeasurementService labMeasurementService, DailyActionsService dailyActionsService) {
+                                            WellService wellService, WellTestDataService wellTestDataService, LabMeasurementService labMeasurementService, DailyActionsService dailyActionsService, RepoHelper repoHelper) {
         this.flmService = flmService;
         this.pgiService = pgiService;
         this.drillingInfoService = drillingInfoService;
@@ -48,6 +51,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         this.wellTestDataService = wellTestDataService;
         this.labMeasurementService = labMeasurementService;
         this.dailyActionsService = dailyActionsService;
+        this.repoHelper = repoHelper;
     }
 
 //    ######################FluidLevelMeasurements#########################
@@ -67,6 +71,9 @@ public class FluidLevelMeasurementsController implements WellsApi {
     }
 
     //get all for a specific well
+    @PreAuthorize("isFlmConcessionMember(#wellId)")
+//    @PreAuthorize("repoHelper.isFlmConcessionMember(#wellId)")
+//    @PreAuthorize("@mySecurityService.isFlmConcessionMember(#wellId)")
     @Override
     public ResponseEntity<List<FluidLevelMeasurementResponse>> wellsWellIdFluidLevelMeasurementsGet(Integer wellId, @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {

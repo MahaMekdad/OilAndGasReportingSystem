@@ -1,6 +1,7 @@
 package com.iti.jets.reportingsystem.config;
 
 import com.iti.jets.reportingsystem.services.impls.CustomUserDetailsService;
+import com.iti.jets.reportingsystem.utils.helpers.RepoHelper;
 import com.iti.jets.reportingsystem.utils.jwt.JwtFilter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -22,7 +24,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableWebSecurity()
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class GeneralConfig extends WebSecurityConfigurerAdapter {
 
@@ -40,6 +42,9 @@ public class GeneralConfig extends WebSecurityConfigurerAdapter {
         return new ModelMapper();
     }
 
+//
+
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -55,6 +60,7 @@ public class GeneralConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
+//        return new BCryptPasswordEncoder();
     }
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)

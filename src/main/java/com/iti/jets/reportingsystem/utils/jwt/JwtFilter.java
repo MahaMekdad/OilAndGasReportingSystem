@@ -1,6 +1,7 @@
 package com.iti.jets.reportingsystem.utils.jwt;
 
 import com.iti.jets.reportingsystem.services.impls.CustomUserDetailsService;
+import com.iti.jets.reportingsystem.utils.helpers.RepoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,6 +51,9 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
+
+        RepoHelper.token = token;
+
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }
