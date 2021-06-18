@@ -42,9 +42,10 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
 
 
 
-    public WellGeneralInfoResponse getWellGeneralInfoById(int id){
-        if(wellGeneralInfoRepository.findById(id).isPresent()){
-            return mapper.map(wellGeneralInfoRepository.findById(id).get(),WellGeneralInfoResponse.class);
+    public WellGeneralInfoResponse getWellGeneralInfoById(int wellId){
+        if(wellRespository.findById(wellId).isPresent()){
+            WellGeneralInfo wellGeneralInfo =wellGeneralInfoRepository.findWellGeneralInfoByWellIs(wellRespository.findById(wellId).get());
+            return mapper.map(wellGeneralInfo,WellGeneralInfoResponse.class);
         }
         return null;
     }

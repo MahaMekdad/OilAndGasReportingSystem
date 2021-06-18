@@ -10,6 +10,7 @@ import com.iti.jets.reportingsystem.services.impls.WellGeneralInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 public class FluidLevelMeasurementsController implements WellsApi {
 
 
@@ -256,8 +258,8 @@ public class FluidLevelMeasurementsController implements WellsApi {
     }
 
     @Override
-    public ResponseEntity<IntervalsInfoResponse> wellsIntervalsInfoIdGet(Integer id) {
-        IntervalsInfoResponse intervalsInfoResponse=intervalsInfoService.getIntervalsInfoById(id);
+    public ResponseEntity<List<IntervalsInfoResponse>> wellsIntervalsInfoIdGet(Integer wellId) {
+        List<IntervalsInfoResponse> intervalsInfoResponse=intervalsInfoService.getIntervalsInfoById(wellId);
         if (intervalsInfoResponse==null){
             return ResponseEntity.notFound().build();
         }

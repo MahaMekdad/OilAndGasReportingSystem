@@ -54,25 +54,30 @@ public class IntervalsInfoServiceImpl implements IntervalsInfoService {
 
     }
 
-    public IntervalsInfoResponse getIntervalsInfoById(int id) {
-        IntervalsInfo intervalsInfo = intervalsInfoRepository.findById(id).get();
-        if (intervalsInfo != null) {
-            IntervalsInfoResponse intervalsInfoResponse = mapper.map(intervalsInfoRepository.findById(id).get(), IntervalsInfoResponse.class);
-            if(intervalsInfo.getDrivingMechanism()!=null) {
-                intervalsInfoResponse.setDrivingMechanism(IntervalsInfoResponse.DrivingMechanismEnum.valueOf(intervalsInfo.getDrivingMechanism().toUpperCase()));
+    public List<IntervalsInfoResponse> getIntervalsInfoById(int wellId) {
+        Well well=wellRespository.findById(wellId).get();
+        if(well !=null){
+            List<IntervalsInfo> intervalsInfoList=intervalsInfoRepository.findIntervalsInfoByWellIs(well);
+            List<IntervalsInfoResponse> intervalsInfoResponseList=new ArrayList<>();
+            for(IntervalsInfo intervalsInfo:intervalsInfoList){
+                IntervalsInfoResponse intervalsInfoResponse = mapper.map(intervalsInfo, IntervalsInfoResponse.class);
+                if(intervalsInfo.getDrivingMechanism()!=null) {
+                    intervalsInfoResponse.setDrivingMechanism(IntervalsInfoResponse.DrivingMechanismEnum.valueOf(intervalsInfo.getDrivingMechanism().toUpperCase()));
+                }
+                if(intervalsInfo.getStatus()!=null) {
+                    intervalsInfoResponse.setStatus(IntervalsInfoResponse.StatusEnum.valueOf(intervalsInfo.getStatus().toUpperCase()));
+                }
+                if(intervalsInfo.getStartDate()!=null) {
+                    intervalsInfoResponse.setStartDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getStartDate()));
+                }
+                if(intervalsInfo.getEndDate()!=null) {
+                    intervalsInfoResponse.setEndDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getEndDate()));
+                }
+                intervalsInfoResponseList.add(intervalsInfoResponse);
             }
-            if(intervalsInfo.getStatus()!=null) {
-                intervalsInfoResponse.setStatus(IntervalsInfoResponse.StatusEnum.valueOf(intervalsInfo.getStatus().toUpperCase()));
-            }
-            if(intervalsInfo.getStartDate()!=null) {
-                intervalsInfoResponse.setStartDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getStartDate()));
-            }
-            if(intervalsInfo.getEndDate()!=null) {
-                intervalsInfoResponse.setEndDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getEndDate()));
-            }
-            return intervalsInfoResponse;
-
+            return intervalsInfoResponseList;
         }
+
         return null;
     }
 
