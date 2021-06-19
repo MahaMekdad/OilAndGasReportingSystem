@@ -12,7 +12,7 @@ public interface IntervalsInfoService {
 
     public List<IntervalsInfoResponse> getAllIntervalsInfo();
 
-    public IntervalsInfoResponse getIntervalsInfoById(int id);
+    public List<IntervalsInfoResponse> getIntervalsInfoById(int wellId);
 
     public IntervalsInfo saveIntervalsInfo(IntervalsInfoRequest intervalsInfoRequest);
 
