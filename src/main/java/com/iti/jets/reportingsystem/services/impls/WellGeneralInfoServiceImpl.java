@@ -4,6 +4,7 @@ import com.iti.jets.openapi.model.WellGeneralInfoRequest;
 import com.iti.jets.openapi.model.WellGeneralInfoResponse;
 import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.WellGeneralInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellRespository;
 import com.iti.jets.reportingsystem.services.WellGeneralInfoService;
@@ -45,6 +46,7 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
 
 
 
+
     public WellGeneralInfoResponse getWellGeneralInfoById(int wellId){
         if(wellRespository.findById(wellId).isPresent()){
             WellGeneralInfo wellGeneralInfo =wellGeneralInfoRepository.findWellGeneralInfoByWellIs(wellRespository.findById(wellId).get());
@@ -52,7 +54,11 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
             wellGeneralInfoResponse.setWellId(wellId);
             return wellGeneralInfoResponse;
         }
-        return null;
+        else
+        {
+            throw new ResourceNotFoundException("There is no well with the given id");
+        }
+
     }
 
     public WellGeneralInfo saveWellGeneralInfo(WellGeneralInfoRequest wellGeneralInfoRequest){
@@ -77,16 +83,22 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
             wellGeneralInfoRepository.save(wellGeneralInfo);
             return true;
         }
-        return false;
+
+        else
+        {
+            throw new ResourceNotFoundException("There is record found with the given id");
+        }
     }
 
     public boolean deleteWellGeneralInfo(int id){
-
         if(wellGeneralInfoRepository.findById(id).isPresent()){
             wellGeneralInfoRepository.deleteById(id);
             return true;
         }
-        return false;
+       else
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
     }
 
 

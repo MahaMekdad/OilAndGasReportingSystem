@@ -4,6 +4,7 @@ import com.iti.jets.openapi.model.WellRequest;
 import com.iti.jets.openapi.model.WellResponse;
 import com.iti.jets.reportingsystem.entities.Field;
 import com.iti.jets.reportingsystem.entities.Well;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.FieldRepository;
 import com.iti.jets.reportingsystem.repos.WellRepository;
 import com.iti.jets.reportingsystem.services.WellService;
@@ -48,6 +49,10 @@ public class WellServiceImpl implements WellService {
     //done
     @Override
     public WellResponse updateWell(int wellId, WellRequest wellRequest) {
+        if(!wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record found with this id");
+        }
         Optional<Well> wellById = wellRepository.findById(wellId);
         if (wellById.isPresent()) {
             Well well = wellById.get();
@@ -81,6 +86,10 @@ public class WellServiceImpl implements WellService {
     //done
     @Override
     public WellResponse getWellByID(Integer wellId) {
+        if(!wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record found with this id");
+        }
         WellResponse wellResponse = modelMapper.map(wellRepository.findById(wellId).get(), WellResponse.class);
         wellResponse.setFieldId(wellRepository.findById(wellId).get().getField().getFieldId());
         return wellResponse;
@@ -89,6 +98,10 @@ public class WellServiceImpl implements WellService {
     //dond
     @Override
     public boolean delete(Integer wellId) {
+        if(!wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record found with this id");
+        }
         WellResponse wellResponse;
         wellResponse = (WellResponse) getWellByID(wellId);
 
