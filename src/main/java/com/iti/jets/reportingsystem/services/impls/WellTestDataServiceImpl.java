@@ -6,6 +6,7 @@ import com.iti.jets.openapi.model.WellTestRequest;
 import com.iti.jets.openapi.model.WellTestResponse;
 import com.iti.jets.reportingsystem.entities.BudgetActual;
 import com.iti.jets.reportingsystem.entities.WellTestData;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.WellRepository;
 import com.iti.jets.reportingsystem.repos.WellTestDataRepository;
 import com.iti.jets.reportingsystem.services.WellTestDataService;
@@ -59,8 +60,16 @@ public class WellTestDataServiceImpl implements WellTestDataService {
 
     @Override
     public List<WellTestResponse> getAllTestsForAWell(int wellId) {
+        if(!wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with this id");
+        }
         //get a list of All well  test Entities for certain wells.
         List<WellTestData> wellTestEntities = wellTestRepo.findAllByWellId(wellId);
+        if(wellTestEntities==null)
+        {
+            throw new ResourceNotFoundException("There is no test data for this well");
+        }
 
         List<WellTestResponse> responseList = new ArrayList<>();
         Type listType = new TypeToken<List<WellTestResponse>>() {}.getType();
@@ -80,7 +89,10 @@ public class WellTestDataServiceImpl implements WellTestDataService {
 
     @Override
     public WellTestResponse insert(int wellId, WellTestRequest wellTestRequest) {
-
+        if(!wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with this id");
+        }
         //map dto into entity
         WellTestData wellTestDataEntity = modelMapper.map(wellTestRequest, WellTestData.class);
 
@@ -99,7 +111,14 @@ public class WellTestDataServiceImpl implements WellTestDataService {
     public WellTestResponse updateSpecificTest(int wellId, int recordId, WellTestRequest wellTestRequest) {
         //convert dto to Entity, save it to the database
         WellTestData entity = modelMapper.map(wellTestRequest, WellTestData.class);
-
+        if(!wellTestRepo.findById(recordId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
+        if(!wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with this id");
+        }
         //to be tested
         entity.setWell(wellRepository.findById(wellId).get());
         entity.setProductionDate(Date.from(wellTestRequest.getProductionDate().toInstant()));
@@ -111,6 +130,14 @@ public class WellTestDataServiceImpl implements WellTestDataService {
 
     @Override
     public void deleteTestRecordByWellIdAndRecordId(int wellId, int testId) {
+        if(!wellTestRepo.findById(testId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
+        if(!wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with this id");
+        }
         Optional<WellTestData> optionalWellTestData = wellTestRepo.findByWellIdAndTestId(wellId, testId);
         if (optionalWellTestData.isPresent()) {
             wellTestRepo.deleteByWellIdAndRecordId(wellId, testId);

@@ -69,10 +69,22 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
         400:
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /users:
     post:
@@ -91,10 +103,22 @@ paths:
           description: User created successfully
         400:
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     get:
       tags:
@@ -123,12 +147,28 @@ paths:
                 $ref: '#/components/schemas/getAllUsers'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /users/{id}:
     get:
@@ -153,12 +193,28 @@ paths:
                 $ref: '#/components/schemas/UserResponse'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     patch:
       tags:
@@ -186,12 +242,28 @@ paths:
           description: please enter all of the required attributes with the correct format
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -211,12 +283,28 @@ paths:
           description: user record deleted successfully
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /usersRoles:
     post:
@@ -234,11 +322,24 @@ paths:
         204:
           description: User role created successfully
         400:
-          description: please enter the of the required attributes with the correct data format
+          description: please enter the of the required attributes
+            with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     get:
       tags:
@@ -254,12 +355,28 @@ paths:
                 $ref: '#/components/schemas/getAllUserRoles'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /usersRoles/{id}:
     get:
@@ -284,12 +401,28 @@ paths:
                 $ref: '#/components/schemas/UserRoleResponse'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     put:
       tags:
@@ -315,14 +448,34 @@ paths:
           description: User role updated successfully
         400:
           description: please enter all of the required attributes with the correct format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -342,12 +495,28 @@ paths:
           description: user role record deleted successfully
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/fluidLevelMeasurements:
     get:
@@ -379,12 +548,28 @@ paths:
                 $ref: '#/components/schemas/getAllFluidLevelMeasurement'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/fluidLevelMeasurements:
     post:
@@ -411,14 +596,34 @@ paths:
           description: Fluid level measurement created successfully
         400:
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     get:
       tags:
@@ -456,12 +661,28 @@ paths:
                 $ref: '#/components/schemas/getFluidLevelMeasurement'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/fluidLevelMeasurements/{flmId}:
     put:
@@ -495,14 +716,34 @@ paths:
           description: Fluid level measurement created successfully
         400:
           description: please enter all of the required attributes with the correct format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     patch:
       tags:
@@ -535,14 +776,34 @@ paths:
           description: Fluid level measurement created successfully
         400:
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -569,14 +830,34 @@ paths:
           description: All records were deleted successfully
         400:
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/productionGeneralInfo:
     get:
@@ -593,12 +874,28 @@ paths:
                 $ref: '#/components/schemas/getAllProductionGeneralInfoWithNames'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/productionGeneralInfo:
     post:
@@ -625,14 +922,34 @@ paths:
           description: Production general info record created successfully
         400:
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     get:
       tags:
@@ -691,12 +1008,28 @@ paths:
                 $ref: '#/components/schemas/getProductionGeneralInfo'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/productionGeneralInfo/{pgiId}:
     put:
@@ -730,14 +1063,34 @@ paths:
           description: Fluid level measurement created successfully
         400:
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -764,14 +1117,34 @@ paths:
           description: All records were deleted successfully
         400:
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   # ---------------SALMA---------------
   /wells/drillingInfo:
@@ -790,10 +1163,22 @@ paths:
                   $ref: '#/components/schemas/drillingInfoDataResponse'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/drillingInfo:
     get:
@@ -819,12 +1204,28 @@ paths:
                   $ref: '#/components/schemas/drillingInfoDataResponse'
         400:
           description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -849,12 +1250,28 @@ paths:
           description: item created
         400:
           description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -873,12 +1290,28 @@ paths:
           description: all records with the same well id are deleted
         400:
           description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/drillingInfo/{id}:
     get:
@@ -909,12 +1342,28 @@ paths:
                 $ref: '#/components/schemas/drillingInfoDataResponse'
         400:
           description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -940,12 +1389,28 @@ paths:
           description: all records with the same well id are deleted
         400:
           description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     patch:
       tags:
@@ -977,12 +1442,28 @@ paths:
           description: item updated
         400:
           description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /concessions/budget/productionBudget:
     get:
@@ -1011,10 +1492,22 @@ paths:
 
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -1031,12 +1524,28 @@ paths:
           description: item created
         400:
           description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /concessions/budget/productionBudget/{id}:
     delete:
@@ -1056,12 +1565,28 @@ paths:
           description: item is deleted
         400:
           description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     patch:
       tags:
@@ -1086,12 +1611,28 @@ paths:
           description: item updated
         400:
           description: invalid input, object invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: not authenticated user to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         403:
           description: not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: unexpected error in the server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   # ---------------AMIRA---------------
   /fields:
@@ -1110,16 +1651,34 @@ paths:
                 $ref: '#/components/schemas/getAllFields'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: field not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -1139,14 +1698,34 @@ paths:
           description: Fluid level measurement created successfully
         "400":
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells:
     get:
@@ -1164,10 +1743,16 @@ paths:
                 $ref: '#/components/schemas/getAllWells'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: well not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -1185,14 +1770,34 @@ paths:
       responses:
         "400":
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "200":
           description: successful operation
 
@@ -1222,16 +1827,34 @@ paths:
                 $ref: '#/components/schemas/fieldResponse'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: field not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     put:
       tags:
@@ -1259,14 +1882,34 @@ paths:
       responses:
         "400":
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "200":
           description: successful operation
 
@@ -1288,16 +1931,34 @@ paths:
       responses:
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: field not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "200":
           description: successful operation
 
@@ -1326,22 +1987,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/wellResponse'
 
-#      responses:
-#        "200":
-#          description: successful operation
-#          content:
-#            application/xml:
-#              schema:
-#                $ref: '#/components/schemas/wellResponse'
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/wellResponse'
-#        "400":
-#          description: Invalid ID supplied
-#          content: {}
-#        "404":
-#          description: well not found
-#          content: {}
+    #      responses:
+    #        "200":
+    #          description: successful operation
+    #          content:
+    #            application/xml:
+    #              schema:
+    #                $ref: '#/components/schemas/wellResponse'
+    #            application/json:
+    #              schema:
+    #                $ref: '#/components/schemas/wellResponse'
+    #        "400":
+    #          description: Invalid ID supplied
+    #          content: {}
+    #        "404":
+    #          description: well not found
+    #          content: {}
 
     put:
       tags:
@@ -1369,14 +2030,34 @@ paths:
       responses:
         "400":
           description: please enter the of the required attributes with the correct data format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "200":
           description: successful operation
 
@@ -1398,16 +2079,35 @@ paths:
       responses:
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: well not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+
         "200":
           description: successful operation
 
@@ -1430,12 +2130,28 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -1454,15 +2170,31 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/GeneralInfo/{id}:
     get:
@@ -1487,14 +2219,34 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '404':
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     put:
       tags:
@@ -1519,14 +2271,34 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '404':
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -1547,14 +2319,34 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '404':
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/intervalsInfo:
     get:
@@ -1574,12 +2366,28 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -1598,15 +2406,31 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/intervalsInfo/{id}:
     get:
@@ -1631,14 +2455,34 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '404':
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     put:
       tags:
@@ -1663,14 +2507,34 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '404':
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -1691,14 +2555,34 @@ paths:
 
         '400':
           description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '401':
           description: You have not been authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '403':
           description: Unauthorized to make this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '404':
           description: resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         '500':
           description: unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   # ---------------OSOS---------------
   /wells/{wellId}/labs:
@@ -1733,15 +2617,34 @@ paths:
           description: success
         "400":
           description: un expected body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "405":
           description: Invalid input
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     get:
       tags:
@@ -1786,16 +2689,34 @@ paths:
                 $ref: '#/components/schemas/AllLabsOfAWell'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: Lab not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/labs:
     get:
@@ -1832,16 +2753,34 @@ paths:
                 $ref: '#/components/schemas/AllLabs'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: Lab not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/labs/{labId}:
     put:
@@ -1884,15 +2823,34 @@ paths:
           description: success
         "400":
           description: un expected body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "405":
           description: Invalid input
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -1920,15 +2878,34 @@ paths:
       responses:
         "400":
           description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: Lab not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     get:
       tags:
@@ -1964,16 +2941,34 @@ paths:
                 $ref: '#/components/schemas/labMeasurementResponse'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: Lab not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/dailyActions:
     post:
@@ -2004,15 +2999,34 @@ paths:
           description: success
         "400":
           description: un expected body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "405":
           description: Invalid input
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     get:
       tags:
@@ -2084,16 +3098,34 @@ paths:
                 $ref: '#/components/schemas/AllWellDailyActionsOfAWell'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: Report not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{wellId}/dailyActions/{dailyActionId}:
     put:
@@ -2133,15 +3165,34 @@ paths:
           description: success
         "400":
           description: un expected body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "405":
           description: Invalid input
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     get:
       tags:
@@ -2177,16 +3228,34 @@ paths:
                 $ref: '#/components/schemas/wellDailyActionsResponse'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: Report not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -2214,15 +3283,34 @@ paths:
       responses:
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: Report not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/dailyActions:
     get:
@@ -2286,16 +3374,34 @@ paths:
                 $ref: '#/components/schemas/AllWellDailyActions'
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "404":
           description: Report not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "401":
           description: not authintecated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "500":
           description: un expected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         "403":
           description: not authorized user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   # ---------------BASIONY---------------
   /concessions:
@@ -2319,15 +3425,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -2350,15 +3460,30 @@ paths:
                 $ref: '#/components/schemas/concessionResponse'
         400:
           description: Bad request. Must contain concession object in json format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         405:
           description: Invalid input. must be in json format
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         500:
           description: Internal server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /concessions/{id}:
     get:
@@ -2387,17 +3512,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     put:
       tags:
@@ -2432,22 +3565,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: Authorization information is missing or invalid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
 
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -2469,15 +3606,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /concessions/budgets/budgetVsActual:
     get:
@@ -2501,15 +3642,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -2532,15 +3677,30 @@ paths:
                 $ref: '#/components/schemas/fieldsBudgetAndActualResponse'
         400:
           description: Bad request. Must contain concession object in json format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         405:
           description: Invalid input. must be in json format
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         500:
           description: Internal server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /concessions/budgets/budgetVsActual/{id}:
     put:
@@ -2575,22 +3735,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: Authorization information is missing or invalid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
 
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -2612,15 +3776,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/tests:
     get:
@@ -2641,15 +3809,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{id}/tests:
     get:
@@ -2692,15 +3864,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     post:
       tags:
@@ -2731,14 +3907,29 @@ paths:
                 $ref: '#/components/schemas/wellTestResponse'
         400:
           description: Bad request. Must contain test record object in json format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
         405:
           description: Invalid input. must be in json format
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
   /wells/{id}/tests/{recordId}:
     put:
@@ -2781,22 +3972,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         401:
           description: Authorization information is missing or invalid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
 
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
     delete:
       tags:
@@ -2828,15 +4023,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         404:
           description: Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorDetails'
         500:
           description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
 
 components:
@@ -2896,6 +4095,8 @@ components:
 
         intervals:
           type: string
+          minLength: 3
+          maxLength: 200
 
         flType:
           type: string
@@ -2924,6 +4125,8 @@ components:
 
         remarks:
           type: string
+          minLength: 5
+          maxLength: 5000
 
       example:
         id: 5
@@ -2951,6 +4154,8 @@ components:
 
         intervals:
           type: string
+          minLength: 3
+          maxLength: 200
 
         flType:
           type: string
@@ -2979,6 +4184,8 @@ components:
 
         remarks:
           type: string
+          minLength: 5
+          maxLength: 5000
 
       example:
         id: 5
@@ -3003,6 +4210,8 @@ components:
 
         intervals:
           type: string
+          minLength: 3
+          maxLength: 200
 
         flType:
           type: string
@@ -3031,6 +4240,8 @@ components:
 
         remarks:
           type: string
+          minLength: 5
+          maxLength: 5000
 
       example:
         date: 2021-03-16
@@ -3120,6 +4331,8 @@ components:
 
         powerSource:
           type: string
+          minLength: 3
+          maxLength: 45
 
         processionPlant:
           type: string
@@ -3158,12 +4371,19 @@ components:
 
         wellName:
           type: string
+          minLength: 5
+          maxLength: 80
+
 
         fieldName:
           type: string
+          minLength: 3
+          maxLength: 80
 
         concessionName:
           type: string
+          minLength: 3
+          maxLength: 50
 
         initialProdDate:
           type: string
@@ -3234,6 +4454,9 @@ components:
 
         powerSource:
           type: string
+          minLength: 3
+          maxLength: 45
+
 
         processionPlant:
           type: string
@@ -3272,12 +4495,18 @@ components:
 
         wellName:
           type: string
+          minLength: 5
+          maxLength: 80
 
         fieldName:
           type: string
+          minLength: 3
+          maxLength: 80
 
         concessionName:
           type: string
+          minLength: 3
+          maxLength: 50
 
         initialProdDate:
           type: string
@@ -3348,6 +4577,8 @@ components:
 
         powerSource:
           type: string
+          minLength: 3
+          maxLength: 45
 
         processionPlant:
           type: string
@@ -3447,6 +4678,8 @@ components:
 
         powerSource:
           type: string
+          minLength: 3
+          maxLength: 45
 
         processionPlant:
           type: string
@@ -3496,8 +4729,13 @@ components:
           format: date-time
         wellDescription:
           type: string
+          minLength: 3
+          maxLength: 100
+
         wellType:
           type: string
+          minLength: 3
+          maxLength: 5000
         boreType:
           type: string
         measuredDepth:
@@ -3529,8 +4767,12 @@ components:
           format: date-time
         wellDescription:
           type: string
+          minLength: 1
+          maxLength: 100
         wellType:
           type: string
+          minLength: 3
+          maxLength: 5000
         boreType:
           type: string
         measuredDepth:
@@ -3602,6 +4844,8 @@ components:
           format: date-time
         meleiha:
           type: number
+          minimum: 1
+          maximum: 20
         aghar:
           type: number
         eastKanays:
@@ -3655,8 +4899,12 @@ components:
 
         fieldName:
           type: string
+          minLength: 3
+          maxLength: 80
         fieldCode:
           type: string
+          minLength: 3
+          maxLength: 45
         concessionId:
           type: integer
       example:
@@ -3664,8 +4912,8 @@ components:
         fieldName: field1
         fieldCodee: code1
         concessionId: 5
-#      xml:
-#        name: field
+    #      xml:
+    #        name: field
 
     allWellsResponse:
       type: object
@@ -3675,18 +4923,23 @@ components:
 
         wellName:
           type: string
+          minLength: 5
+          maxLength: 80
         fieldId:
           type: integer
 
         wellCode:
           type: string
+          minLength: 5
+          maxLength: 80
       example:
         wellId: 6
         wellName: well2
         fieldId: 3
         wellCode: code2
-#      xml:
-#        name: well
+
+    #      xml:
+    #        name: well
 
     fieldResponse:
       type: object
@@ -3695,8 +4948,12 @@ components:
           type: integer
         fieldName:
           type: string
+          minLength: 3
+          maxLength: 80
         fieldCode:
           type: string
+          minLength: 3
+          maxLength: 45
         concessionId:
           type: integer
 
@@ -3705,22 +4962,24 @@ components:
         fieldName: field1
         fieldCodee: code1
         concessionId: 5
-#      xml:
-#        name: field
+    #      xml:
+    #        name: field
 
     fieldRequest:
       type: object
       properties:
         fieldName:
           type: string
+          minLength: 3
+          maxLength: 80
         concessionId:
           type: integer
 
       example:
         fieldName: field1
         concessionId: 5
-#      xml:
-#        name: field
+    #      xml:
+    #        name: field
 
     wellResponse:
       type: object
@@ -3729,30 +4988,36 @@ components:
           type: integer
         wellName:
           type: string
+          minLength: 5
+          maxLength: 80
         fieldId:
           type: integer
         wellCode:
           type: string
+          minLength: 5
+          maxLength: 80
       example:
         wellId: 6
         wellName: well2
         fieldId: 3
         wellCode: code2
-#      xml:
-#        name: well
+    #      xml:
+    #        name: well
 
     wellRequest:
       type: object
       properties:
         wellName:
           type: string
+          minLength: 5
+          maxLength: 80
         fieldId:
           type: integer
       example:
         wellName: well2
         fieldId: 3
-#      xml:
-#        name: well
+    #      xml:
+    #        name: well
 
 
     AllLabs:
@@ -3800,6 +5065,8 @@ components:
           default: 0
         remarks:
           type: string
+          minLength: 5
+          maxLength: 5000
         date:
           type: string
           format: date-time
@@ -3843,6 +5110,8 @@ components:
           default: 0
         remarks:
           type: string
+          minLength: 5
+          maxLength: 5000
         date:
           type: string
           format: date-time
@@ -3856,51 +5125,51 @@ components:
         remarks: very poor measurements
         date: 2021-03-16=
 
-#    allLabMeasurementResponse:
-#      type: object
-#      properties:
-#        id:
-#          type: integer
-#          format: int64
-#          default: 0
-#        s1:
-#          type: integer
-#          format: int64
-#          default: 0
-#        s2:
-#          type: integer
-#          format: int64
-#          default: 0
-#        s3:
-#          type: integer
-#          format: int64
-#          default: 0
-#        s4:
-#          type: integer
-#          format: int64
-#          default: 0
-#        s5:
-#          type: integer
-#          format: int64
-#          default: 0
-#        remarks:
-#          type: string
-#        date:
-#          type: string
-#          format: date-time
-#        wellId:
-#          type: integer
-#          format: int64
-#      example:
-#        id: 8
-#        s1: 15.55
-#        s2: 9.3
-#        s3: 5.2
-#        s4: 1.3
-#        s5: 7
-#        remarks: very poor measurements
-#        date: 2021-03-16
-#        wellId: 5
+    #    allLabMeasurementResponse:
+    #      type: object
+    #      properties:
+    #        id:
+    #          type: integer
+    #          format: int64
+    #          default: 0
+    #        s1:
+    #          type: integer
+    #          format: int64
+    #          default: 0
+    #        s2:
+    #          type: integer
+    #          format: int64
+    #          default: 0
+    #        s3:
+    #          type: integer
+    #          format: int64
+    #          default: 0
+    #        s4:
+    #          type: integer
+    #          format: int64
+    #          default: 0
+    #        s5:
+    #          type: integer
+    #          format: int64
+    #          default: 0
+    #        remarks:
+    #          type: string
+    #        date:
+    #          type: string
+    #          format: date-time
+    #        wellId:
+    #          type: integer
+    #          format: int64
+    #      example:
+    #        id: 8
+    #        s1: 15.55
+    #        s2: 9.3
+    #        s3: 5.2
+    #        s4: 1.3
+    #        s5: 7
+    #        remarks: very poor measurements
+    #        date: 2021-03-16
+    #        wellId: 5
 
     wellDailyActionsRequest:
       type: object
@@ -3910,6 +5179,8 @@ components:
           format: int64
         actionDescription:
           type: string
+          minLength: 3
+          maxLength: 5000
         netProduction:
           type: integer
           format: int64
@@ -3929,8 +5200,8 @@ components:
         downTime: 4.5
         losses: 95
         date: 2021-03-16
-#      xml:
-#        name: wellDailyActions
+    #      xml:
+    #        name: wellDailyActions
 
     wellDailyActionsResponse:
       type: object
@@ -3943,6 +5214,9 @@ components:
           format: int64
         actionDescription:
           type: string
+          minLength: 3
+          maxLength: 5000
+
         netProduction:
           type: integer
           format: int64
@@ -3963,46 +5237,46 @@ components:
         downTime: 4.5
         losses: 95
         date: 2021-03-16
-#      xml:
-#        name: wellDailyActions
+    #      xml:
+    #        name: wellDailyActions
 
-#    allWellDailyActionsResponse:
-#      type: object
-#      properties:
-#        id:
-#          type: integer
-#          format: int64
-#        wellId:
-#          type: integer
-#          format: int64
-#        siLVL4:
-#          type: integer
-#          format: int64
-#        actionDescription:
-#          type: string
-#        netProduction:
-#          type: integer
-#          format: int64
-#        downTime:
-#          type: integer
-#          format: int64
-#        losses:
-#          type: integer
-#          format: int64
-#        date:
-#          type: string
-#          format: date-time
-#      example:
-#        id: 3
-#        wellId: 5
-#        silVL4: 2
-#        actionDescription: action description
-#        netProduction: 5000
-#        downTime: 4.5
-#        losses: 95
-#        date: 2021-03-16
-#      xml:
-#        name: wellDailyActions
+    #    allWellDailyActionsResponse:
+    #      type: object
+    #      properties:
+    #        id:
+    #          type: integer
+    #          format: int64
+    #        wellId:
+    #          type: integer
+    #          format: int64
+    #        siLVL4:
+    #          type: integer
+    #          format: int64
+    #        actionDescription:
+    #          type: string
+    #        netProduction:
+    #          type: integer
+    #          format: int64
+    #        downTime:
+    #          type: integer
+    #          format: int64
+    #        losses:
+    #          type: integer
+    #          format: int64
+    #        date:
+    #          type: string
+    #          format: date-time
+    #      example:
+    #        id: 3
+    #        wellId: 5
+    #        silVL4: 2
+    #        actionDescription: action description
+    #        netProduction: 5000
+    #        downTime: 4.5
+    #        losses: 95
+    #        date: 2021-03-16
+    #      xml:
+    #        name: wellDailyActions
 
 
     wellGeneralInfoRequest:
@@ -4013,14 +5287,22 @@ components:
           format: "int32"
         subCompanyName:
           type: string
+          minLength: 5
+          maxLength: 100
         locationName:
           type: string
         areaName:
           type: string
+          minLength: 5
+          maxLength: 100
         leaseName:
           type: string
+          minLength: 5
+          maxLength: 100
         boreName:
           type: string
+          minLength: 5
+          maxLength: 100
         xcord:
           type: number
         ycord:
@@ -4053,14 +5335,22 @@ components:
           format: "int32"
         subCompanyName:
           type: string
+          minLength: 5
+          maxLength: 100
         locationName:
           type: string
         areaName:
           type: string
+          minLength: 5
+          maxLength: 100
         leaseName:
           type: string
+          minLength: 5
+          maxLength: 100
         boreName:
           type: string
+          minLength: 5
+          maxLength: 100
         xcord:
           type: number
         ycord:
@@ -4099,6 +5389,8 @@ components:
           enum: ['WaterDrive','GasCap','DepleationDrive','GravityDrainage','CombinationDrive']
         zones:
           type: string
+          minLength: 3
+          maxLength: 200
         interval:
           type: string
         from:
@@ -4126,10 +5418,14 @@ components:
           type: number
         fluidType:
           type: string
+          minLength: 3
+          maxLength: 100
         api:
           type: number
         notes:
           type: string
+          minLength: 3
+          maxLength: 5000
 
       example:
         id: 1
@@ -4162,6 +5458,8 @@ components:
           enum: ['WaterDrive','GasCap','DepleationDrive','GravityDrainage','CombinationDrive']
         zones:
           type: string
+          minLength: 3
+          maxLength: 200
         interval:
           type: string
         from:
@@ -4189,10 +5487,14 @@ components:
           type: number
         fluidType:
           type: string
+          minLength: 3
+          maxLength: 100
         api:
           type: number
         notes:
           type: string
+          minLength: 3
+          maxLength: 5000
 
 
     # Schema for error response body
@@ -4245,6 +5547,8 @@ components:
           format: date-time
         tDuration:
           type: string
+          minimum: 1
+          maximum: 11
           description: "a value between 0-24 representing the test duration"
           default: 24
           example: 24
@@ -4317,6 +5621,8 @@ components:
           $ref: '#/components/schemas/ChockTypeEnum'
         chockSize:
           type: number
+          minimum: 1
+          maximum: 11
           description: "the chock size at which the the test was performed"
           default:
         h2s:
@@ -4330,14 +5636,18 @@ components:
           default: 0
         unit:
           type: string
+          minLength: 5
+          maxLength: 100
           description: "the test unit which performed the test"
           example: "Expro-TMU#3"
         remarks:
           type: string
+          minLength: 5
+          maxLength: 5000
           description: "Any notes reported or added during the test or recommendaton for the well"
           example: plan to perform DFL for the well
-#      xml:
-#        name: wellTest
+    #      xml:
+    #        name: wellTest
 
     wellTestResponse:
       type: object
@@ -4352,6 +5662,8 @@ components:
           format: date-time
         tDuration:
           type: string
+          minimum: 1
+          maximum: 11
           description: "a value between 0-24 representing the test duration"
           default: 24
           example: 24
@@ -4425,6 +5737,9 @@ components:
 
         chockSize:
           type: number
+          minimum: 1
+          maximum: 11
+
           description: "the chock size at which the the test was performed"
           default:
         h2s:
@@ -4438,13 +5753,17 @@ components:
           default: 0
         unit:
           type: string
+          minLength: 5
+          maxLength: 100
           description: "the test unit which performed the test"
           example: "Expro-TMU#3"
         remarks:
           type: string
+          minLength: 5
+          maxLength: 5000
           description: "Any notes reported or added during the test or recommendaton for the well"
-#      xml:
-#        name: wellTest
+    #      xml:
+    #        name: wellTest
 
     AllTests:
       type: array
@@ -4514,8 +5833,8 @@ components:
           type: number
         salesGasActual:
           type: number
-#      xml:
-#        name: wellTest
+    #      xml:
+    #        name: wellTest
 
     fieldsBudgetAndActualRequest:
       type: object
@@ -4579,8 +5898,8 @@ components:
           type: number
         salesGasActual:
           type: number
-#      xml:
-#        name: wellTest
+    #      xml:
+    #        name: wellTest
 
     ChockTypeEnum:
       type: string
@@ -4608,15 +5927,21 @@ components:
       properties:
         firstName:
           type: string
+          minLength: 3
+          maxLength: 45
 
         lastName:
           type: string
+          minLength: 3
+          maxLength: 45
 
         email:
           type: string
+          format: email
 
         phoneNumber:
           type: string
+          pattern: '^(\\+2)?01\\d{9}$'
 
         jobTitle:
           type: integer
@@ -4626,6 +5951,8 @@ components:
 
         password:
           type: string
+          minLength: 5
+          maxLength: 5000
 
       example:
         firstName: mek
@@ -4653,15 +5980,21 @@ components:
 
         firstName:
           type: string
+          minLength: 3
+          maxLength: 45
 
         lastName:
           type: string
+          minLength: 3
+          maxLength: 45
 
         email:
           type: string
+          format: email
 
         phoneNumber:
           type: string
+          pattern: '^(\\+2)?01\\d{9}$'
 
         jobTitle:
           type: integer
@@ -4702,6 +6035,8 @@ components:
       properties:
         role:
           type: string
+          minLength: 3
+          maxLength: 100
 
       example:
         role: manager
@@ -4717,6 +6052,8 @@ components:
           type: integer
         role:
           type: string
+          minLength: 3
+          maxLength: 100
 
       example:
         id: 4
@@ -4731,9 +6068,31 @@ components:
       properties:
         email:
           type: string
+          format: email
         password:
           type: string
+          minLength: 5
+          maxLength: 5000
 
       example:
         email: maha@gmail.com
         password: 12345
+
+
+    ErrorDetails:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        date:
+          type: string
+          format: datetime
+        status:
+          type: string
+        error:
+          type: string
+        uri:
+          type: string
+        message:
+          type: string

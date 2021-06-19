@@ -8,6 +8,7 @@ import com.iti.jets.reportingsystem.services.ProductionBudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,7 +33,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         this.concessionService = concessionService;
         this.budgetVsActualService = budgetVsActualService;
     }
-
+    @CrossOrigin
     @Override
     public ResponseEntity<List<ProductionBudegetDataResponse>> concessionsBudgetProductionBudgetGet(OffsetDateTime date) {
         if (date != null) {
@@ -71,18 +72,19 @@ public class ProductionBudgetController implements ConcessionsApi {
     }
 
     //Salma's table Production Budget
+    @CrossOrigin
     @Override
     public ResponseEntity<Void> concessionsBudgetProductionBudgetIdDelete(Integer id) {
         productionBudgetService.delete(id);
         return ResponseEntity.ok().build();
     }
-
+    @CrossOrigin
     @Override
     public ResponseEntity<Void> concessionsBudgetProductionBudgetIdPatch(Integer id, ProductionBudegetRequest productionBudegetRequest) {
         productionBudgetService.updateProductionBudget(id, productionBudegetRequest);
         return ResponseEntity.ok().build();
     }
-
+    @CrossOrigin
     @Override
     public ResponseEntity<Void> concessionsBudgetProductionBudgetPost(ProductionBudegetRequest productionBudegetRequest) {
         productionBudgetService.create(productionBudegetRequest);

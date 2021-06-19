@@ -3,6 +3,7 @@ package com.iti.jets.reportingsystem.services.impls;
 import com.iti.jets.openapi.model.ConcessionRequest;
 import com.iti.jets.openapi.model.ConcessionResponse;
 import com.iti.jets.reportingsystem.entities.Concession;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.ConcessionRepository;
 import com.iti.jets.reportingsystem.services.ConcessionService;
 import org.modelmapper.ModelMapper;
@@ -42,6 +43,10 @@ public class ConcessionServiceImpl implements ConcessionService {
 
     @Override
     public ConcessionResponse findConcessionById(int id) {
+        if(!concessionRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with id");
+        }
         Concession concessionEntity = concessionRepository.findById(id).get();
         if (concessionEntity == null) {
             throw new EntityNotFoundException("Concession with Id " + id + " Was not found");
@@ -64,6 +69,10 @@ public class ConcessionServiceImpl implements ConcessionService {
 
     @Override
     public ConcessionResponse updateConcession(int concessionId, ConcessionRequest concessionRequest) {
+        if(!concessionRepository.findById(concessionId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with id");
+        }
         Optional<Concession> concessionById = concessionRepository.findById(concessionId);
         if (concessionById.isPresent()){
             Concession concession = concessionById.get();
@@ -80,6 +89,10 @@ public class ConcessionServiceImpl implements ConcessionService {
 
     @Override
     public void deleteConcession(int id) {
+        if(!concessionRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with id");
+        }
         Optional<Concession> concessionEntity = concessionRepository.findById(id);
         concessionEntity.ifPresentOrElse(concessionRepository::delete, () -> {
             throw new EntityNotFoundException("concession With id: " + id + " Was not found");

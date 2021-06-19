@@ -4,6 +4,7 @@ import com.iti.jets.openapi.model.WellGeneralInfoRequest;
 import com.iti.jets.openapi.model.WellGeneralInfoResponse;
 import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.WellGeneralInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellRespository;
 import com.iti.jets.reportingsystem.services.WellGeneralInfoService;
@@ -43,6 +44,10 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
 
 
     public WellGeneralInfoResponse getWellGeneralInfoById(int id){
+        if(!wellGeneralInfoRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record found with this id");
+        }
         if(wellGeneralInfoRepository.findById(id).isPresent()){
             return mapper.map(wellGeneralInfoRepository.findById(id).get(),WellGeneralInfoResponse.class);
         }
@@ -60,6 +65,10 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
     }
 
     public boolean updateWellGeneralInfo(int id,WellGeneralInfoRequest wellGeneralInfoRequest){
+        if(!wellGeneralInfoRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record found with this id");
+        }
         if(wellGeneralInfoRepository.findById(id).isPresent()){
             WellGeneralInfo wellGeneralInfo=mapper.map(wellGeneralInfoRequest,WellGeneralInfo.class);
             Well well=wellRespository.getById(wellGeneralInfoRequest.getWellId());
@@ -71,11 +80,15 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
             wellGeneralInfoRepository.save(wellGeneralInfo);
             return true;
         }
+
         return false;
     }
 
     public boolean deleteWellGeneralInfo(int id){
-
+       if(!wellGeneralInfoRepository.findById(id).isPresent())
+       {
+           throw new ResourceNotFoundException("There is no record with this id");
+       }
         if(wellGeneralInfoRepository.findById(id).isPresent()){
             wellGeneralInfoRepository.deleteById(id);
             return true;

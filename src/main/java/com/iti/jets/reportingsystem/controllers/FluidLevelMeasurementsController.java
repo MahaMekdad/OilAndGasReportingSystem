@@ -4,6 +4,7 @@ import com.iti.jets.openapi.api.WellsApi;
 import com.iti.jets.openapi.model.*;
 import com.iti.jets.reportingsystem.entities.IntervalsInfo;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.services.*;
 import com.iti.jets.reportingsystem.services.impls.IntervalsInfoServiceImpl;
 import com.iti.jets.reportingsystem.services.impls.WellGeneralInfoServiceImpl;
@@ -152,6 +153,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<Void> wellsWellIdDrillingInfoDelete(Integer wellId) {
+
         drillingInfoService.delete(wellId);
         return ResponseEntity.ok().build();
     }
@@ -159,11 +161,8 @@ public class FluidLevelMeasurementsController implements WellsApi {
     @Override
     public ResponseEntity<List<DrillingInfoDataResponse>> wellsWellIdDrillingInfoGet(Integer wellId) {
         List<DrillingInfoDataResponse> drillingInfoDataResponses = drillingInfoService.getForWellId(wellId);
-        if (drillingInfoDataResponses == null)
-            return ResponseEntity.notFound().build();
-        else {
             return ResponseEntity.ok(drillingInfoDataResponses);
-        }
+
     }
 
     @Override
@@ -175,11 +174,8 @@ public class FluidLevelMeasurementsController implements WellsApi {
     @Override
     public ResponseEntity<DrillingInfoDataResponse> wellsWellIdDrillingInfoIdGet(Integer wellId, Integer id) {
         DrillingInfoDataResponse drillingInfoDataResponse = drillingInfoService.getWellForId(wellId, id);
-        if (drillingInfoDataResponse == null) {
-            return ResponseEntity.notFound().build();
-        } else {
             return ResponseEntity.ok(drillingInfoDataResponse);
-        }
+
     }
 
     @Override
@@ -199,11 +195,9 @@ public class FluidLevelMeasurementsController implements WellsApi {
     public ResponseEntity<List<DrillingInfoDataResponse>> wellsDrillingInfoGet() {
         List<DrillingInfoDataResponse> drillingInfoDataResponses = new ArrayList<>();
         drillingInfoDataResponses = drillingInfoService.getAllDrillingInfo();
-        if (drillingInfoDataResponses == null)
-            return ResponseEntity.notFound().build();
-        else {
+
             return ResponseEntity.ok(drillingInfoDataResponses);
-        }
+
 
     }
 
@@ -304,7 +298,11 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @Override
     public ResponseEntity<WellResponse> getwellById(Long wellId) {
-
+//        if(wellService.getWellByID(Math.toIntExact(wellId)) == null)
+//        {
+//            System.out.println(">????????");
+//            throw  new ResourceNotFoundException("No well found");
+//        }
         return ResponseEntity.ok(wellService.getWellByID(Math.toIntExact(wellId)));
     }
 

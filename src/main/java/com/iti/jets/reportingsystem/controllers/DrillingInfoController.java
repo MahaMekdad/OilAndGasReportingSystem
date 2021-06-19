@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class DrillingInfoController implements WellsApi {
     }
 
     @Override
-    public ResponseEntity<Void> wellsWellIdDrillingInfoPost(Integer wellId, DrillingInfoDataRequest drillingInfoDataRequest) {
+    public ResponseEntity<Void> wellsWellIdDrillingInfoPost(Integer wellId,@Valid DrillingInfoDataRequest drillingInfoDataRequest) {
         drillingInfoService.creat(drillingInfoDataRequest, wellId);
         return ResponseEntity.ok().build();
 
