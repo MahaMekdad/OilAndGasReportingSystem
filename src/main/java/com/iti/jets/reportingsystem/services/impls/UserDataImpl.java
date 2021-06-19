@@ -1,9 +1,6 @@
 package com.iti.jets.reportingsystem.services.impls;
 
-import com.iti.jets.openapi.model.JobLocation;
-import com.iti.jets.openapi.model.LoginRequest;
-import com.iti.jets.openapi.model.UserRequest;
-import com.iti.jets.openapi.model.UserResponse;
+import com.iti.jets.openapi.model.*;
 import com.iti.jets.reportingsystem.entities.Userdata;
 import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.exceptions.UserAlreadyExistsException;
@@ -138,12 +135,12 @@ public class UserDataImpl implements UserDataService {
         userToUpdate.setUserroles(urRepo.findById(roleId).get());
     }
 
-    public UserResponse login(LoginRequest loginRequest){
+    public UserLoggedInResponse login(LoginRequest loginRequest){
         Userdata userData = udRepo.findByEmailEqualsAndPasswordEquals(loginRequest.getEmail(), loginRequest.getPassword());
         if(userData == null){
             throw new ResourceNotFoundException("No User found with the given credentials");
         } else {
-            UserResponse user = modelMapper.map(udRepo.findByEmailEqualsAndPasswordEquals(loginRequest.getEmail(), loginRequest.getPassword()), UserResponse.class);
+            UserLoggedInResponse user = modelMapper.map(udRepo.findByEmailEqualsAndPasswordEquals(loginRequest.getEmail(), loginRequest.getPassword()), UserLoggedInResponse.class);
             user.setJobLocation(JobLocation.valueOf(userData.getJobLocation().toUpperCase()));
             user.setJobTitle(userData.getUserroles().getId());
             return user;
