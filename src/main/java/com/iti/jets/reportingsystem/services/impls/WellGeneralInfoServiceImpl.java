@@ -34,7 +34,10 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
         List<WellGeneralInfoResponse> wellGeneralInfoResponseList=new ArrayList<>();
         Iterable<WellGeneralInfo> wellGeneralInfoIterable=(Iterable<WellGeneralInfo>) wellGeneralInfoRepository.findAll();
         wellGeneralInfoIterable.forEach((wellGeneralInfo)->{
-            wellGeneralInfoResponseList.add(mapper.map(wellGeneralInfo,WellGeneralInfoResponse.class));
+            WellGeneralInfoResponse wellGeneralInfoResponse=mapper.map(wellGeneralInfo,WellGeneralInfoResponse.class);
+            wellGeneralInfoResponse.setWellId(wellGeneralInfo.getWell().getWellId());
+            wellGeneralInfoResponseList.add(wellGeneralInfoResponse);
+
         });
 
         return wellGeneralInfoResponseList;
@@ -45,7 +48,9 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
     public WellGeneralInfoResponse getWellGeneralInfoById(int wellId){
         if(wellRespository.findById(wellId).isPresent()){
             WellGeneralInfo wellGeneralInfo =wellGeneralInfoRepository.findWellGeneralInfoByWellIs(wellRespository.findById(wellId).get());
-            return mapper.map(wellGeneralInfo,WellGeneralInfoResponse.class);
+            WellGeneralInfoResponse wellGeneralInfoResponse=mapper.map(wellGeneralInfo,WellGeneralInfoResponse.class);
+            wellGeneralInfoResponse.setWellId(wellId);
+            return wellGeneralInfoResponse;
         }
         return null;
     }
