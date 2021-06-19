@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
@@ -33,6 +34,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         this.concessionService = concessionService;
         this.budgetVsActualService = budgetVsActualService;
     }
+
     @CrossOrigin
     @Override
     public ResponseEntity<List<ProductionBudegetDataResponse>> concessionsBudgetProductionBudgetGet(OffsetDateTime date) {
@@ -71,6 +73,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         }
     }
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER')")
     //Salma's table Production Budget
     @CrossOrigin
     @Override
@@ -78,13 +81,15 @@ public class ProductionBudgetController implements ConcessionsApi {
         productionBudgetService.delete(id);
         return ResponseEntity.ok().build();
     }
-    @CrossOrigin
+
+    @PreAuthorize("hasRole('OFFICE ENGINEER')")
     @Override
     public ResponseEntity<Void> concessionsBudgetProductionBudgetIdPatch(Integer id, ProductionBudegetRequest productionBudegetRequest) {
         productionBudgetService.updateProductionBudget(id, productionBudegetRequest);
         return ResponseEntity.ok().build();
     }
-    @CrossOrigin
+
+    @PreAuthorize("hasRole('OFFICE ENGINEER')")
     @Override
     public ResponseEntity<Void> concessionsBudgetProductionBudgetPost(ProductionBudegetRequest productionBudegetRequest) {
         productionBudgetService.create(productionBudegetRequest);
@@ -118,6 +123,7 @@ public class ProductionBudgetController implements ConcessionsApi {
     }
 
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isConcessionMember(#id))")
     @Override
     public ResponseEntity<ConcessionResponse> updateConcession(Integer id, @Valid ConcessionRequest concessionRequest) {
         ConcessionResponse concessionResponse = null;
@@ -131,6 +137,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         return new ResponseEntity<>(concessionResponse, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isConcessionMember(#id))")
     @Override
     public ResponseEntity<Void> deleteConcession(Integer id) {
         concessionService.deleteConcession(Math.toIntExact(id));

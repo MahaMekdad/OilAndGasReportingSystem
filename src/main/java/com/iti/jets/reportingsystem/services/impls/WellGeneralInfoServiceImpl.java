@@ -43,15 +43,17 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
 
 
 
-    public WellGeneralInfoResponse getWellGeneralInfoById(int id){
-        if(!wellGeneralInfoRepository.findById(id).isPresent())
+
+    public WellGeneralInfoResponse getWellGeneralInfoById(int wellId){
+        if(wellRespository.findById(wellId).isPresent()){
+            WellGeneralInfo wellGeneralInfo =wellGeneralInfoRepository.findWellGeneralInfoByWellIs(wellRespository.findById(wellId).get());
+            return mapper.map(wellGeneralInfo,WellGeneralInfoResponse.class);
+        }
+        else
         {
-            throw new ResourceNotFoundException("There is no record found with this id");
+            throw new ResourceNotFoundException("There is no well with the given id");
         }
-        if(wellGeneralInfoRepository.findById(id).isPresent()){
-            return mapper.map(wellGeneralInfoRepository.findById(id).get(),WellGeneralInfoResponse.class);
-        }
-        return null;
+
     }
 
     public WellGeneralInfo saveWellGeneralInfo(WellGeneralInfoRequest wellGeneralInfoRequest){
@@ -65,10 +67,6 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
     }
 
     public boolean updateWellGeneralInfo(int id,WellGeneralInfoRequest wellGeneralInfoRequest){
-        if(!wellGeneralInfoRepository.findById(id).isPresent())
-        {
-            throw new ResourceNotFoundException("There is no record found with this id");
-        }
         if(wellGeneralInfoRepository.findById(id).isPresent()){
             WellGeneralInfo wellGeneralInfo=mapper.map(wellGeneralInfoRequest,WellGeneralInfo.class);
             Well well=wellRespository.getById(wellGeneralInfoRequest.getWellId());
@@ -81,19 +79,21 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
             return true;
         }
 
-        return false;
+        else
+        {
+            throw new ResourceNotFoundException("There is record found with the given id");
+        }
     }
 
     public boolean deleteWellGeneralInfo(int id){
-       if(!wellGeneralInfoRepository.findById(id).isPresent())
-       {
-           throw new ResourceNotFoundException("There is no record with this id");
-       }
         if(wellGeneralInfoRepository.findById(id).isPresent()){
             wellGeneralInfoRepository.deleteById(id);
             return true;
         }
-        return false;
+       else
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
     }
 
 

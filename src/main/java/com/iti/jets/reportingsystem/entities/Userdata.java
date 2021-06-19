@@ -59,7 +59,7 @@ public class Userdata  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="job_title", nullable=false)
     public Userroles getUserroles() {
         return this.userroles;
