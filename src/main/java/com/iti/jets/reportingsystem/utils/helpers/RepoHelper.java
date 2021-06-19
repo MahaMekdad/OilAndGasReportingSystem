@@ -4,7 +4,6 @@ import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.*;
 import com.iti.jets.reportingsystem.utils.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -21,8 +20,8 @@ public class RepoHelper {
     private final ProductionBudgetRepository pbRepo;
     private final ConcessionRepository conRepo;
     private final JwtUtil jwtUtil;
-    public static String token;
 
+    public static String token;
     private ThreadLocal<String> threadLocalValue;
 
     @Autowired
@@ -59,21 +58,22 @@ public class RepoHelper {
     }
 
     public boolean isFlmConcessionMember(Integer wellId){
-        String token = threadLocalValue.get();
-        System.out.println(threadLocalValue.get() + "<===============#");
+        String token = ThreadLocalToken.getCurrentInstance().getToken();
+        System.out.println(token + "<===============#");
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
             if(wellRepo.findById(wellId).isPresent()){
                 String concessionName =  wellRepo.findById(wellId).get().getField().getConcession().getConcessionName();
                 if(jobLocation.equalsIgnoreCase(concessionName)){
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return true;
                 } else {
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return false;
                 }
             } else {
+                ThreadLocalToken.getCurrentInstance().close();
                 throw new ResourceNotFoundException("No well found with the given id");
             }
         } else {
@@ -84,21 +84,22 @@ public class RepoHelper {
     }
 
     public boolean isWellGenInfoConcessionMember(Integer id){
-        String token = threadLocalValue.get();
-        System.out.println(threadLocalValue.get() + "<===============#");
+        String token = ThreadLocalToken.getCurrentInstance().getToken();
+        System.out.println(token + "<===============#");
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
             if(wellGenInfoRepo.findById(id).isPresent()){
                 String concessionName = wellGenInfoRepo.findById(id).get().getWell().getField().getConcession().getConcessionName();
                 if(jobLocation.equalsIgnoreCase(concessionName)){
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return true;
                 } else {
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return false;
                 }
             } else {
+                ThreadLocalToken.getCurrentInstance().close();
                 throw new ResourceNotFoundException("No well general info found with the given id");
             }
         } else {
@@ -109,21 +110,22 @@ public class RepoHelper {
     }
 
     public boolean isIntervalsInfoConcessionMember(Integer id){
-        String token = threadLocalValue.get();
-        System.out.println(threadLocalValue.get() + "<===============#");
+        String token = ThreadLocalToken.getCurrentInstance().getToken();
+        System.out.println(token + "<===============#");
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
             if(intervalsRepo.findById(id).isPresent()){
                 String concessionName = intervalsRepo.findById(id).get().getWell().getField().getConcession().getConcessionName();
                 if(jobLocation.equalsIgnoreCase(concessionName)){
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return true;
                 } else {
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return false;
                 }
             } else {
+                ThreadLocalToken.getCurrentInstance().close();
                 throw new ResourceNotFoundException("No interval found with the given id");
             }
         } else {
@@ -134,21 +136,22 @@ public class RepoHelper {
     }
 
     public boolean isWellConcessionMember(Integer id){
-        String token = threadLocalValue.get();
-        System.out.println(threadLocalValue.get() + "<===============#");
+        String token = ThreadLocalToken.getCurrentInstance().getToken();
+        System.out.println(token + "<===============#");
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
             if(fieldRepo.findById(id).isPresent()){
                 String concessionName = fieldRepo.findById(id).get().getConcession().getConcessionName();
                 if(jobLocation.equalsIgnoreCase(concessionName)){
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return true;
                 } else {
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return false;
                 }
             } else {
+                ThreadLocalToken.getCurrentInstance().close();
                 throw new ResourceNotFoundException("No well found with the given id");
             }
         } else {
@@ -159,21 +162,22 @@ public class RepoHelper {
     }
 
     public boolean isConcessionMember(Integer id){
-        String token = threadLocalValue.get();
-        System.out.println(threadLocalValue.get() + "<===============#");
+        String token = ThreadLocalToken.getCurrentInstance().getToken();
+        System.out.println(token + "<===============#");
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
             if(conRepo.findById(id).isPresent()){
                 String concessionName = conRepo.findById(id).get().getConcessionName();
                 if(jobLocation.equalsIgnoreCase(concessionName)){
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return true;
                 } else {
-                    threadLocalValue.remove();
+                    ThreadLocalToken.getCurrentInstance().close();
                     return false;
                 }
             } else {
+                ThreadLocalToken.getCurrentInstance().close();
                 throw new ResourceNotFoundException("No concession found with the given id");
             }
         } else {
