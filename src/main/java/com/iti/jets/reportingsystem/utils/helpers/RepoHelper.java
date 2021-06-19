@@ -1,8 +1,10 @@
 package com.iti.jets.reportingsystem.utils.helpers;
 
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.*;
 import com.iti.jets.reportingsystem.utils.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -45,7 +47,11 @@ public class RepoHelper {
     }
 
     public static String getConcessionName(Integer wellId){
-        return wellRepo2.findById(wellId).get().getField().getConcession().getConcessionName();
+        if(wellRepo2.findById(wellId).isPresent()){
+            return wellRepo2.findById(wellId).get().getField().getConcession().getConcessionName();
+        } else {
+            throw new ResourceNotFoundException("No well found with the given id");
+        }
     }
 
     public static String getUserLocationName(String email){
@@ -58,13 +64,17 @@ public class RepoHelper {
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
-            String concessionName =  wellRepo.findById(wellId).get().getField().getConcession().getConcessionName();
-            if(jobLocation.equals(concessionName)){
-                threadLocalValue.remove();
-                return true;
+            if(wellRepo.findById(wellId).isPresent()){
+                String concessionName =  wellRepo.findById(wellId).get().getField().getConcession().getConcessionName();
+                if(jobLocation.equalsIgnoreCase(concessionName)){
+                    threadLocalValue.remove();
+                    return true;
+                } else {
+                    threadLocalValue.remove();
+                    return false;
+                }
             } else {
-                threadLocalValue.remove();
-                return false;
+                throw new ResourceNotFoundException("No well found with the given id");
             }
         } else {
             threadLocalValue.remove();
@@ -79,13 +89,17 @@ public class RepoHelper {
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
-            String concessionName = wellGenInfoRepo.findById(id).get().getWell().getField().getConcession().getConcessionName();
-            if(jobLocation.equals(concessionName)){
-                threadLocalValue.remove();
-                return true;
+            if(wellGenInfoRepo.findById(id).isPresent()){
+                String concessionName = wellGenInfoRepo.findById(id).get().getWell().getField().getConcession().getConcessionName();
+                if(jobLocation.equalsIgnoreCase(concessionName)){
+                    threadLocalValue.remove();
+                    return true;
+                } else {
+                    threadLocalValue.remove();
+                    return false;
+                }
             } else {
-                threadLocalValue.remove();
-                return false;
+                throw new ResourceNotFoundException("No well general info found with the given id");
             }
         } else {
             threadLocalValue.remove();
@@ -100,13 +114,17 @@ public class RepoHelper {
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
-            String concessionName = intervalsRepo.findById(id).get().getWell().getField().getConcession().getConcessionName();
-            if(jobLocation.equals(concessionName)){
-                threadLocalValue.remove();
-                return true;
+            if(intervalsRepo.findById(id).isPresent()){
+                String concessionName = intervalsRepo.findById(id).get().getWell().getField().getConcession().getConcessionName();
+                if(jobLocation.equalsIgnoreCase(concessionName)){
+                    threadLocalValue.remove();
+                    return true;
+                } else {
+                    threadLocalValue.remove();
+                    return false;
+                }
             } else {
-                threadLocalValue.remove();
-                return false;
+                throw new ResourceNotFoundException("No interval found with the given id");
             }
         } else {
             threadLocalValue.remove();
@@ -121,13 +139,17 @@ public class RepoHelper {
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
-            String concessionName = fieldRepo.findById(id).get().getConcession().getConcessionName();
-            if(jobLocation.equals(concessionName)){
-                threadLocalValue.remove();
-                return true;
+            if(fieldRepo.findById(id).isPresent()){
+                String concessionName = fieldRepo.findById(id).get().getConcession().getConcessionName();
+                if(jobLocation.equalsIgnoreCase(concessionName)){
+                    threadLocalValue.remove();
+                    return true;
+                } else {
+                    threadLocalValue.remove();
+                    return false;
+                }
             } else {
-                threadLocalValue.remove();
-                return false;
+                throw new ResourceNotFoundException("No well found with the given id");
             }
         } else {
             threadLocalValue.remove();
@@ -142,13 +164,17 @@ public class RepoHelper {
         if(token != null){
             Map claims = jwtUtil.extractAllClaims(token);
             String jobLocation = claims.get("location").toString();
-            String concessionName = conRepo.findById(id).get().getConcessionName();
-            if(jobLocation.equals(concessionName)){
-                threadLocalValue.remove();
-                return true;
+            if(conRepo.findById(id).isPresent()){
+                String concessionName = conRepo.findById(id).get().getConcessionName();
+                if(jobLocation.equalsIgnoreCase(concessionName)){
+                    threadLocalValue.remove();
+                    return true;
+                } else {
+                    threadLocalValue.remove();
+                    return false;
+                }
             } else {
-                threadLocalValue.remove();
-                return false;
+                throw new ResourceNotFoundException("No concession found with the given id");
             }
         } else {
             threadLocalValue.remove();
@@ -158,32 +184,32 @@ public class RepoHelper {
     }
 
 //    public boolean isFlmConcessionMember(Integer wellId, String email){
-//        return getConcessionName(wellId).equals(getUserLocationName(email));
+//        return getConcessionName(wellId).equalsIgnoreCase(getUserLocationName(email));
 //    }
 
 //    public boolean isWellGenInfoConcessionMember(Integer id, String email){
 //        String concession = wellGenInfoRepo.findById(id).get().getWell().getField().getConcession().getConcessionName();
-//        return concession.equals(getUserLocationName(email));
+//        return concession.equalsIgnoreCase(getUserLocationName(email));
 //    }
 
 //    public boolean isIntervalsInfoConcessionMember(Integer id, String email){
 //        String concession = intervalsRepo.findById(id).get().getWell().getField().getConcession().getConcessionName();
-//        return concession.equals(getUserLocationName(email));
+//        return concession.equalsIgnoreCase(getUserLocationName(email));
 //    }
 
 //    public boolean isWellConcessionMember(Integer id, String email){
 //        String concession = fieldRepo.findById(id).get().getConcession().getConcessionName();
-//        return concession.equals(getUserLocationName(email));
+//        return concession.equalsIgnoreCase(getUserLocationName(email));
 //    }
 
 //    public boolean isConcessionMember(Integer id, String email){
 //        String concession = conRepo.findById(id).get().getConcessionName();
-//        return concession.equals(getUserLocationName(email));
+//        return concession.equalsIgnoreCase(getUserLocationName(email));
 //    }
 
 //    public boolean isPBConcessionMember(Integer id, String email){
 //        String concession = pbRepo.findById(id).get().getConcession().getConcessionName();
-//        return concession.equals(getUserLocationName(email));
+//        return concession.equalsIgnoreCase(getUserLocationName(email));
 //    }
 
 }

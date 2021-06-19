@@ -4,6 +4,7 @@ import com.iti.jets.openapi.model.IntervalsInfoRequest;
 import com.iti.jets.openapi.model.IntervalsInfoResponse;
 import com.iti.jets.reportingsystem.entities.IntervalsInfo;
 import com.iti.jets.reportingsystem.entities.Well;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.IntervalsInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellRespository;
 import com.iti.jets.reportingsystem.services.IntervalsInfoService;
@@ -97,6 +98,10 @@ public class IntervalsInfoServiceImpl implements IntervalsInfoService {
     }
 
     public boolean updateIntervalsInfo(int id, IntervalsInfoRequest intervalsInfoRequest) {
+        if(!intervalsInfoRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         if (intervalsInfoRepository.findById(id).isPresent()) {
             IntervalsInfo intervalsInfo = mapper.map(intervalsInfoRequest, IntervalsInfo.class);
 
@@ -117,7 +122,10 @@ public class IntervalsInfoServiceImpl implements IntervalsInfoService {
     }
 
     public boolean deleteIntervalsInfo(int id) {
-
+         if(!intervalsInfoRepository.findById(id).isPresent())
+         {
+             throw new ResourceNotFoundException("There is no record with this id");
+         }
         if (intervalsInfoRepository.findById(id).isPresent()) {
             intervalsInfoRepository.deleteById(id);
             return true;

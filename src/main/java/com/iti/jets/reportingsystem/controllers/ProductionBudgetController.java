@@ -8,6 +8,7 @@ import com.iti.jets.reportingsystem.services.ProductionBudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +35,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         this.budgetVsActualService = budgetVsActualService;
     }
 
+    @CrossOrigin
     @Override
     public ResponseEntity<List<ProductionBudegetDataResponse>> concessionsBudgetProductionBudgetGet(OffsetDateTime date) {
         if (date != null) {
@@ -73,6 +75,7 @@ public class ProductionBudgetController implements ConcessionsApi {
 
     @PreAuthorize("hasRole('OFFICE ENGINEER')")
     //Salma's table Production Budget
+    @CrossOrigin
     @Override
     public ResponseEntity<Void> concessionsBudgetProductionBudgetIdDelete(Integer id) {
         productionBudgetService.delete(id);
@@ -106,7 +109,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         List<ConcessionResponse> concessions = concessionService.findAllConcessions();
         return new ResponseEntity<>(concessions, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isConcessionMember(#id))")
     @Override
     public ResponseEntity<ConcessionResponse> getConcessionById(Integer id) {
         ConcessionResponse concessionResponse = null;

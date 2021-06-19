@@ -5,6 +5,7 @@ import com.iti.jets.openapi.model.DrillingInfoDataResponse;
 import com.iti.jets.reportingsystem.entities.DrillingInfo;
 import com.iti.jets.reportingsystem.entities.ProductionBudget;
 import com.iti.jets.reportingsystem.entities.Well;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.DrillingInfoRepository;
 //import com.iti.jets.reportingsystem.repos.WellRepository;
 import com.iti.jets.reportingsystem.repos.WellRepository;
@@ -46,6 +47,10 @@ public class  DrillingServiceImpl implements DrillingInfoService {
 
         List<DrillingInfoDataResponse> drillingInfoModelList = new ArrayList<>();
         List<DrillingInfo> drillingInfo = drillingInfoRepository.findAll();
+        if(drillingInfo==null)
+        {
+            throw new ResourceNotFoundException("No resources found");
+        }
         Type listType = new TypeToken<List<DrillingInfoDataResponse>>() {
         }.getType();
         drillingInfoModelList = modelMapper.map(drillingInfo, listType);
@@ -60,6 +65,10 @@ public class  DrillingServiceImpl implements DrillingInfoService {
 
     @Override
     public List<DrillingInfoDataResponse> getForWellId(int id) {
+        if(!drillingInfoRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no drilling info with this id");
+        }
         List<DrillingInfo> drillingInfo = drillingInfoRepository.getAllForWellId(id);
         System.out.println("drillingInfo====== " + drillingInfo);
         List<DrillingInfoDataResponse> drillingInfoModel = new ArrayList<>();
@@ -78,6 +87,10 @@ public class  DrillingServiceImpl implements DrillingInfoService {
     @Override
     public void creat(DrillingInfoDataRequest drillingInfoModel , int id) {
         DrillingInfo drillingInfo = new DrillingInfo();
+        if( !wellRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("No well found with this id");
+        }
         Well well = wellRepository.findById(id).get();
         drillingInfo = modelMapper.map(drillingInfoModel, DrillingInfo.class);
         drillingInfo.setWell(well);
@@ -87,6 +100,10 @@ public class  DrillingServiceImpl implements DrillingInfoService {
 
     @Override
     public void delete(int id) {
+        if(!drillingInfoRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no drilling info with this id");
+        }
         List<DrillingInfo> drillingInfos = drillingInfoRepository.findAllByWell_WellIdEquals(id);
         for (int i = 0; i < drillingInfos.size(); i++) {
             drillingInfoRepository.deleteById(drillingInfos.get(i).getId());
@@ -97,15 +114,43 @@ public class  DrillingServiceImpl implements DrillingInfoService {
 
     @Override
     public void deleteWellInSpecificId(int wellId, int id) {
-        drillingInfoRepository.deleteById(id);
+        if( !wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("No well found with this id");
+        }
+        if(!drillingInfoRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no drilling info with this id");
+        }
+        DrillingInfo drillingInfo = drillingInfoRepository.findAllByWell_WellIdEqualsAndIdEquals(wellId, id);
+        if(drillingInfo == null )
+        {
+            throw new ResourceNotFoundException("No drilling info of this well with this id");
+        }
+       drillingInfoRepository.deleteById(id);
+
 //        DrillingInfo drillingInfo = drillingInfoRepository.findAllByWell_WellIdEqualsAndIdEquals(wellId ,id);
 
     }
 
     @Override
     public DrillingInfoDataResponse getWellForId(int wellId, int id) {
+        System.out.println("id ===" + id);
+        if( !wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("No well found with this id");
+        }
+        if(!drillingInfoRepository.findById(id).isPresent())
+        {
+            System.out.println("leeh da5lt hena");
+            throw new ResourceNotFoundException("There is no drilling info with this id");
+        }
 
         DrillingInfo drillingInfo = drillingInfoRepository.findById(id).get();
+        if(drillingInfo.getWell().getWellId() !=wellId)
+        {
+            throw new ResourceNotFoundException("No resource found in the table");
+        }
         System.out.println("drillingInfo====== " + drillingInfo);
         DrillingInfoDataResponse drillingInfoModel = new DrillingInfoDataResponse();
         drillingInfoModel = modelMapper.map(drillingInfo, DrillingInfoDataResponse.class);
@@ -114,12 +159,24 @@ public class  DrillingServiceImpl implements DrillingInfoService {
         drillingInfoModel.setWellId(wellId);
         return drillingInfoModel;
     }
-
     @Override
     public void updateWellForId(int wellId, int id, DrillingInfoDataRequest drillingInfoModel) {
+
+        if( !wellRepository.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("No well found with this id");
+        }
+        if(!drillingInfoRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no drilling info with this id");
+        }
         System.out.println("wellID == "+ wellId );
         System.out.println("idd == "+id);
         DrillingInfo drillingInfo = drillingInfoRepository.findAllByWell_WellIdEqualsAndIdEquals(wellId, id);
+        if(drillingInfo == null )
+        {
+            throw new ResourceNotFoundException("No drilling info of this well with this id");
+        }
         System.out.println("drilling info == "+ drillingInfo);
         if (drillingInfoModel.getReleaseDate() != null) {
             drillingInfo.setReleaseDate(Date.from(drillingInfoModel.getReleaseDate().toInstant()));
