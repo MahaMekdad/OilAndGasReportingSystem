@@ -109,7 +109,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         List<ConcessionResponse> concessions = concessionService.findAllConcessions();
         return new ResponseEntity<>(concessions, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isConcessionMember(#id))")
     @Override
     public ResponseEntity<ConcessionResponse> getConcessionById(Integer id) {
         ConcessionResponse concessionResponse = null;
