@@ -41,6 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //    @Transactional
     protected Set getAuthority(Userdata user) {
         Set authorities = new HashSet<>();
+        System.out.println("ROLE_" + user.getUserroles().getRole().toUpperCase());
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getUserroles().getRole().toUpperCase()));
         return authorities;
     }

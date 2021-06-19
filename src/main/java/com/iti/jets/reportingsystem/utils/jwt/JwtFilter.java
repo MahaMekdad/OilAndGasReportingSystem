@@ -21,11 +21,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService customUserDetailsService;
+    private final RepoHelper repoHelper;
 
     @Autowired
-    public JwtFilter(JwtUtil jwtUtil, CustomUserDetailsService customUserDetailsService){
+    public JwtFilter(JwtUtil jwtUtil, CustomUserDetailsService customUserDetailsService, RepoHelper repoHelper){
         this.jwtUtil = jwtUtil;
         this.customUserDetailsService = customUserDetailsService;
+        this.repoHelper = repoHelper;
     }
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -52,7 +54,10 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
 
-        RepoHelper.token = token;
+//        RepoHelper.token = token;
+        ThreadLocal<String> threadLocalTokenValue = new ThreadLocal<>();
+        threadLocalTokenValue.set(token);
+        repoHelper.setThreadLocalValue(threadLocalTokenValue);
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
