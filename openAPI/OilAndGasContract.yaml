@@ -1627,7 +1627,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/intervalsInfoResponse'
+                type: array
+                items:
+                  $ref: '#/components/schemas/intervalsInfoResponse'
 
         '400':
           description: Invalid request

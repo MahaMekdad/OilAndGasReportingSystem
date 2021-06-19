@@ -296,9 +296,11 @@ public class FluidLevelMeasurementsController implements WellsApi {
 
     @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isIntervalsInfoConcessionMember(#id))")
     @Override
-    public ResponseEntity<IntervalsInfoResponse> wellsIntervalsInfoIdGet(Integer id) {
-        IntervalsInfoResponse intervalsInfoResponse = intervalsInfoService.getIntervalsInfoById(id);
-        if (intervalsInfoResponse == null) {
+
+    public ResponseEntity<List<IntervalsInfoResponse>> wellsIntervalsInfoIdGet(Integer wellId) {
+        List<IntervalsInfoResponse> intervalsInfoResponse=intervalsInfoService.getIntervalsInfoById(wellId);
+        if (intervalsInfoResponse==null){
+
             return ResponseEntity.notFound().build();
         }
 
