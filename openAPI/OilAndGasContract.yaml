@@ -5311,7 +5311,7 @@ components:
           type: number
         lat:
           type: number
-        long_:
+        longitude:
           type: number
 
       example:
@@ -5324,7 +5324,7 @@ components:
         xcord: 5
         ycord: 5
         lat: 10
-        long_: 10
+        longitude: 10
 
     wellGeneralInfoResponse:
       type: object
@@ -5359,7 +5359,7 @@ components:
           type: number
         lat:
           type: number
-        long_:
+        longitude:
           type: number
 
       example:
@@ -5373,7 +5373,7 @@ components:
         xcord: 5
         ycord: 5
         lat: 10
-        long_: 10
+        longitude: 10
 
     intervalsInfoResponse:
       type: object
