@@ -79,7 +79,7 @@ public class GeneralConfig extends WebSecurityConfigurerAdapter {
 //        http.cors().disable();
 
         http.csrf().disable().authorizeRequests().antMatchers("/login")
-//                .permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
+                .permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

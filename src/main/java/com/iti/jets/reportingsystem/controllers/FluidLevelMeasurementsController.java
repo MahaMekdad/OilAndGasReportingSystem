@@ -58,6 +58,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
 //    ######################FluidLevelMeasurements#########################
 
     //get all in gen
+    @PreAuthorize("permitAll()")
     @Override
     public ResponseEntity<List<AllFluidLevelMeasurementResponse>> wellsFluidLevelMeasurementsGet(@Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {

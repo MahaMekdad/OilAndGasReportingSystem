@@ -58,7 +58,6 @@ public class FluidLevelMeasurementsServiceImpl implements FluidLevelMeasurements
         }
     }
 
-    @PreAuthorize("hasRole('NON')")
     public List<AllFluidLevelMeasurementResponse> getAllFLMS() {
 //        Type listType = new TypeToken<List<AllFluidLevelMeasurementResponse>>(){}.getType();
         List<AllFluidLevelMeasurementResponse> resultList;
