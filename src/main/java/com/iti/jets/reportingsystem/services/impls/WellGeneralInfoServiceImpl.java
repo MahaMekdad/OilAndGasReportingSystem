@@ -50,6 +50,9 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
     public WellGeneralInfoResponse getWellGeneralInfoById(int wellId){
         if(wellRespository.findById(wellId).isPresent()){
             WellGeneralInfo wellGeneralInfo =wellGeneralInfoRepository.findWellGeneralInfoByWellIs(wellRespository.findById(wellId).get());
+            if(wellGeneralInfo == null){
+                throw new ResourceNotFoundException("There are no records for this well id");
+            }
             WellGeneralInfoResponse wellGeneralInfoResponse=mapper.map(wellGeneralInfo,WellGeneralInfoResponse.class);
             wellGeneralInfoResponse.setWellId(wellId);
             return wellGeneralInfoResponse;
