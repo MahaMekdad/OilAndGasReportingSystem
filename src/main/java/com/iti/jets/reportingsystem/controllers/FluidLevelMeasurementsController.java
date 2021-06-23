@@ -261,13 +261,16 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return ResponseEntity.notFound().build();
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellGeneralInfoRequest.wellId))")
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellGenInfoConcessionMember(#wellGeneralInfoRequest.wellId))")
     @Override
     public ResponseEntity<Void> wellsGeneralInfoPost(@Valid WellGeneralInfoRequest wellGeneralInfoRequest) {
+        System.out.println("1");
         WellGeneralInfo wellGeneralInfo = wellGeneralInfoService.saveWellGeneralInfo(wellGeneralInfoRequest);
         if (wellGeneralInfo == null) {
+            System.out.println("2");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+        System.out.println("3");
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

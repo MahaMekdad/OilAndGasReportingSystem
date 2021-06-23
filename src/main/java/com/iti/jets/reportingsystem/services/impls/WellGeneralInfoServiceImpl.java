@@ -63,8 +63,10 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
 
     public WellGeneralInfo saveWellGeneralInfo(WellGeneralInfoRequest wellGeneralInfoRequest){
             WellGeneralInfo wellGeneralInfo=mapper.map(wellGeneralInfoRequest,WellGeneralInfo.class);
+        System.out.println("wellId:"+wellGeneralInfoRequest.getWellId());
             Well well=wellRespository.getById(wellGeneralInfoRequest.getWellId());
             if(well == null) {
+                System.out.println("null");
               return null;
             }
             wellGeneralInfo.setWell(well);

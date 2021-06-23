@@ -74,6 +74,7 @@ public class IntervalsInfoServiceImpl implements IntervalsInfoService {
                 if(intervalsInfo.getEndDate()!=null) {
                     intervalsInfoResponse.setEndDate(OffsetDateTimeHelper.dateHelper(intervalsInfo.getEndDate()));
                 }
+                intervalsInfoResponse.setWellId(intervalsInfo.getWell().getWellId());
                 intervalsInfoResponseList.add(intervalsInfoResponse);
             }
             return intervalsInfoResponseList;
