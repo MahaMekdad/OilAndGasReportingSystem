@@ -48,6 +48,89 @@ tags:
 paths:
 
   # ---------------MAHA---------------
+  /concessionFields/{id}:
+    get:
+      tags:
+        - concessions
+      summary: Array of all concession's fields
+      description: returning an Array of this concession's fields
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: the ID of the concession
+          schema:
+            type: integer
+            example: 5
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllConcessionFields'
+
+        # These two error responses have the same schema
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        500:
+          description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+
+  /FieldWells/{id}:
+    get:
+      tags:
+        - Field
+      summary: Array of all field's wells
+      description: returning an Array of this field's wells
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: the ID of the field
+          schema:
+            type: integer
+            example: 5
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllFieldWells'
+
+        # These two error responses have the same schema
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        500:
+          description: Internal Server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
   /login:
     post:
       tags:
@@ -6144,4 +6227,49 @@ components:
           jobTitle: 1
           jobLocation: office
           accessToken: sfewf3wr24ge3
+
+
+    getAllConcessionFields:
+      type: array
+      items:
+        $ref: '#/components/schemas/ConcessionsFieldsResponse'
+
+    getAllFieldWells:
+      type: array
+      items:
+        $ref: '#/components/schemas/FieldsWellsResponse'
+
+    ConcessionsFieldsResponse:
+      description: Model containing field object info for returns (get requests)
+      properties:
+        fieldId:
+          type: integer
+
+        fieldName:
+          type: string
+
+        fieldCode:
+          type: string
+
+      example:
+        fieldId: 5
+        fieldName: meleiha
+        fieldCode: C1F2
+
+    FieldsWellsResponse:
+      description: Model containing well object info for returns (get requests)
+      properties:
+        wellId:
+          type: integer
+
+        wellName:
+          type: string
+
+        wellCode:
+          type: string
+
+      example:
+        wellId: 5
+        wellName: meleiha
+        wellCode: C1F2
 
