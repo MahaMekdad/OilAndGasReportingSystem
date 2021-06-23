@@ -50,7 +50,7 @@ public class FluidLevelMeasurementsServiceImpl implements FluidLevelMeasurements
         Well well = wellRepo.findById(wellId).isPresent() ?
                     wellRepo.findById(wellId).get() : null;
         if(well != null) {
-            FluidLevelMeasurements flm = flmMapper.map(fluidLevelMeasurementRequest);
+            FluidLevelMeasurements flm = flmMapper. map(fluidLevelMeasurementRequest);
             flm.setWell(well);
             flmRepo.saveAndFlush(flm);
         } else {

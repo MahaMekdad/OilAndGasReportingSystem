@@ -7,6 +7,7 @@ import com.iti.jets.reportingsystem.entities.ProductionGeneralInfo;
 import com.iti.jets.reportingsystem.utils.mappers.helpers.OffsetDateTimeHelper;
 import org.springframework.stereotype.Component;
 
+import javax.swing.plaf.IconUIResource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -97,19 +98,39 @@ public class ProductionGeneralInfoMapper {
             apgiwnr.setWellId(pgi.getWell().getWellId());
             apgiwnr.setMonitoringSystem(AllProductionGeneralInfoWithNamesResponse.MonitoringSystemEnum.valueOf(pgi.getMonitoringSystem().toUpperCase()));
             apgiwnr.setCurrentProduct(AllProductionGeneralInfoWithNamesResponse.CurrentProductEnum.valueOf(pgi.getCurrentProduct().toUpperCase()));
-            apgiwnr.setCurrentLiftType(AllProductionGeneralInfoWithNamesResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
+            if(pgi.getCurrentLiftType().equalsIgnoreCase("S/R") || pgi.getCurrentLiftType().equalsIgnoreCase("ESP-PCP")){
+                if(pgi.getCurrentLiftType().equalsIgnoreCase("S/R")){
+                    apgiwnr.setCurrentLiftType(AllProductionGeneralInfoWithNamesResponse.CurrentLiftTypeEnum.valueOf("S_R"));
+                } else {
+                    apgiwnr.setCurrentLiftType(AllProductionGeneralInfoWithNamesResponse.CurrentLiftTypeEnum.valueOf("ESP_PCP"));
+                }
+            } else {
+                apgiwnr.setCurrentLiftType(AllProductionGeneralInfoWithNamesResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
+            }
             apgiwnr.setCurrentLiftTypeDate(OffsetDateTimeHelper.dateHelper(pgi.getCurrentLiftTypeDate()));
             apgiwnr.setCurrentWellType(AllProductionGeneralInfoWithNamesResponse.CurrentWellTypeEnum.valueOf(pgi.getCurrentWellType().toUpperCase().replace(" ", "_")));
             apgiwnr.setCurrentWellTypeDate(OffsetDateTimeHelper.dateHelper(pgi.getCurrentWellTypeDate()));
             apgiwnr.setCurrentStatus(AllProductionGeneralInfoWithNamesResponse.CurrentStatusEnum.valueOf(pgi.getCurrentStatus().toUpperCase())) ;
             apgiwnr.setInitialProduct(AllProductionGeneralInfoWithNamesResponse.InitialProductEnum.valueOf(pgi.getInitialProduct().toUpperCase()));
             apgiwnr.setInitialProdDate(OffsetDateTimeHelper.dateHelper(pgi.getInitialProdDate()));
-            apgiwnr.setInitialLiftType(AllProductionGeneralInfoWithNamesResponse.InitialLiftTypeEnum.valueOf(pgi.getInitialLiftType().toUpperCase()));
+            if(pgi.getInitialLiftType().equalsIgnoreCase("S/R") || pgi.getInitialLiftType().equalsIgnoreCase("ESP-PCP")){
+                if(pgi.getCurrentLiftType().equalsIgnoreCase("S/R")){
+                    apgiwnr.setInitialLiftType(AllProductionGeneralInfoWithNamesResponse.InitialLiftTypeEnum.valueOf("S_R"));
+                } else {
+                    apgiwnr.setInitialLiftType(AllProductionGeneralInfoWithNamesResponse.InitialLiftTypeEnum.valueOf("ESP_PCP"));
+                }
+            } else {
+                apgiwnr.setCurrentLiftType(AllProductionGeneralInfoWithNamesResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
+            }
             apgiwnr.setInitialType(AllProductionGeneralInfoWithNamesResponse.InitialTypeEnum.valueOf(pgi.getInitialType().toUpperCase().replace(" ", "_")));
             apgiwnr.setInitStatus(AllProductionGeneralInfoWithNamesResponse.InitStatusEnum.valueOf(pgi.getInitStatus().toUpperCase()));
             apgiwnr.setRuntime(pgi.getRuntime());
             apgiwnr.setPowerSource(pgi.getPowerSource());
-            apgiwnr.setPowerSourceType(AllProductionGeneralInfoWithNamesResponse.PowerSourceTypeEnum.valueOf(pgi.getPowerSourceType().toUpperCase()));
+            if(pgi.getPowerSourceType().equals("Diesel Generator")){
+                apgiwnr.setPowerSourceType(AllProductionGeneralInfoWithNamesResponse.PowerSourceTypeEnum.valueOf("DIESEL_GENERATOR"));
+            } else {
+                apgiwnr.setPowerSourceType(AllProductionGeneralInfoWithNamesResponse.PowerSourceTypeEnum.valueOf(pgi.getPowerSourceType().toUpperCase()));
+            }
             apgiwnr.setProcessionPlant(AllProductionGeneralInfoWithNamesResponse.ProcessionPlantEnum.valueOf(pgi.getProcessionPlant().toUpperCase().replace(" ", "_")));
             apgiwnr.setWellName(pgi.getWell().getWellName());
             apgiwnr.setFieldName(pgi.getWell().getField().getFieldName());
@@ -126,19 +147,41 @@ public class ProductionGeneralInfoMapper {
             pgir.setId(pgi.getId());
             pgir.setMonitoringSystem(ProductionGeneralInfoResponse.MonitoringSystemEnum.valueOf(pgi.getMonitoringSystem().toUpperCase()));
             pgir.setCurrentProduct(ProductionGeneralInfoResponse.CurrentProductEnum.valueOf(pgi.getCurrentProduct().toUpperCase()));
-            pgir.setCurrentLiftType(ProductionGeneralInfoResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
+            if(pgi.getCurrentLiftType().equalsIgnoreCase("S/R") || pgi.getCurrentLiftType().equalsIgnoreCase("ESP-PCP")){
+                if(pgi.getCurrentLiftType().equalsIgnoreCase("S/R")){
+                    pgir.setCurrentLiftType(ProductionGeneralInfoResponse.CurrentLiftTypeEnum.valueOf("S_R"));
+                } else {
+                    pgir.setCurrentLiftType(ProductionGeneralInfoResponse.CurrentLiftTypeEnum.valueOf("ESP_PCP"));
+                }
+            } else {
+                pgir.setCurrentLiftType(ProductionGeneralInfoResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
+            }
+//            pgir.setCurrentLiftType(ProductionGeneralInfoResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
             pgir.setCurrentLiftTypeDate(OffsetDateTimeHelper.dateHelper(pgi.getCurrentLiftTypeDate()));
             pgir.setCurrentWellType(ProductionGeneralInfoResponse.CurrentWellTypeEnum.valueOf(pgi.getCurrentWellType().toUpperCase().replace(" ", "_")));
             pgir.setCurrentWellTypeDate(OffsetDateTimeHelper.dateHelper(pgi.getCurrentWellTypeDate()));
             pgir.setCurrentStatus(ProductionGeneralInfoResponse.CurrentStatusEnum.valueOf(pgi.getCurrentStatus().toUpperCase())) ;
             pgir.setInitialProduct(ProductionGeneralInfoResponse.InitialProductEnum.valueOf(pgi.getInitialProduct().toUpperCase()));
             pgir.setInitialProdDate(OffsetDateTimeHelper.dateHelper(pgi.getInitialProdDate()));
-            pgir.setInitialLiftType(ProductionGeneralInfoResponse.InitialLiftTypeEnum.valueOf(pgi.getInitialLiftType().toUpperCase()));
+            if(pgi.getInitialLiftType().equalsIgnoreCase("S/R") || pgi.getInitialLiftType().equalsIgnoreCase("ESP-PCP")){
+                if(pgi.getCurrentLiftType().equalsIgnoreCase("S/R")){
+                    pgir.setInitialLiftType(ProductionGeneralInfoResponse.InitialLiftTypeEnum.valueOf("S_R"));
+                } else {
+                    pgir.setInitialLiftType(ProductionGeneralInfoResponse.InitialLiftTypeEnum.valueOf("ESP_PCP"));
+                }
+            } else {
+                pgir.setCurrentLiftType(ProductionGeneralInfoResponse.CurrentLiftTypeEnum.valueOf(pgi.getCurrentLiftType().toUpperCase()));
+            }
             pgir.setInitialType(ProductionGeneralInfoResponse.InitialTypeEnum.valueOf(pgi.getInitialType().toUpperCase().replace(" ", "_")));
             pgir.setInitStatus(ProductionGeneralInfoResponse.InitStatusEnum.valueOf(pgi.getInitStatus().toUpperCase()));
             pgir.setRuntime(pgi.getRuntime());
             pgir.setPowerSource(pgi.getPowerSource());
-            pgir.setPowerSourceType(ProductionGeneralInfoResponse.PowerSourceTypeEnum.valueOf(pgi.getPowerSourceType().toUpperCase()));
+            if(pgi.getPowerSourceType().equals("Diesel Generator")){
+                pgir.setPowerSourceType(ProductionGeneralInfoResponse.PowerSourceTypeEnum.valueOf("DIESEL_GENERATOR"));
+            } else {
+                pgir.setPowerSourceType(ProductionGeneralInfoResponse.PowerSourceTypeEnum.valueOf(pgi.getPowerSourceType().toUpperCase()));
+            }
+//            pgir.setPowerSourceType(ProductionGeneralInfoResponse.PowerSourceTypeEnum.valueOf(pgi.getPowerSourceType().toUpperCase()));
             pgir.setProcessionPlant(ProductionGeneralInfoResponse.ProcessionPlantEnum.valueOf(pgi.getProcessionPlant().toUpperCase().replace(" ", "_")));
             resultList.add(pgir);
         }
