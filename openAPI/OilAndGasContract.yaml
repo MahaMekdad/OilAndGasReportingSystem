@@ -4929,8 +4929,6 @@ components:
           format: date-time
         meleiha:
           type: number
-          minimum: 1
-          maximum: 20
         aghar:
           type: number
         eastKanays:
