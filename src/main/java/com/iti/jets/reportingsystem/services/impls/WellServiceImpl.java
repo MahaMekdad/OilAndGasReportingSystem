@@ -1,5 +1,6 @@
 package com.iti.jets.reportingsystem.services.impls;
 
+import com.iti.jets.openapi.model.FieldsWellsResponse;
 import com.iti.jets.openapi.model.WellRequest;
 import com.iti.jets.openapi.model.WellResponse;
 import com.iti.jets.reportingsystem.entities.Field;
