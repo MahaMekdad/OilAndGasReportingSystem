@@ -1,6 +1,7 @@
 package com.iti.jets.reportingsystem.repos;
 
 import com.iti.jets.reportingsystem.entities.FluidLevelMeasurements;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,9 +14,9 @@ import java.util.List;
 @Repository
 public interface FluidLevelMeasurementsRepository extends JpaRepository<FluidLevelMeasurements, Integer> {
 
-    List<FluidLevelMeasurements> findAllByDateGreaterThanEqualAndDateLessThanEqual(Date beginDate, Date endDate);
+    List<FluidLevelMeasurements> findAllByDateGreaterThanEqualAndDateLessThanEqual(Date beginDate, Date endDate, Pageable pageable);
 
-    List<FluidLevelMeasurements> findAllByWell_WellIdEquals(int wellId);
+    List<FluidLevelMeasurements> findAllByWell_WellIdEquals(int wellId, Pageable pageable);
 
     FluidLevelMeasurements findByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
 
@@ -24,9 +25,11 @@ public interface FluidLevelMeasurementsRepository extends JpaRepository<FluidLev
     @Transactional
     void removeByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
 
-    List<FluidLevelMeasurements> findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(int wellId, Date beginDate, Date endDate);
+    List<FluidLevelMeasurements> findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(int wellId, Date beginDate, Date endDate, Pageable pageable);
 
     @Query("select flm from FluidLevelMeasurements flm where flm.well.wellId = ?1")
     List<FluidLevelMeasurements> getAllForWellId(int wellId);
+
+//    List<FluidLevelMeasurements> findAll(Pageable pageable);
 
 }

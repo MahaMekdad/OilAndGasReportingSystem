@@ -11,12 +11,11 @@ import com.iti.jets.reportingsystem.repos.WellRepo;
 import com.iti.jets.reportingsystem.services.FluidLevelMeasurementsService;
 import com.iti.jets.reportingsystem.utils.mappers.FluidLevelMeasurementsMapper;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
 
@@ -58,29 +57,33 @@ public class FluidLevelMeasurementsServiceImpl implements FluidLevelMeasurements
         }
     }
 
-    public List<AllFluidLevelMeasurementResponse> getAllFLMS() {
+    @Override
+    public List<AllFluidLevelMeasurementResponse> getAllFLMS(Integer pageNum, Integer elementNum) {
 //        Type listType = new TypeToken<List<AllFluidLevelMeasurementResponse>>(){}.getType();
+        Pageable pageAndElements = PageRequest.of(pageNum, elementNum);
         List<AllFluidLevelMeasurementResponse> resultList;
-        resultList = flmMapper.mapAllFlmList(flmRepo.findAll());
+        resultList = flmMapper.mapAllFlmList(flmRepo.findAll(pageAndElements).toList());
 
         return resultList;
     }
 
     @Override
-    public List<AllFluidLevelMeasurementResponse> getAllFLMS(Date beginDate, Date endDate) {
+    public List<AllFluidLevelMeasurementResponse> getAllFLMS(Date beginDate, Date endDate, Integer pageNum, Integer elementNum) {
 //        Type listType = new TypeToken<List<AllFluidLevelMeasurementResponse>>(){}.getType();
+        Pageable pageAndElements = PageRequest.of(pageNum, elementNum);
         List<AllFluidLevelMeasurementResponse> resultList;
-        resultList = flmMapper.mapAllFlmList(flmRepo.findAllByDateGreaterThanEqualAndDateLessThanEqual(beginDate, endDate));
+        resultList = flmMapper.mapAllFlmList(flmRepo.findAllByDateGreaterThanEqualAndDateLessThanEqual(beginDate, endDate, pageAndElements));
         return resultList;
 
     }
 
     @Override
-    public List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId) {
+    public List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Integer pageNum, Integer elementNum) {
         if(wellRepo.findById(wellId).isPresent()){
 //            Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
+            Pageable pageAndElements = PageRequest.of(pageNum, elementNum);
             List<FluidLevelMeasurementResponse> resultList;
-            resultList = flmMapper.mapFlmList(flmRepo.findAllByWell_WellIdEquals(wellId));
+            resultList = flmMapper.mapFlmList(flmRepo.findAllByWell_WellIdEquals(wellId, pageAndElements));
             return resultList;
         } else {
             throw new ResourceNotFoundException("No FLM/Well found within the given well id");
@@ -88,12 +91,13 @@ public class FluidLevelMeasurementsServiceImpl implements FluidLevelMeasurements
     }
 
     @Override
-    public List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate) {
-        List<FluidLevelMeasurements> returnedList = flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate);
+    public List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate, Integer pageNum, Integer elementNum) {
+        Pageable pageAndElements = PageRequest.of(pageNum, elementNum);
+        List<FluidLevelMeasurements> returnedList = flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate, pageAndElements);
         if(wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()){
 //            Type listType = new TypeToken<List<FluidLevelMeasurementResponse>>(){}.getType();
             List<FluidLevelMeasurementResponse> resultList;
-            resultList = flmMapper.mapFlmList(flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate));
+            resultList = flmMapper.mapFlmList(flmRepo.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate, pageAndElements));
             return resultList;
         } else if (!wellRepo.findById(wellId).isPresent()){
             throw new ResourceNotFoundException("No FLM/Well found within the given well id");

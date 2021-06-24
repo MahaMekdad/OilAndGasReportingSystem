@@ -19,16 +19,16 @@ public interface FluidLevelMeasurementsService {
     void insert(FluidLevelMeasurementRequest fluidLevelMeasurementRequest, int WellId);
 
 //    List<FluidLevelMeasurementsModel> getAllFLMS();
-    List<AllFluidLevelMeasurementResponse> getAllFLMS();
+    List<AllFluidLevelMeasurementResponse> getAllFLMS(Integer pageNum, Integer elementNum);
 
 //    List<FluidLevelMeasurementsModel> getAllFLMS(Date beginDate, Date endDate);
-    List<AllFluidLevelMeasurementResponse> getAllFLMS(Date beginDate, Date endDate);
+    List<AllFluidLevelMeasurementResponse> getAllFLMS(Date beginDate, Date endDate, Integer pageNum, Integer elementNum);
 
 //    List<FluidLevelMeasurementsModel> getAllFLMSForAWell(int wellId);
-    List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId);
+    List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Integer pageNum, Integer elementNum);
 
 //    List<FluidLevelMeasurementsModel> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate);
-    List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate);
+    List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate, Integer pageNum, Integer elementNum);
 
 //    public void updateAllFLMSForAWell(int wellId, FluidLevelMeasurements fluidLevelMeasurement);
 //

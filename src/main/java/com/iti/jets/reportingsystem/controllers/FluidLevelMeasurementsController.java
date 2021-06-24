@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
@@ -60,15 +61,29 @@ public class FluidLevelMeasurementsController implements WellsApi {
     //get all in gen
     @PreAuthorize("permitAll()")
     @Override
-    public ResponseEntity<List<AllFluidLevelMeasurementResponse>> wellsFluidLevelMeasurementsGet(@Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
+    public ResponseEntity<List<AllFluidLevelMeasurementResponse>> wellsFluidLevelMeasurementsGet(@NotNull @Valid Integer pageNum, @NotNull @Valid Integer elementNum, @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {
             Date begin = Date.from(beginDate.toInstant());
             System.out.println(begin + " <== begin");
             Date end = Date.from(endDate.toInstant());
             System.out.println(end + " <== end");
-            return ResponseEntity.ok(flmService.getAllFLMS(begin, end));
+            return ResponseEntity.ok(flmService.getAllFLMS(begin, end, pageNum, elementNum));
         } else {
-            return ResponseEntity.ok(flmService.getAllFLMS());
+            return ResponseEntity.ok(flmService.getAllFLMS(pageNum, elementNum));
+        }
+    }
+
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
+    @Override
+    public ResponseEntity<List<FluidLevelMeasurementResponse>> wellsWellIdFluidLevelMeasurementsGet(Integer wellId, @NotNull @Valid Integer pageNum, @NotNull @Valid Integer elementNum, @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
+        if (beginDate != null && endDate != null) {
+            Date begin = Date.from(beginDate.toInstant());
+            System.out.println(begin + " <== begin");
+            Date end = Date.from(endDate.toInstant());
+            System.out.println(end + " <== end");
+            return ResponseEntity.ok(flmService.getAllFLMSForAWell(wellId, begin, end, pageNum, elementNum));
+        } else {
+            return ResponseEntity.ok(flmService.getAllFLMSForAWell(wellId, pageNum, elementNum));
         }
     }
 
@@ -76,20 +91,20 @@ public class FluidLevelMeasurementsController implements WellsApi {
 //    @PreAuthorize("isFlmConcessionMember(#wellId)")
 //    @PreAuthorize("repoHelper.isFlmConcessionMember(#wellId)")
 //    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId, principal.username))")
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
 //    @PreAuthorize("@mySecurityService.isFlmConcessionMember(#wellId)")
-    @Override
-    public ResponseEntity<List<FluidLevelMeasurementResponse>> wellsWellIdFluidLevelMeasurementsGet(Integer wellId, @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
-        if (beginDate != null && endDate != null) {
-            Date begin = Date.from(beginDate.toInstant());
-            System.out.println(begin + " <== begin");
-            Date end = Date.from(endDate.toInstant());
-            System.out.println(end + " <== end");
-            return ResponseEntity.ok(flmService.getAllFLMSForAWell(wellId, begin, end));
-        } else {
-            return ResponseEntity.ok(flmService.getAllFLMSForAWell(wellId));
-        }
-    }
+//    @Override
+//    public ResponseEntity<List<FluidLevelMeasurementResponse>> wellsWellIdFluidLevelMeasurementsGet(Integer wellId, @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
+//        if (beginDate != null && endDate != null) {
+//            Date begin = Date.from(beginDate.toInstant());
+//            System.out.println(begin + " <== begin");
+//            Date end = Date.from(endDate.toInstant());
+//            System.out.println(end + " <== end");
+//            return ResponseEntity.ok(flmService.getAllFLMSForAWell(wellId, begin, end));
+//        } else {
+//            return ResponseEntity.ok(flmService.getAllFLMSForAWell(wellId));
+//        }
+//    }
 
     @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
     @Override
