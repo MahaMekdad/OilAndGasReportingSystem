@@ -16,7 +16,13 @@ public interface FluidLevelMeasurementsRepository extends JpaRepository<FluidLev
 
     List<FluidLevelMeasurements> findAllByDateGreaterThanEqualAndDateLessThanEqual(Date beginDate, Date endDate, Pageable pageable);
 
-    List<FluidLevelMeasurements> findAllByWell_WellIdEquals(int wellId, Pageable pageable);
+    List<FluidLevelMeasurements> findAllByDateGreaterThanEqualAndDateLessThanEqual(Date beginDate, Date endDate);
+
+//    List<FluidLevelMeasurements> findAllByDateGreaterThanEqualAndDateLessThanEqual(Pageable pageable);
+
+//    List<FluidLevelMeasurements> findAllByWell_WellIdEquals(int wellId, Pageable pageable);
+
+    List<FluidLevelMeasurements> findAllByWell_WellIdEquals(int wellId);
 
     FluidLevelMeasurements findByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
 
@@ -26,6 +32,10 @@ public interface FluidLevelMeasurementsRepository extends JpaRepository<FluidLev
     void removeByWell_WellIdEqualsAndIdEquals(int wellId, int flmId);
 
     List<FluidLevelMeasurements> findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(int wellId, Date beginDate, Date endDate, Pageable pageable);
+
+    List<FluidLevelMeasurements> findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(int wellId, Date beginDate, Date endDate);
+
+    List<FluidLevelMeasurements> findAllByWell_WellIdEquals(int wellId, Pageable pageable);
 
     @Query("select flm from FluidLevelMeasurements flm where flm.well.wellId = ?1")
     List<FluidLevelMeasurements> getAllForWellId(int wellId);

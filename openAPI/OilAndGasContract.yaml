@@ -623,14 +623,14 @@ paths:
             example: 2021-03-16
         - in: query
           name: pageNum
-          required: true
+          required: false
           description: page number to get the right fluid level measurements records according
           schema:
             type: integer
             example: 1
         - in: query
           name: elementNum
-          required: true
+          required: false
           description: getting this number of the fluid level measurements records that are of that date or before
           schema:
             type: integer
@@ -750,14 +750,14 @@ paths:
             example: 2021-03-16
         - in: query
           name: pageNum
-          required: true
+          required: false
           description: page number to get the right fluid level measurements records according
           schema:
             type: integer
             example: 1
         - in: query
           name: elementNum
-          required: true
+          required: false
           description: getting this number of the fluid level measurements records that are of that date or before
           schema:
             type: integer
