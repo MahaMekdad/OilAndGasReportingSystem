@@ -88,8 +88,8 @@ public class WellsController implements WellsApi {
     }
 
     @Override
-    public ResponseEntity<IntervalsInfoResponse> wellsIntervalsInfoIdGet(Integer id) {
-        IntervalsInfoResponse intervalsInfoResponse=intervalsInfoService.getIntervalsInfoById(id);
+    public ResponseEntity<List<IntervalsInfoResponse>> wellsIntervalsInfoIdGet(Integer id) {
+        List<IntervalsInfoResponse> intervalsInfoResponse=intervalsInfoService.getIntervalsInfoById(id);
         if (intervalsInfoResponse==null){
             return ResponseEntity.notFound().build();
         }

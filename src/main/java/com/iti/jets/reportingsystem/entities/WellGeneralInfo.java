@@ -35,10 +35,10 @@ public class WellGeneralInfo  implements java.io.Serializable {
      private String areaName;
      private String leaseName;
      private String boreName;
-     private Double XCord;
-     private Double YCord;
+     private Double xcord;
+     private Double ycord;
      private Double lat;
-     private Double long_;
+     private Double longitude;
 
     public WellGeneralInfo() {
     }
@@ -54,10 +54,10 @@ public class WellGeneralInfo  implements java.io.Serializable {
        this.areaName = areaName;
        this.leaseName = leaseName;
        this.boreName = boreName;
-       this.XCord = XCord;
-       this.YCord = YCord;
+       this.xcord = XCord;
+       this.ycord = YCord;
        this.lat = lat;
-       this.long_ = long_;
+       this.longitude = long_;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -134,22 +134,22 @@ public class WellGeneralInfo  implements java.io.Serializable {
 
     
     @Column(name="x_cord", precision=22, scale=0)
-    public Double getXCord() {
-        return this.XCord;
+    public Double getXcord() {
+        return this.xcord;
     }
     
-    public void setXCord(Double XCord) {
-        this.XCord = XCord;
+    public void setXcord(Double XCord) {
+        this.xcord = XCord;
     }
 
     
     @Column(name="y_cord", precision=22, scale=0)
-    public Double getYCord() {
-        return this.YCord;
+    public Double getYcord() {
+        return this.ycord;
     }
     
-    public void setYCord(Double YCord) {
-        this.YCord = YCord;
+    public void setYcord(Double YCord) {
+        this.ycord = YCord;
     }
 
     
@@ -163,13 +163,13 @@ public class WellGeneralInfo  implements java.io.Serializable {
     }
 
     
-    @Column(name="long_", precision=22, scale=0)
-    public Double getLong_() {
-        return this.long_;
+    @Column(name="longitude", precision=22, scale=0)
+    public Double getLongitude() {
+        return this.longitude;
     }
     
-    public void setLong_(Double long_) {
-        this.long_ = long_;
+    public void setLongitude(Double long_) {
+        this.longitude = long_;
     }
 
 

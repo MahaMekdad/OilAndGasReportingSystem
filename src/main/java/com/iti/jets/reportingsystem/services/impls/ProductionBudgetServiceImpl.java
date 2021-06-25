@@ -3,6 +3,7 @@ package com.iti.jets.reportingsystem.services.impls;
 import com.iti.jets.openapi.model.ProductionBudegetDataResponse;
 import com.iti.jets.openapi.model.ProductionBudegetRequest;
 import com.iti.jets.reportingsystem.entities.ProductionBudget;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.ProductionBudgetRepository;
 import com.iti.jets.reportingsystem.services.ProductionBudgetService;
 import org.modelmapper.ModelMapper;
@@ -69,6 +70,10 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
 
     @Override
     public void delete(int id) {
+        if(!productionBudgetRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record found with this id");
+        }
         productionBudgetRepository.deleteById(id);
 
     }
@@ -77,6 +82,10 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
     public List<ProductionBudegetDataResponse> findProductionBudgetByProductionDate(Date date) {
         System.out.println("Production_date======= " + date);
         List<ProductionBudget> productionBudget = productionBudgetRepository.findByProductionDateEquals(date);
+        if(productionBudget == null)
+        {
+            throw new ResourceNotFoundException("There is no record with this date");
+        }
         System.out.println("productionBudget Date object ===== " + productionBudget);
         List<ProductionBudegetDataResponse> productionBudgetModel = new ArrayList<>();
         Type listType = new TypeToken<List<ProductionBudegetDataResponse>>() {
@@ -92,6 +101,10 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
 
     @Override
     public ProductionBudegetDataResponse findProductionBudgetById(int id) {
+        if(!productionBudgetRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         System.out.println("id = " + id);
         ProductionBudget productionBudget = productionBudgetRepository.findProductionBudgetById(id);
         System.out.println("productionBudget Date object ===== " + productionBudget);
@@ -103,6 +116,10 @@ public class ProductionBudgetServiceImpl implements ProductionBudgetService {
 
     @Override
     public void updateProductionBudget(int id, ProductionBudegetRequest productionBudgetModel) {
+        if(!productionBudgetRepository.findById(id).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         ProductionBudget productionBudget = productionBudgetRepository.findById(id).get();
         if (productionBudgetModel.getProductionDate() != null) {
             LocalDate localDate = productionBudgetModel.getProductionDate().toLocalDate();

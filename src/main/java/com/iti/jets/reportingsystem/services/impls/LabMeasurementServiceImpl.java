@@ -39,6 +39,10 @@ public class LabMeasurementServiceImpl implements LabMeasurementService {
 
     @Override
     public void insert(Integer wellId, LabMeasurementRequest labMeasurementRequest) {
+        if(!wellRepo.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with the given id");
+        }
 
         Well well = wellRepo.findById(wellId).isPresent() ?
                 wellRepo.findById(wellId).get() : null;
@@ -55,6 +59,10 @@ public class LabMeasurementServiceImpl implements LabMeasurementService {
 
     @Override
     public void update(Integer wellId, Integer labId, LabMeasurementRequest labMeasurementRequest) {
+        if(!wellRepo.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with the given id");
+        }
         List<LabMesurement> list = new ArrayList<>();
         LabMesurement labMesurement = new LabMesurement();
         LabMesurement labMesurement2 = new LabMesurement();
@@ -85,6 +93,10 @@ public class LabMeasurementServiceImpl implements LabMeasurementService {
 
     @Override
     public List<LabMeasurementResponse> getAllLabsFromWell(Integer wellId) {
+        if(!wellRepo.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with the given id");
+        }
         List<LabMesurement> returnedList = labMeasurementRepository.findAllByWell_WellIdEquals(wellId);
         Type listType = new TypeToken<List<LabMeasurementResponse>>(){}.getType();
         List<LabMeasurementResponse> list;
@@ -105,6 +117,10 @@ public class LabMeasurementServiceImpl implements LabMeasurementService {
 
     @Override
     public List<LabMeasurementResponse> getAllLabsFromWell(Integer wellId ,Date beginDate, Date endDate){
+        if(!wellRepo.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with the given id");
+        }
         List<LabMesurement> returnedList = labMeasurementRepository.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate);
         if(wellRepo.findById(wellId).isPresent() && !returnedList.isEmpty()){
             Type listType = new TypeToken<List<LabMeasurementResponse>>(){}.getType();
@@ -121,6 +137,14 @@ public class LabMeasurementServiceImpl implements LabMeasurementService {
 
     @Override
     public LabMeasurementResponse getAlabFromAwell(Integer wellId, Integer labId) {
+        if(!wellRepo.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with the given id");
+        }
+        if(!labMeasurementRepository.findById(labId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with the given id");
+        }
         List<LabMeasurementResponse> LabMesurementsList = new ArrayList<>();
         LabMesurementsList=getAllLabsFromWell(wellId);
         LabMeasurementResponse labMeasurementResponse = new LabMeasurementResponse();
@@ -130,8 +154,21 @@ public class LabMeasurementServiceImpl implements LabMeasurementService {
 
     @Override
     public boolean delete(Integer wellId, Integer labId) {
+        if(!labMeasurementRepository.findById(labId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with the given id");
+
+        }
+        if(!wellRepo.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with the given id");
+        }
         LabMeasurementResponse labMeasurementResponse ;
         labMeasurementResponse=getAlabFromAwell(wellId,labId);
+        if(labMeasurementResponse == null)
+        {
+            throw new ResourceNotFoundException("There no record found");
+        }
 
         if(labMeasurementResponse != null) {
             labMeasurementRepository.deleteByWellIdAndLabId(wellId , labId);

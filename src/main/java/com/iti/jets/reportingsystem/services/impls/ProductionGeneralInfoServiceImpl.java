@@ -128,6 +128,7 @@ public class ProductionGeneralInfoServiceImpl implements ProductionGeneralInfoSe
 
     @Override
     public List<ProductionGeneralInfoResponse> getAllPGISForAWellCurrentStatus(int wellId, String currentStatus) {
+
         if(wellRepo.findById((wellId)).isPresent()){
             List<ProductionGeneralInfo> returnedList = pgiRepo.findAllByWell_WellIdEqualsAndCurrentStatusEquals(wellId, currentStatus) , listType;
             return pgiMapper.mapPgi(returnedList);
@@ -146,6 +147,14 @@ public class ProductionGeneralInfoServiceImpl implements ProductionGeneralInfoSe
 
     @Override
     public void updateSpecificPGIS(int wellId, int pgiId, ProductionGeneralInfoRequest productionGeneralInfoRequest) {
+        if(!wellRepo.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with this id");
+        }
+        if(!pgiRepo.findById(pgiId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         if(pgiRepo.findByWell_WellIdEqualsAndIdEquals(wellId, pgiId) != null){
             ProductionGeneralInfo pgiObjToUpdate = pgiRepo.findByWell_WellIdEqualsAndIdEquals(wellId, pgiId);
             pgiObjToUpdate = pgiMapper.mapForPatch(productionGeneralInfoRequest, pgiObjToUpdate);
@@ -157,6 +166,14 @@ public class ProductionGeneralInfoServiceImpl implements ProductionGeneralInfoSe
 
     @Override
     public void deleteSpecificPGIS(int wellId, int pgiId) {
+        if(!wellRepo.findById(wellId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no well with this id");
+        }
+        if(!pgiRepo.findById(pgiId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         if(pgiRepo.findByWell_WellIdEqualsAndIdEquals(wellId, pgiId) != null){
             pgiRepo.removeByWell_WellIdEqualsAndIdEquals(wellId, pgiId);
         } else {
