@@ -56,14 +56,15 @@ public class BudgetVsActualServiceImpl implements BudgetVsActualService {
         BudgetActual entity = modelMapper.map(requestBody, BudgetActual.class);
         entity.setMeleihaPercentage((entity.getMeleihaActual()/entity.getMeleihaBudget())*100);
         entity.setAgharPercentage((entity.getAgharActual()/entity.getAgharBudget())*100);
-        entity.setEastKanysPercentage((entity.getEastKanaysActual()/entity.getEastKanysPercentage())*100);
+//        entity.setEastKanysPercentage((entity.getEastKanaysActual()/entity.getEastKanysPercentage())*100);
         entity.setZarifPercentage((entity.getZarifActual()/entity.getZarifBudget())*100);
         entity.setFarasPercentage((entity.getFarasActual()/entity.getFarasBudget())*100);
         entity.setRamlPercentage((entity.getRamlActual()/entity.getRamlBudget())*100);
         entity.setWesternDesertPercentage((entity.getWesternDesertActual()/entity.getWesternDesertBudget())*100);
         entity.setAshrafiPercentage((entity.getAshrafiActual()/entity.getAshrafiBudget())*100);
         System.out.println(entity.getAshrafiPercentage() + "----->");
-        entity.setAgibaOilPercentage((entity.getAgibaOilActual()/entity.getAgibOilBudget())*100);
+//        entity.setAgibaOilPercentage((entity.getAgibaOilActual()/entity.getAgibOilBudget())*100);
+        System.out.println(entity.toString());
         budgetVsActualRepository.save(entity);
         return modelMapper.map(requestBody, FieldsBudgetAndActualResponse.class);
     }
