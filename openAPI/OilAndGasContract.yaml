@@ -605,7 +605,7 @@ paths:
     get:
       tags:
         - FluidLevelMeasurements
-      description: getting the fluid level measurements for a specific well id
+      description: getting the fluid level measurements for all wells
       parameters:
         - in: query
           name: beginDate
@@ -621,6 +621,20 @@ paths:
             type: string
             format: date-time
             example: 2021-03-16
+        - in: query
+          name: pageNum
+          required: false
+          description: page number to get the right fluid level measurements records according
+          schema:
+            type: integer
+            example: 1
+        - in: query
+          name: elementNum
+          required: false
+          description: getting this number of the fluid level measurements records that are of that date or before
+          schema:
+            type: integer
+            example: 20
 
       responses:
         200:
@@ -734,6 +748,20 @@ paths:
             type: string
             format: date-time
             example: 2021-03-16
+        - in: query
+          name: pageNum
+          required: false
+          description: page number to get the right fluid level measurements records according
+          schema:
+            type: integer
+            example: 1
+        - in: query
+          name: elementNum
+          required: false
+          description: getting this number of the fluid level measurements records that are of that date or before
+          schema:
+            type: integer
+            example: 20
 
       responses:
         200:
