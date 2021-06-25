@@ -172,4 +172,24 @@ public class FluidLevelMeasurementsServiceImpl implements FluidLevelMeasurements
         }
 //        flmRepo.removeByWell_WellIdEqualsAndIdEquals(wellId, flmId);
     }
+
+//    @Override
+//    public List<FluidLevelMeasurementPerYearResponse> getTotalFluidLevelByYear() {
+//        return flmRepo.getTotalFluidLevelByYear();
+//    }
+//
+//    @Override
+//    public List<FluidLevelMeasurementPerYearResponse> getTotalFluidLevelForASpecificYearRange(Integer yr1, Integer yr2) {
+//        return flmRepo.getTotalFluidLevelForASpecificYearRange(yr1, yr2);
+//    }
+//
+//    @Override
+//    public List<FluidLevelMeasurementPerYearResponse> getAverageFluidLevelByYear() {
+//        return flmRepo.getAverageFluidLevelByYear();
+//    }
+//
+//    @Override
+//    public List<FluidLevelMeasurementPerYearResponse> getAverageFluidLevelForASpecificYearRange(Integer yr1, Integer yr2) {
+//        return flmRepo.getAverageFluidLevelForASpecificYearRange(yr1, yr2);
+//    }
 }

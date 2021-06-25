@@ -46,4 +46,12 @@ public interface FluidLevelMeasurementsService {
     void updateSpecificFLMS(int wellId, int flmId, FluidLevelMeasurementRequest fluidLevelMeasurementRequest);
 
     void deleteSpecificFLMS(int wellId, int flmId);
+
+//    List<FluidLevelMeasurementPerYearResponse> getTotalFluidLevelByYear();
+//
+//    List<FluidLevelMeasurementPerYearResponse> getTotalFluidLevelForASpecificYearRange(Integer yr1, Integer yr2);
+//
+//    List<FluidLevelMeasurementPerYearResponse> getAverageFluidLevelByYear();
+//
+//    List<FluidLevelMeasurementPerYearResponse> getAverageFluidLevelForASpecificYearRange(Integer yr1, Integer yr2);
 }
