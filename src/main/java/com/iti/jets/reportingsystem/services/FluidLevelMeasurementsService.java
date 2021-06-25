@@ -22,13 +22,21 @@ public interface FluidLevelMeasurementsService {
     List<AllFluidLevelMeasurementResponse> getAllFLMS();
 
 //    List<FluidLevelMeasurementsModel> getAllFLMS(Date beginDate, Date endDate);
-    List<AllFluidLevelMeasurementResponse> getAllFLMS(Date beginDate, Date endDate);
+    List<AllFluidLevelMeasurementResponse> getAllFLMSWithDateAndPaging(Date beginDate, Date endDate, Integer pageNum, Integer elementNum);
+
+    List<AllFluidLevelMeasurementResponse> getAllFLMSWithPaging(Integer pageNum, Integer elementNum);
+
+    List<AllFluidLevelMeasurementResponse> getAllFLMSWithDate(Date beginDate, Date endDate);
 
 //    List<FluidLevelMeasurementsModel> getAllFLMSForAWell(int wellId);
     List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId);
 
 //    List<FluidLevelMeasurementsModel> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate);
-    List<FluidLevelMeasurementResponse> getAllFLMSForAWell(int wellId, Date beginDate, Date endDate);
+    List<FluidLevelMeasurementResponse> getAllFLMSForAWellWithDateAndPaging(int wellId, Date beginDate, Date endDate, Integer pageNum, Integer elementNum);
+
+    List<FluidLevelMeasurementResponse> getAllFLMSForAWellWithDate(int wellId, Date beginDate, Date endDate);
+
+    List<FluidLevelMeasurementResponse> getAllFLMSForAWellWithPaging(int wellId, Integer pageNum, Integer elementNum);
 
 //    public void updateAllFLMSForAWell(int wellId, FluidLevelMeasurements fluidLevelMeasurement);
 //
@@ -38,4 +46,12 @@ public interface FluidLevelMeasurementsService {
     void updateSpecificFLMS(int wellId, int flmId, FluidLevelMeasurementRequest fluidLevelMeasurementRequest);
 
     void deleteSpecificFLMS(int wellId, int flmId);
+
+//    List<FluidLevelMeasurementPerYearResponse> getTotalFluidLevelByYear();
+//
+//    List<FluidLevelMeasurementPerYearResponse> getTotalFluidLevelForASpecificYearRange(Integer yr1, Integer yr2);
+//
+//    List<FluidLevelMeasurementPerYearResponse> getAverageFluidLevelByYear();
+//
+//    List<FluidLevelMeasurementPerYearResponse> getAverageFluidLevelForASpecificYearRange(Integer yr1, Integer yr2);
 }
