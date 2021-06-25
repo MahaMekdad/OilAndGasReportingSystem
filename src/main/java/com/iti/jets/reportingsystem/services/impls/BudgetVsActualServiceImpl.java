@@ -3,6 +3,7 @@ package com.iti.jets.reportingsystem.services.impls;
 import com.iti.jets.openapi.model.FieldsBudgetAndActualRequest;
 import com.iti.jets.openapi.model.FieldsBudgetAndActualResponse;
 import com.iti.jets.reportingsystem.entities.BudgetActual;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.BudgetVsActualRepository;
 import com.iti.jets.reportingsystem.services.BudgetVsActualService;
 import org.modelmapper.ModelMapper;
@@ -70,6 +71,10 @@ public class BudgetVsActualServiceImpl implements BudgetVsActualService {
 
     @Override
     public FieldsBudgetAndActualResponse updateBudgetRecord(int recordId, FieldsBudgetAndActualRequest requestBody) {
+        if(!budgetVsActualRepository.findById(recordId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         Optional<BudgetActual> findOptional = budgetVsActualRepository.findById(recordId);
         System.out.println("1:the passed id is: " + recordId);
         if (findOptional.isPresent()) {
@@ -85,6 +90,10 @@ public class BudgetVsActualServiceImpl implements BudgetVsActualService {
 
     @Override
     public void deleteRecord(int recordId) {
+        if(!budgetVsActualRepository.findById(recordId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         Optional<BudgetActual> findOptional = budgetVsActualRepository.findById(recordId);
         if (findOptional.isPresent()) {
             budgetVsActualRepository.deleteById(recordId);

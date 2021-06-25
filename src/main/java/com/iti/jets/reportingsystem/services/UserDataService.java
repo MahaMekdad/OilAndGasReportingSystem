@@ -1,6 +1,7 @@
 package com.iti.jets.reportingsystem.services;
 
 import com.iti.jets.openapi.model.LoginRequest;
+import com.iti.jets.openapi.model.UserLoggedInResponse;
 import com.iti.jets.openapi.model.UserRequest;
 import com.iti.jets.openapi.model.UserResponse;
 
@@ -22,5 +23,5 @@ public interface UserDataService {
 
     void addUserRole(int roleId, int userId);
 
-    UserResponse login(LoginRequest loginRequest);
+    UserLoggedInResponse login(LoginRequest loginRequest);
 }
