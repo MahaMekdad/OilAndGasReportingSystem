@@ -2,14 +2,18 @@ package com.iti.jets.reportingsystem.services.impls;
 
 import com.iti.jets.openapi.model.WellGeneralInfoRequest;
 import com.iti.jets.openapi.model.WellGeneralInfoResponse;
+import com.iti.jets.reportingsystem.entities.Field;
 import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
 import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
+import com.iti.jets.reportingsystem.models.WellCoordinatesDto;
+import com.iti.jets.reportingsystem.repos.FieldRepository;
 import com.iti.jets.reportingsystem.repos.WellGeneralInfoRepository;
 import com.iti.jets.reportingsystem.repos.WellRespository;
 import com.iti.jets.reportingsystem.services.WellGeneralInfoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,14 +25,15 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
     private WellGeneralInfoRepository wellGeneralInfoRepository;
     private WellRespository wellRespository;
     private ModelMapper mapper;
+    private FieldRepository fieldRepository;
     @Autowired
     public WellGeneralInfoServiceImpl(WellGeneralInfoRepository wellGeneralInfoRepository, ModelMapper modelMapper
-            , WellRespository wellRespository){
+            , WellRespository wellRespository,FieldRepository fieldRepository){
         this.wellGeneralInfoRepository=wellGeneralInfoRepository;
         this.mapper=modelMapper;
         this.wellRespository=wellRespository;
         mapper.getConfiguration().setAmbiguityIgnored(true);
-
+        this.fieldRepository=fieldRepository;
     }
 
     public List<WellGeneralInfoResponse> getAllWellsGeneralInfo(){
@@ -106,5 +111,9 @@ public class WellGeneralInfoServiceImpl implements WellGeneralInfoService {
         }
     }
 
+    public List<WellGeneralInfo> getWellsCoordinates(int fieldId){
+        Field field=fieldRepository.findById(fieldId).get();
+        return wellGeneralInfoRepository.findWellsGeneralInfoByFieldId(field);
+    }
 
 }
