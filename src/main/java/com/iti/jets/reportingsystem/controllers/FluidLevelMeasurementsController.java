@@ -2,9 +2,11 @@ package com.iti.jets.reportingsystem.controllers;
 
 import com.iti.jets.openapi.api.WellsApi;
 import com.iti.jets.openapi.model.*;
+import com.iti.jets.reportingsystem.entities.Field;
 import com.iti.jets.reportingsystem.entities.IntervalsInfo;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
 import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
+import com.iti.jets.reportingsystem.models.WellCoordinatesDto;
 import com.iti.jets.reportingsystem.services.*;
 import com.iti.jets.reportingsystem.services.impls.IntervalsInfoServiceImpl;
 import com.iti.jets.reportingsystem.services.impls.WellGeneralInfoServiceImpl;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
@@ -264,17 +268,24 @@ public class FluidLevelMeasurementsController implements WellsApi {
     @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellGenInfoConcessionMember(#wellGeneralInfoRequest.wellId))")
     @Override
     public ResponseEntity<Void> wellsGeneralInfoPost(@Valid WellGeneralInfoRequest wellGeneralInfoRequest) {
-        System.out.println("1");
+
         WellGeneralInfo wellGeneralInfo = wellGeneralInfoService.saveWellGeneralInfo(wellGeneralInfoRequest);
         if (wellGeneralInfo == null) {
-            System.out.println("2");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        System.out.println("3");
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellGenInfoConcessionMember(#wellGeneralInfoRequest.wellId))")
+    @GetMapping("/wellsCoordinates/{fieldId}")
+    public ResponseEntity<List<WellCoordinatesDto>> getWellsCoordinates(@PathVariable Integer fieldId) {
+        List<WellGeneralInfo> wellGeneralInfos=wellGeneralInfoService.getWellsCoordinates(fieldId);
+        List<WellCoordinatesDto> wellCoordinatesDtoList=new ArrayList<>();
+        for(WellGeneralInfo wellGeneralInfo:wellGeneralInfos){
+            wellCoordinatesDtoList.add(new WellCoordinatesDto(wellGeneralInfo.getXcord(),wellGeneralInfo.getYcord(),wellGeneralInfo.getWell().getWellName()));
+        }
+        return ResponseEntity.ok(wellCoordinatesDtoList);
+    }
 //    ######################IntervalsInformation#########################
 
 

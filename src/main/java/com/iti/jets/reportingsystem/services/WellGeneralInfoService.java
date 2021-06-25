@@ -4,6 +4,8 @@ import com.iti.jets.openapi.model.WellGeneralInfoRequest;
 import com.iti.jets.openapi.model.WellGeneralInfoResponse;
 import com.iti.jets.reportingsystem.entities.Well;
 import com.iti.jets.reportingsystem.entities.WellGeneralInfo;
+import com.iti.jets.reportingsystem.models.WellCoordinatesDto;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,5 @@ public interface WellGeneralInfoService {
     public WellGeneralInfo saveWellGeneralInfo(WellGeneralInfoRequest wellGeneralInfoRequest);
     public boolean updateWellGeneralInfo(int id,WellGeneralInfoRequest wellGeneralInfoRequest);
     public boolean deleteWellGeneralInfo(int id);
-
-
+    public List<WellGeneralInfo> getWellsCoordinates(int fieldId);
 }
