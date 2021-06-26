@@ -78,7 +78,7 @@ public class GeneralConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //        http.cors().disable();
 
-        http.csrf().disable().authorizeRequests().antMatchers("/login")
+        http.csrf().disable().authorizeRequests().antMatchers("/login", "/users")
                 .permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()

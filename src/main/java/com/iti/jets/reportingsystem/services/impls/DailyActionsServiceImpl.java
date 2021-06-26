@@ -98,6 +98,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
 
     @Override
     public List<WellDailyActionsResponse> getAllDailyActions() {
+        System.out.println("lolHRE");
         Type listType = new TypeToken<List<WellDailyActionsResponse>>() {
         }.getType();
         List<WellDailyActionsResponse> list;
@@ -105,6 +106,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         List<DailyActions> list1 = dailyActionsRepository.findAll();
         for (int i = 0; i < list.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
+            list.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
@@ -141,6 +143,8 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         List<DailyActions> list1 = dailyActionsRepository.findAll();
         for (int i = 0; i < resultList.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
+            resultList.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
+
             resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return resultList;
@@ -164,6 +168,8 @@ public class DailyActionsServiceImpl implements DailyActionsService {
             resultList = modelMapper.map(dailyActionsRepository.findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(wellId, beginDate, endDate), listType);
             List<DailyActions> list1 = dailyActionsRepository.findAll();
             for (int i = 0; i < resultList.size(); i++) {
+                resultList.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
+
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
                 resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
             }

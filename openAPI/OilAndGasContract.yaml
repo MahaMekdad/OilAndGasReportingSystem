@@ -6054,7 +6054,7 @@ components:
 
         phoneNumber:
           type: string
-          pattern: '^(\\+2)?01\\d{9}$'
+#          pattern: '^(\\+2)?01\\d{9}$'
 
         jobTitle:
           type: integer
