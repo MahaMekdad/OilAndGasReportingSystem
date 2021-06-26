@@ -6036,7 +6036,6 @@ components:
         - email
         - phoneNumber
         - jobLocation
-        - password
       properties:
         firstName:
           type: string
