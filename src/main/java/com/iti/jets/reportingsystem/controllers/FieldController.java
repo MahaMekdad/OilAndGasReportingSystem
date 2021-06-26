@@ -7,6 +7,7 @@ import com.iti.jets.reportingsystem.services.FieldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityNotFoundException;
@@ -30,6 +31,7 @@ public class FieldController implements FieldsApi {
         return ResponseEntity.ok(responseList);
     }
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellConcessionMember(#fieldId))")
     @Override
     public ResponseEntity<FieldResponse> getfieldById(Long fieldId) {
 
@@ -37,12 +39,14 @@ public class FieldController implements FieldsApi {
     }
 
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellConcessionMember(#id))")
     @Override
     public ResponseEntity<Void> deletefieldById(Integer id) {
         fieldService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellConcessionMember(#fieldId))")
     @Override
     public ResponseEntity<Void> updatefieldMeasurement(Long fieldId, @Valid FieldRequest fieldRequest) {
         FieldResponse fieldResponse = null;
@@ -57,6 +61,7 @@ public class FieldController implements FieldsApi {
     }
 
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isConcessionMember(#fieldRequest.concessionId()))")
     @Override
     public ResponseEntity<Void> addfieldMeasurement(@Valid FieldRequest fieldRequest) {
         fieldService.insert(fieldRequest);
