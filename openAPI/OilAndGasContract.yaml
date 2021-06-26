@@ -5885,6 +5885,8 @@ components:
     fieldsBudgetAndActualResponse:
       type: object
       properties:
+        recordId:
+          type: number
         productionDate:
           type: string
           format: data-time
@@ -6188,7 +6190,6 @@ components:
       example:
         email: maha@gmail.com
         password: 12345
-
 
     ErrorDetails:
       type: object
