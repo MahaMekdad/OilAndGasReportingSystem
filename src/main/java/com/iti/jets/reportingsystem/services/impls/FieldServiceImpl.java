@@ -82,7 +82,10 @@ public class FieldServiceImpl implements FieldService {
         {
             throw new ResourceNotFoundException("There is no record with this id");
         }
-        return modelMapper.map(fieldRepository.findById(fieldId).get(),FieldResponse.class);
+        Field field = fieldRepository.findById(fieldId).get();
+        FieldResponse result = modelMapper.map(fieldRepository.findById(fieldId).get(),FieldResponse.class);
+        result.setConcessionId(field.getConcession().getConcessionId());
+        return result;
     }
 
 
