@@ -3,6 +3,7 @@ package com.iti.jets.reportingsystem.services.impls;
 import com.iti.jets.openapi.model.*;
 import com.iti.jets.reportingsystem.entities.Field;
 import com.iti.jets.reportingsystem.entities.Well;
+import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.repos.DummyCon;
 import com.iti.jets.reportingsystem.repos.FieldRepository;
 import com.iti.jets.reportingsystem.services.FieldService;
@@ -47,6 +48,10 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public FieldResponse update(int fieldId, FieldRequest fieldRequest) {
+        if(!fieldRepository.findById(fieldId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         Optional<Field> fieldById = fieldRepository.findById(fieldId);
         if (fieldById.isPresent()){
             Field field = fieldById.get();
@@ -73,13 +78,23 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public FieldResponse getFieldByID(Integer fieldId) {
-
-        return modelMapper.map(fieldRepository.findById(fieldId).get(),FieldResponse.class);
+        if(!fieldRepository.findById(fieldId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
+        Field field = fieldRepository.findById(fieldId).get();
+        FieldResponse result = modelMapper.map(fieldRepository.findById(fieldId).get(),FieldResponse.class);
+        result.setConcessionId(field.getConcession().getConcessionId());
+        return result;
     }
 
 
     @Override
     public boolean delete(Integer fieldId) {
+        if(!fieldRepository.findById(fieldId).isPresent())
+        {
+            throw new ResourceNotFoundException("There is no record with this id");
+        }
         FieldResponse fieldResponse ;
         fieldResponse= (FieldResponse) getFieldByID(fieldId);
 
