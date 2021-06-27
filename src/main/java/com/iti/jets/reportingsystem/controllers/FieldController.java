@@ -31,7 +31,7 @@ public class FieldController implements FieldsApi {
         return ResponseEntity.ok(responseList);
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellConcessionMember(#fieldId))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellConcessionMember(#fieldId))")
     @Override
     public ResponseEntity<FieldResponse> getfieldById(Long fieldId) {
 

@@ -98,6 +98,7 @@ public class ProductionBudgetController implements ConcessionsApi {
 
 
     //---------------------Basiony, adding concession functionality--------------
+    @PreAuthorize("hasRole('OFFICE ENGINEER')")
     @Override
     public ResponseEntity<ConcessionResponse> addConcession(@Valid ConcessionRequest concessionRequest) {
         ConcessionResponse concessionResponse = concessionService.addConcession(concessionRequest);
@@ -109,7 +110,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         List<ConcessionResponse> concessions = concessionService.findAllConcessions();
         return new ResponseEntity<>(concessions, HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isConcessionMember(#id))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isConcessionMember(#id))")
     @Override
     public ResponseEntity<ConcessionResponse> getConcessionById(Integer id) {
         ConcessionResponse concessionResponse = null;
@@ -149,12 +150,14 @@ public class ProductionBudgetController implements ConcessionsApi {
         return ResponseEntity.ok(budgetVsActualService.findAll());
     }
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER')")
     @Override
     public ResponseEntity<FieldsBudgetAndActualResponse> updateBudgetRecord(
             Integer id, @Valid FieldsBudgetAndActualRequest fieldsBudgetAndActualRequest) {
         return ResponseEntity.ok(budgetVsActualService.updateBudgetRecord(id, fieldsBudgetAndActualRequest));
     }
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER')")
     @Override
     public ResponseEntity<Void> deleteRecord(Integer id) {
 //        deleting budget vs actual record
@@ -162,6 +165,7 @@ public class ProductionBudgetController implements ConcessionsApi {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasRole('OFFICE ENGINEER')")
     @Override
     public ResponseEntity<FieldsBudgetAndActualResponse> addBudgetRecord(
             @Valid FieldsBudgetAndActualRequest fieldsBudgetAndActualRequest) {

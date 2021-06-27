@@ -65,10 +65,10 @@ public class  DrillingServiceImpl implements DrillingInfoService {
 
     @Override
     public List<DrillingInfoDataResponse> getForWellId(int id) {
-        if(!drillingInfoRepository.findById(id).isPresent())
-        {
-            throw new ResourceNotFoundException("There is no drilling info with this id");
-        }
+//        if(!drillingInfoRepository.findById(id).isPresent())
+//        {
+//            throw new ResourceNotFoundException("There is no drilling info with this id");
+//        }
         List<DrillingInfo> drillingInfo = drillingInfoRepository.getAllForWellId(id);
         System.out.println("drillingInfo====== " + drillingInfo);
         List<DrillingInfoDataResponse> drillingInfoModel = new ArrayList<>();

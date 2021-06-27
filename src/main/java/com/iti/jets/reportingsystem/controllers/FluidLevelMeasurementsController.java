@@ -84,7 +84,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         }
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
     @Override
     public ResponseEntity<List<FluidLevelMeasurementResponse>> wellsWellIdFluidLevelMeasurementsGet(Integer wellId, @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate, @Valid Integer pageNum, @Valid Integer elementNum) {
         if (beginDate != null && endDate != null && pageNum != null && elementNum != null) {
@@ -190,7 +190,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return ResponseEntity.ok(pgiService.getAllPGIS());
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
     @Override
     public ResponseEntity<List<ProductionGeneralInfoResponse>> wellsWellIdProductionGeneralInfoGet(Integer wellId, @Valid String powerSourceType, @Valid String processionPlant, @Valid String currentWellType, @Valid String currentLiftType, @Valid String currentStatus) {
         //todo ask basiony can they be together or req of each alone?
@@ -240,7 +240,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
     @Override
     public ResponseEntity<List<DrillingInfoDataResponse>> wellsWellIdDrillingInfoGet(Integer wellId) {
         List<DrillingInfoDataResponse> drillingInfoDataResponses = drillingInfoService.getForWellId(wellId);
@@ -255,7 +255,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
     @Override
     public ResponseEntity<DrillingInfoDataResponse> wellsWellIdDrillingInfoIdGet(Integer wellId, Integer id) {
         DrillingInfoDataResponse drillingInfoDataResponse = drillingInfoService.getWellForId(wellId, id);
@@ -304,7 +304,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return ResponseEntity.notFound().build();
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellGenInfoConcessionMember(#id))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isWellGenInfoConcessionMember(#id))")
     @Override
     public ResponseEntity<WellGeneralInfoResponse> wellsGeneralInfoIdGet(Integer id) {
         WellGeneralInfoResponse wellGeneralInfoResponse = wellGeneralInfoService.getWellGeneralInfoById(id);
@@ -362,9 +362,8 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return ResponseEntity.notFound().build();
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isIntervalsInfoConcessionMember(#id))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isIntervalsInfoConcessionMember(#id))")
     @Override
-
     public ResponseEntity<List<IntervalsInfoResponse>> wellsIntervalsInfoIdGet(Integer wellId) {
         List<IntervalsInfoResponse> intervalsInfoResponse=intervalsInfoService.getIntervalsInfoById(wellId);
         if (intervalsInfoResponse==null){
@@ -403,7 +402,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return ResponseEntity.ok(responseList);
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
     @Override
     public ResponseEntity<WellResponse> getwellById(Long wellId) {
 //        if(wellService.getWellByID(Math.toIntExact(wellId)) == null)
@@ -455,7 +454,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return new ResponseEntity<>(responseList, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId))")
     @Override
     public ResponseEntity<List<WellTestResponse>> getTestById(Integer wellId, OffsetDateTime beginDate, OffsetDateTime endDate) {
         List<WellTestResponse> responsesList = wellTestDataService.getAllTestsForAWell(wellId);
@@ -501,7 +500,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return null;
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
     @Override
     public ResponseEntity<List<LabMeasurementResponse>> getAllLabsInWell(Long wellId , @Valid String beginDate, @Valid String endDate) {
         if (beginDate != null && endDate != null) {
@@ -517,7 +516,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return null;
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
     @Override
     public ResponseEntity<LabMeasurementResponse> getLabByWellIdAndLabId(Long wellId , Long labId) {
 
@@ -573,7 +572,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
     @Override
     public ResponseEntity<List<WellDailyActionsResponse>> getReportById(Long wellId , @Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid String beginDate, @Valid String endDate) {
         if (beginDate != null && endDate != null) {
@@ -600,7 +599,7 @@ public class FluidLevelMeasurementsController implements WellsApi {
         return null;
     }
 
-    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
+//    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
     @Override
     public ResponseEntity<WellDailyActionsResponse> getWellReportById(Long wellId , Long reportId) {
 
