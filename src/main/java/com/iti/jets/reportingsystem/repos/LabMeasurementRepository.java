@@ -21,6 +21,7 @@ public interface LabMeasurementRepository extends JpaRepository<LabMesurement , 
 //    @Modifying
 //    Long deleteByIdAndWell_WellIdEquals(Integer id , Integer wellId);
     List<LabMesurement> findAllByWell_WellIdEquals(Integer id);
+    LabMesurement findByWell_WellIdEqualsAndIdEquals(Integer wellId, Integer id);
     List<LabMesurement> findAllByDateGreaterThanEqualAndDateLessThanEqual(Date beginDate, Date endDate);
     List<LabMesurement> findAllByWell_WellIdEqualsAndDateGreaterThanEqualAndDateLessThanEqual(int wellId, Date beginDate, Date endDate);
 

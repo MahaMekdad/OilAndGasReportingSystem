@@ -145,11 +145,13 @@ public class LabMeasurementServiceImpl implements LabMeasurementService {
         {
             throw new ResourceNotFoundException("There is no record with the given id");
         }
-        List<LabMeasurementResponse> LabMesurementsList = new ArrayList<>();
-        LabMesurementsList=getAllLabsFromWell(wellId);
-        LabMeasurementResponse labMeasurementResponse = new LabMeasurementResponse();
-        labMeasurementResponse = LabMesurementsList.get(labId-1);
-        return labMeasurementResponse;
+        LabMesurement lab = labMeasurementRepository.findByWell_WellIdEqualsAndIdEquals(wellId, labId);
+        return modelMapper.map(lab , LabMeasurementResponse.class);
+//        List<LabMeasurementResponse> LabMesurementsList = new ArrayList<>();
+//        LabMesurementsList=getAllLabsFromWell(wellId);
+//        LabMeasurementResponse labMeasurementResponse = new LabMeasurementResponse();
+//        labMeasurementResponse = LabMesurementsList.get(labId-1);
+//        return labMeasurementResponse;
     }
 
     @Override
