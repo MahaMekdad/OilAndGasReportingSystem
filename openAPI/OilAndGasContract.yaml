@@ -4216,7 +4216,7 @@ components:
 
         intervals:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 200
 
         flType:
@@ -4246,7 +4246,7 @@ components:
 
         remarks:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
 
       example:
@@ -4275,7 +4275,7 @@ components:
 
         intervals:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 200
 
         flType:
@@ -4305,7 +4305,7 @@ components:
 
         remarks:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
 
       example:
@@ -4331,7 +4331,7 @@ components:
 
         intervals:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 200
 
         flType:
@@ -4361,7 +4361,7 @@ components:
 
         remarks:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
 
       example:
@@ -4452,7 +4452,7 @@ components:
 
         powerSource:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
 
         processionPlant:
@@ -4492,18 +4492,18 @@ components:
 
         wellName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 80
 
 
         fieldName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 80
 
         concessionName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 50
 
         initialProdDate:
@@ -4575,7 +4575,7 @@ components:
 
         powerSource:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
 
 
@@ -4616,17 +4616,17 @@ components:
 
         wellName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 80
 
         fieldName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 80
 
         concessionName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 50
 
         initialProdDate:
@@ -4698,7 +4698,7 @@ components:
 
         powerSource:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
 
         processionPlant:
@@ -4799,7 +4799,7 @@ components:
 
         powerSource:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
 
         processionPlant:
@@ -4850,12 +4850,12 @@ components:
           format: date-time
         wellDescription:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 100
 
         wellType:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 5000
         boreType:
           type: string
@@ -4892,7 +4892,7 @@ components:
           maxLength: 100
         wellType:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 5000
         boreType:
           type: string
@@ -5018,11 +5018,11 @@ components:
 
         fieldName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 80
         fieldCode:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
         concessionId:
           type: integer
@@ -5042,14 +5042,14 @@ components:
 
         wellName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 80
         fieldId:
           type: integer
 
         wellCode:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 80
       example:
         wellId: 6
@@ -5067,11 +5067,11 @@ components:
           type: integer
         fieldName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 80
         fieldCode:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
         concessionId:
           type: integer
@@ -5089,7 +5089,7 @@ components:
       properties:
         fieldName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 80
         concessionId:
           type: integer
@@ -5107,13 +5107,13 @@ components:
           type: integer
         wellName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 80
         fieldId:
           type: integer
         wellCode:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 80
       example:
         wellId: 6
@@ -5128,7 +5128,7 @@ components:
       properties:
         wellName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 80
         fieldId:
           type: integer
@@ -5184,7 +5184,7 @@ components:
           default: 0
         remarks:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
         date:
           type: string
@@ -5233,7 +5233,7 @@ components:
           default: 0
         remarks:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
         date:
           type: string
@@ -5303,7 +5303,7 @@ components:
           format: int64
         actionDescription:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 5000
         netProduction:
           type: integer
@@ -5342,7 +5342,7 @@ components:
           format: int64
         actionDescription:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 5000
 
         netProduction:
@@ -5416,21 +5416,21 @@ components:
           format: "int32"
         subCompanyName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
         locationName:
           type: string
         areaName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
         leaseName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
         boreName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
         xcord:
           type: number
@@ -5464,21 +5464,21 @@ components:
           format: "int32"
         subCompanyName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
         locationName:
           type: string
         areaName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
         leaseName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
         boreName:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
         xcord:
           type: number
@@ -5518,7 +5518,7 @@ components:
           enum: ['WaterDrive','GasCap','DepleationDrive','GravityDrainage','CombinationDrive']
         zones:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 200
         interval:
           type: string
@@ -5547,13 +5547,13 @@ components:
           type: number
         fluidType:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 100
         api:
           type: number
         notes:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 5000
 
       example:
@@ -5587,7 +5587,7 @@ components:
           enum: ['WaterDrive','GasCap','DepleationDrive','GravityDrainage','CombinationDrive']
         zones:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 200
         interval:
           type: string
@@ -5616,13 +5616,13 @@ components:
           type: number
         fluidType:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 100
         api:
           type: number
         notes:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 5000
 
 
@@ -5765,13 +5765,13 @@ components:
           default: 0
         unit:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
           description: "the test unit which performed the test"
           example: "Expro-TMU#3"
         remarks:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
           description: "Any notes reported or added during the test or recommendaton for the well"
           example: plan to perform DFL for the well
@@ -5882,13 +5882,13 @@ components:
           default: 0
         unit:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 100
           description: "the test unit which performed the test"
           example: "Expro-TMU#3"
         remarks:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
           description: "Any notes reported or added during the test or recommendaton for the well"
     #      xml:
@@ -6057,12 +6057,12 @@ components:
       properties:
         firstName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
 
         lastName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
 
         email:
@@ -6081,7 +6081,7 @@ components:
 
         password:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
 
       example:
@@ -6110,12 +6110,12 @@ components:
 
         firstName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
 
         lastName:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 45
 
         email:
@@ -6165,7 +6165,7 @@ components:
       properties:
         role:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 100
 
       example:
@@ -6182,7 +6182,7 @@ components:
           type: integer
         role:
           type: string
-          minLength: 3
+          minLength: 1
           maxLength: 100
 
       example:
@@ -6201,7 +6201,7 @@ components:
           format: email
         password:
           type: string
-          minLength: 5
+          minLength: 1
           maxLength: 5000
 
       example:
