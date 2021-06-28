@@ -417,34 +417,54 @@ public class FluidLevelMeasurementsController implements WellsApi {
 //    ######################LabMeasurements#########################
 
     @Override
-    public ResponseEntity<List<LabMeasurementResponse>> getAllLabs(@Valid String beginDate, @Valid String endDate) {
+    public ResponseEntity<List<LabMeasurementResponse>> getAllLabs(@Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {
-            try {
-                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
-                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
-                return ResponseEntity.ok(labMeasurementService.getAllLabs(date1,date2));
-            } catch (ParseException p) {
-            }
-        }else{
+            System.out.println(beginDate + " <== beginDate"+"tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+            Date begin = Date.from(beginDate.toInstant());
+            System.out.println(begin + " <== begin"+"tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+            Date end = Date.from(endDate.toInstant());
+            System.out.println(end + " <== end"+"tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy2");
+            return ResponseEntity.ok(labMeasurementService.getAllLabs(begin, end));
+        } else {
             return ResponseEntity.ok(labMeasurementService.getAllLabs());
         }
-        return null;
     }
+
+
+//    @Override
+//    public ResponseEntity<List<LabMeasurementResponse>> getAllLabs(@Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
+//        Date k = new OffsetDateTime();
+//        Date begin = Date.from(beginDate.toInstant());
+//        System.out.println(begin + " <== begin");
+//        Date end = Date.from(endDate.toInstant());
+//        if (beginDate != null && endDate != null) {
+//            try {
+//
+//
+//                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
+//                System.out.println(date1);
+//                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
+//                return ResponseEntity.ok(labMeasurementService.getAllLabs(date1,date2));
+//            } catch (ParseException p) {
+//            }
+//        }else{
+//            return ResponseEntity.ok(labMeasurementService.getAllLabs());
+//        }
+//        return null;
+//    }
 
     @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
     @Override
-    public ResponseEntity<List<LabMeasurementResponse>> getAllLabsInWell(Long wellId , @Valid String beginDate, @Valid String endDate) {
+    public ResponseEntity<List<LabMeasurementResponse>> getAllLabsInWell(Long wellId , @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {
-            try {
-                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
-                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
-                return ResponseEntity.ok(labMeasurementService.getAllLabsFromWell(Math.toIntExact(wellId),date1,date2));
-            } catch (ParseException p) {
-            }
-        }else{
+            Date begin = Date.from(beginDate.toInstant());
+            System.out.println(begin + " <== begin");
+            Date end = Date.from(endDate.toInstant());
+            System.out.println(end + " <== end");
+            return ResponseEntity.ok(labMeasurementService.getAllLabsFromWell(Math.toIntExact(wellId), begin, end));
+        } else {
             return ResponseEntity.ok(labMeasurementService.getAllLabsFromWell(Math.toIntExact(wellId)));
         }
-        return null;
     }
 
     @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
