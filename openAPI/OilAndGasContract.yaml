@@ -2783,7 +2783,8 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2021-03-16T00:00:00.000+0000
+            format: date-time
+            example: 2021-03-16
         - name: endDate
           in: query
           description: getting the daily actions that are of that date or after
@@ -2792,7 +2793,8 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2021-03-16T00:00:00.000+0000
+            format: date-time
+            example: 2021-03-16
       responses:
         "204":
           description: Successful pull of the lab measurements for the well with the given id
@@ -2847,7 +2849,8 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2021-03-16T00:00:00.000+0000
+            format: date-time
+            example: 2021-03-16
         - name: endDate
           in: query
           description: getting the daily actions that are of that date or after
@@ -2856,7 +2859,8 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2021-03-16T00:00:00.000+0000
+            format: date-time
+            example: 2021-03-16
       responses:
         "204":
           description: Successful pull of the lab measurements for the well with the given id
@@ -3192,7 +3196,8 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2021-03-16T00:00:00.000+0000
+            format: date-time
+            example: 2021-03-16
         - name: endDate
           in: query
           description: getting the daily actions that are of that date or after
@@ -3201,7 +3206,8 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2021-03-16T00:00:00.000+0000
+            format: date-time
+            example: 2021-03-16
       responses:
         "204":
           description: Successful pull of the report for the well with the given id
@@ -3468,7 +3474,8 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2021-03-16T00:00:00.000+0000
+            format: date-time
+            example: 2021-03-16
         - name: endDate
           in: query
           description: getting the daily actions that are of that date or after
@@ -3477,7 +3484,8 @@ paths:
           explode: true
           schema:
             type: string
-            example: 2021-03-16T00:00:00.000+0000
+            format: date-time
+            example: 2021-03-16
       responses:
         "204":
           description: Successful pull of the report for the well with the given id
@@ -5199,6 +5207,10 @@ components:
           type: integer
           format: int64
           default: 0
+        wellId:
+          type: integer
+          format: int64
+          default: 0
         s1:
           type: integer
           format: int64
@@ -5228,6 +5240,7 @@ components:
           format: date-time
       example:
         id: 8
+        wellId: 2
         s1: 15.55
         s2: 9.3
         s3: 5.2
@@ -5320,6 +5333,10 @@ components:
         id:
           type: integer
           format: int64
+        wellId:
+          type: integer
+          format: int64
+          default: 0
         siLVL4:
           type: integer
           format: int64
@@ -5342,6 +5359,7 @@ components:
           format: date-time
       example:
         id: 3
+        wellId: 2
         silVL4: 2
         actionDescription: action description
         netProduction: 5000
