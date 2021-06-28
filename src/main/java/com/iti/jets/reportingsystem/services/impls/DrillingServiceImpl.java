@@ -100,10 +100,10 @@ public class  DrillingServiceImpl implements DrillingInfoService {
 
     @Override
     public void delete(int id) {
-        if(!drillingInfoRepository.findById(id).isPresent())
-        {
-            throw new ResourceNotFoundException("There is no drilling info with this id");
-        }
+//        if(!wellRepository.findById(id).isPresent())
+//        {
+//            throw new ResourceNotFoundException("There is no well with giving id");
+//        }
         List<DrillingInfo> drillingInfos = drillingInfoRepository.findAllByWell_WellIdEquals(id);
         for (int i = 0; i < drillingInfos.size(); i++) {
             drillingInfoRepository.deleteById(drillingInfos.get(i).getId());

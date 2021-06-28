@@ -123,6 +123,7 @@ public class WellTestDataServiceImpl implements WellTestDataService {
         entity.setWell(wellRepository.findById(wellId).get());
         entity.setProductionDate(Date.from(wellTestRequest.getProductionDate().toInstant()));
         System.out.println(entity.getProductionDate() + " <-------------");
+        entity.setId(recordId);
         wellTestRepo.save(entity);
 
         return modelMapper.map(wellTestRequest, WellTestResponse.class);

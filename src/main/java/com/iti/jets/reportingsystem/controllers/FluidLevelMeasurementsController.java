@@ -486,34 +486,31 @@ public class FluidLevelMeasurementsController implements WellsApi {
 //    ######################LabMeasurements#########################
 
     @Override
-    public ResponseEntity<List<LabMeasurementResponse>> getAllLabs(@Valid String beginDate, @Valid String endDate) {
+    public ResponseEntity<List<LabMeasurementResponse>> getAllLabs(@Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {
-            try {
-                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
-                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
-                return ResponseEntity.ok(labMeasurementService.getAllLabs(date1,date2));
-            } catch (ParseException p) {
-            }
-        }else{
+            System.out.println(beginDate + " <== beginDate"+"tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+            Date begin = Date.from(beginDate.toInstant());
+            System.out.println(begin + " <== begin"+"tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+            Date end = Date.from(endDate.toInstant());
+            System.out.println(end + " <== end"+"tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy2");
+            return ResponseEntity.ok(labMeasurementService.getAllLabs(begin, end));
+        } else {
             return ResponseEntity.ok(labMeasurementService.getAllLabs());
         }
-        return null;
     }
 
 //    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
     @Override
-    public ResponseEntity<List<LabMeasurementResponse>> getAllLabsInWell(Long wellId , @Valid String beginDate, @Valid String endDate) {
+    public ResponseEntity<List<LabMeasurementResponse>> getAllLabsInWell(Long wellId , @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {
-            try {
-                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
-                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
-                return ResponseEntity.ok(labMeasurementService.getAllLabsFromWell(Math.toIntExact(wellId),date1,date2));
-            } catch (ParseException p) {
-            }
-        }else{
+            Date begin = Date.from(beginDate.toInstant());
+            System.out.println(begin + " <== begin");
+            Date end = Date.from(endDate.toInstant());
+            System.out.println(end + " <== end");
+            return ResponseEntity.ok(labMeasurementService.getAllLabsFromWell(Math.toIntExact(wellId), begin, end));
+        } else {
             return ResponseEntity.ok(labMeasurementService.getAllLabsFromWell(Math.toIntExact(wellId)));
         }
-        return null;
     }
 
 //    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
@@ -547,42 +544,36 @@ public class FluidLevelMeasurementsController implements WellsApi {
 //    ######################DailyActions#########################
 
     @Override
-    public ResponseEntity<List<WellDailyActionsResponse>> getAllReports(@Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid String beginDate, @Valid String endDate) {
+    public ResponseEntity<List<WellDailyActionsResponse>> getAllReports(@Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {
-            try {
-                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
-                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
-                return ResponseEntity.ok(dailyActionsService.getAllDailyActions(date1,date2));
-            } catch (ParseException p) {
+                System.out.println(beginDate + " <== beginDate" + "tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+                Date begin = Date.from(beginDate.toInstant());
+                System.out.println(begin + " <== begin" + "tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+                Date end = Date.from(endDate.toInstant());
+                System.out.println(end + " <== end" + "tryyyyyyyyyyyyyyyyyyyyyyyyyyyyyy2");
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActions(begin, end));
+        }
+        else if (siLVL4 != null) {
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByShLvl4(siLVL4));
+            } else if (losses != null) {
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByLosses(new Double((losses))));
+            } else if (downTime != null) {
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByDownTime(new Float(downTime)));
+            } else {
+                return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
             }
+        }
 
-        }
-        else if(siLVL4!=null){
-            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByShLvl4(siLVL4));
-        }
-        else if(losses!=null){
-            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByLosses(new Double((losses))));
-        }
-        else if(downTime!=null){
-            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsByDownTime(new Float(downTime)));
-        }
-        else{
-            return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
-        }
-        return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
-    }
 
 //    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")
     @Override
-    public ResponseEntity<List<WellDailyActionsResponse>> getReportById(Long wellId , @Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid String beginDate, @Valid String endDate) {
+    public ResponseEntity<List<WellDailyActionsResponse>> getReportById(Long wellId , @Valid Long siLVL4 , @Valid Long losses , @Valid Long downTime , @Valid OffsetDateTime beginDate, @Valid OffsetDateTime endDate) {
         if (beginDate != null && endDate != null) {
-            try {
-                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(beginDate);
-                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
-                return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWell(Math.toIntExact(wellId),date1,date2));
-            } catch (ParseException p) {
-            }
-
+            Date begin = Date.from(beginDate.toInstant());
+            System.out.println(begin + " <== begin");
+            Date end = Date.from(endDate.toInstant());
+            System.out.println(end + " <== end");
+            return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWell(Math.toIntExact(wellId), begin, end));
         }
         else if(siLVL4!=null){
             return ResponseEntity.ok(dailyActionsService.getAllDailyActionsFromWellWithShLvl4(Math.toIntExact(wellId),siLVL4));
@@ -596,7 +587,6 @@ public class FluidLevelMeasurementsController implements WellsApi {
         else{
             return ResponseEntity.ok(dailyActionsService.getAllDailyActions());
         }
-        return null;
     }
 
 //    @PreAuthorize("hasRole('OFFICE ENGINEER') or (hasRole('FIELD ENGINEER') and @mySecurityService.isFlmConcessionMember(#wellId.intValue()))")

@@ -77,23 +77,6 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         DailyActions dailyAction = dailyActionsRepository.findById(labId).get();
         modelMapper.map(wellDailyActionsRequest, dailyAction);
         dailyActionsRepository.saveAndFlush(dailyAction);
-//        List<DailyActions> list = new ArrayList<>();
-//        DailyActions dailyActions = new DailyActions();
-//        DailyActions dailyActions2 = new DailyActions();
-//        list = dailyActionsRepository.findAllByWell_WellIdEquals(wellId);
-//        dailyActions2 = list.get(labId - 1);
-//
-//        if (dailyActions2 != null) {
-//            dailyActions = dailyActionsMapper.dailyActionsMap(wellDailyActionsRequest);
-//            dailyActions.setId(dailyActions2.getId());
-//            dailyActions.setWell(dailyActions2.getWell());
-//            ShutinTypeLevel4 shutinTypeLevel4 = new ShutinTypeLevel4();
-//            shutinTypeLevel4.setId(Math.toIntExact(wellDailyActionsRequest.getSiLVL4()));
-//            dailyActions.setShutinTypeLevel4(shutinTypeLevel4);
-//            dailyActionsRepository.saveAndFlush(dailyActions);
-//        } else {
-//            return;
-//        }
     }
 
     @Override
@@ -107,6 +90,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         for (int i = 0; i < list.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
             list.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
+            list.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
@@ -125,6 +109,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         List<DailyActions> list1 = dailyActionsRepository.findAll();
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
+            list.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
@@ -142,9 +127,8 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         resultList = modelMapper.map(dailyActionsRepository.findAllByDateGreaterThanEqualAndDateLessThanEqual(beginDate, endDate), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
         for (int i = 0; i < resultList.size(); i++) {
-//            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
             resultList.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
-
+            resultList.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
             resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return resultList;
@@ -169,7 +153,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
             List<DailyActions> list1 = dailyActionsRepository.findAll();
             for (int i = 0; i < resultList.size(); i++) {
                 resultList.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
-
+                resultList.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
                 resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
             }
@@ -200,12 +184,8 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         wellDailyActionsResponse = dailyActionsList.get(reportId - 1);
         return wellDailyActionsResponse;
     }
-
-    //
     @Override
     public boolean delete(Integer wellId, Integer reportId) {
-//        WellDailyActionsResponse wellDailyActionsResponse;
-//        wellDailyActionsResponse = getAdailyActionFromAwell(wellId, reportId);
         if(!wellRepo.findById(wellId).isPresent())
         {
             throw new ResourceNotFoundException("There is no well with id");
@@ -216,7 +196,6 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         }
         System.out.println(reportId + " ///");
         if (dailyActionsRepository.findById(reportId).isPresent()) {
-//            dailyActionsRepository.deleteByWellIdAndDailyActionId(wellId, reportId);
             dailyActionsRepository.deleteById(reportId);
             return true;
         } else {
@@ -237,6 +216,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         list = modelMapper.map(dailyActionsRepository.findByShLvl4(Math.toIntExact(sLvl4)), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
         for (int i = 0; i < list.size(); i++) {
+            list.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
             list.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
@@ -258,6 +238,8 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         List<DailyActions> list1 = dailyActionsRepository.findAll();
         for (int i = 0; i < list.size(); i++) {
 //            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
+            list.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
+            list.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
@@ -276,7 +258,8 @@ public class DailyActionsServiceImpl implements DailyActionsService {
         list = modelMapper.map(dailyActionsRepository.findByDownTime(downTime), listType);
         List<DailyActions> list1 = dailyActionsRepository.findAll();
         for (int i = 0; i < list.size(); i++) {
-//            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
+            list.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
+            list.get(i).setDate(OffsetDateTimeHelper.dateHelper(list1.get(i).getDate()));
             list.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
         }
         return list;
@@ -303,6 +286,7 @@ public class DailyActionsServiceImpl implements DailyActionsService {
             resultList = modelMapper.map(returnedList, listType);
             List<DailyActions> list1 = dailyActionsRepository.findAll();
             for (int i = 0; i < resultList.size(); i++) {
+                resultList.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
                 resultList.get(i).setDate(OffsetDateTimeHelper.dateHelper(returnedList.get(i).getDate()));
                 resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
             }
@@ -331,7 +315,8 @@ public class DailyActionsServiceImpl implements DailyActionsService {
             resultList = modelMapper.map(returnedList, listType);
             List<DailyActions> list1 = dailyActionsRepository.findAll();
             for (int i = 0; i < resultList.size(); i++) {
-//            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
+            resultList.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
+                resultList.get(i).setDate(OffsetDateTimeHelper.dateHelper(returnedList.get(i).getDate()));
                 resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
             }
             return resultList;
@@ -358,7 +343,9 @@ public class DailyActionsServiceImpl implements DailyActionsService {
             resultList = modelMapper.map(returnedList, listType);
             List<DailyActions> list1 = dailyActionsRepository.findAll();
             for (int i = 0; i < resultList.size(); i++) {
-//            list.get(i).setDate(OffsetDateTime.from(list1.get(i).getDate().toInstant()));
+                resultList.get(i).setWellId(Long.valueOf(list1.get(i).getWell().getWellId()));
+                resultList.get(i).setDate(OffsetDateTimeHelper.dateHelper(returnedList.get(i).getDate()));
+                resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
                 resultList.get(i).setSiLVL4(Long.valueOf(list1.get(i).getShutinTypeLevel4().getId()));
             }
             return resultList;
