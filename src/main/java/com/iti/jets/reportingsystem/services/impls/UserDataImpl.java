@@ -4,6 +4,7 @@ import com.iti.jets.openapi.model.*;
 import com.iti.jets.reportingsystem.entities.Userdata;
 import com.iti.jets.reportingsystem.exceptions.ResourceNotFoundException;
 import com.iti.jets.reportingsystem.exceptions.UserAlreadyExistsException;
+import com.iti.jets.reportingsystem.exceptions.UserRoleException;
 import com.iti.jets.reportingsystem.repos.UserDataRepository;
 import com.iti.jets.reportingsystem.repos.UserRolesRepository;
 import com.iti.jets.reportingsystem.services.UserDataService;
@@ -139,6 +140,8 @@ public class UserDataImpl implements UserDataService {
         Userdata userData = udRepo.findByEmailEqualsAndPasswordEquals(loginRequest.getEmail(), loginRequest.getPassword());
         if(userData == null){
             throw new ResourceNotFoundException("No User found with the given credentials");
+        } else if (userData.getUserroles().getRole().equalsIgnoreCase("non")) {
+            throw new UserRoleException("You Haven't Been Assigned A Role Yet");
         } else {
             UserLoggedInResponse user = modelMapper.map(udRepo.findByEmailEqualsAndPasswordEquals(loginRequest.getEmail(), loginRequest.getPassword()), UserLoggedInResponse.class);
             user.setJobLocation(JobLocation.valueOf(userData.getJobLocation().toUpperCase()));
